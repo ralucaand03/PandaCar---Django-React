@@ -1,16 +1,15 @@
-from django.shortcuts import render
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view,permission_classes
 from rest_framework.response import Response
 from rest_framework import status
 from .models import User,Car,CarAvailability
 from .serializer import UserSerializer,CarSerializer,CarAvailabilitySerializer
-from datetime import date
 from django.contrib.auth.hashers import make_password
-
+from .permissions import IsAdmin
 # Create your views for user/users below
 
 #create a get endpoint for all users
 @api_view(['GET'])
+@permission_classes([IsAdmin])
 def get_users(request):
     # return Response(UserSerializer({ "first_name": "John",
     #         "last_name": "Doe",
@@ -24,6 +23,7 @@ def get_users(request):
 
 #create a post endpoint for a user
 @api_view(['POST'])
+@permission_classes([IsAdmin])
 def create_user(request):
     serializer = UserSerializer(data=request.data)
     if serializer.is_valid():
@@ -33,6 +33,7 @@ def create_user(request):
 
 #create delete, put ,get endpoint for a single user
 @api_view(['GET','PUT','DELETE'])
+@permission_classes([IsAdmin])
 def user_detail(request,pk):
     try:
         user = User.objects.get(pk=pk)
@@ -64,6 +65,7 @@ def get_cars(request):
 
 #create a post endpoint for creating a car
 @api_view(['POST'])
+@permission_classes([IsAdmin])
 def create_car(request):
     serializer = CarSerializer(data=request.data)
     if serializer.is_valid():
@@ -73,6 +75,7 @@ def create_car(request):
 
 #create delete, put ,get endpoint for a single car
 @api_view(['GET','PUT','DELETE'])
+@permission_classes([IsAdmin])
 def car_detail(request,pk):
     try:
         car = Car.objects.get(pk=pk)
@@ -104,6 +107,7 @@ def get_cars_availability(request):
 
 #create a post endpoint for creating a car
 @api_view(['POST'])
+@permission_classes([IsAdmin])
 def create_car_availability(request):
     serializer = CarAvailabilitySerializer(data=request.data)
     if serializer.is_valid():
@@ -113,6 +117,7 @@ def create_car_availability(request):
 
 #create delete, put ,get endpoint for a single car
 @api_view(['GET','PUT','DELETE'])
+@permission_classes([IsAdmin])
 def car_detail_availability(request,pk):
     try:
         cars_availability = CarAvailability.objects.get(pk=pk)

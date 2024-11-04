@@ -24,7 +24,17 @@ class User(models.Model):
                                     )    
                                 ])
     is_admin = models.BooleanField(default=False)
+
+    @property
+    def is_authenticated(self):
+        return True
+
+    @property
+    def is_anonymous(self):
+        return False
     
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'phone_number', 'date_of_birth','password']
 
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name} - {self.email} - {self.phone_number}"
