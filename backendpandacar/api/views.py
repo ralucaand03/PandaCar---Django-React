@@ -4,36 +4,41 @@ from rest_framework import status
 from .models import User,Car,CarAvailability
 from .serializer import UserSerializer,CarSerializer,CarAvailabilitySerializer
 from django.contrib.auth.hashers import make_password
-from .permissions import IsAdmin
+from rest_framework.permissions import IsAuthenticated,AllowAny,IsAdminUser
 # Create your views for user/users below
 
 #create a get endpoint for all users
 @api_view(['GET'])
-@permission_classes([IsAdmin])
+@permission_classes([IsAuthenticated,IsAdminUser])
 def get_users(request):
-    # return Response(UserSerializer({ "first_name": "John",
-    #         "last_name": "Doe",
-    #         "phone_number": "+40712345678",
-    #         "email":"johndoe@example.com",
-    #         "date_of_birth": date(1990, 1, 1),
-    #         "password": make_password("Password@123")}).data)
     users = User.objects.all()
     serializer = UserSerializer(users,many = True)
     return Response(serializer.data,status=status.HTTP_200_OK)
 
+
 #create a post endpoint for a user
 @api_view(['POST'])
-@permission_classes([IsAdmin])
+@permission_classes([AllowAny])
 def create_user(request):
+    # Verificăm dacă în request se specifică atributul 'is_admin'
+    is_admin = request.data.get('is_admin', False)
+    
+    # Creăm un nou obiect user cu datele primite
     serializer = UserSerializer(data=request.data)
     if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data,status=status.HTTP_201_CREATED)
-    return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+        # Salvăm utilizatorul, dar setăm manual is_admin dacă e cazul
+        user = serializer.save()
+        if is_admin:
+            user.is_admin = True
+            user.is_staff = True
+            user.save()
+        return Response(UserSerializer(user).data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 #create delete, put ,get endpoint for a single user
 @api_view(['GET','PUT','DELETE'])
-@permission_classes([IsAdmin])
+@permission_classes([IsAuthenticated,IsAdminUser])
 def user_detail(request,pk):
     try:
         user = User.objects.get(pk=pk)
@@ -56,16 +61,19 @@ def user_detail(request,pk):
 
 # Create your views for car/cars below
 
+
 #create a get endpoint for all cars
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def get_cars(request):
     cars = Car.objects.all()
     serializer = CarSerializer(cars,many = True)
     return Response(serializer.data,status=status.HTTP_200_OK)
 
+
 #create a post endpoint for creating a car
 @api_view(['POST'])
-@permission_classes([IsAdmin])
+@permission_classes([IsAuthenticated,IsAdminUser])
 def create_car(request):
     serializer = CarSerializer(data=request.data)
     if serializer.is_valid():
@@ -73,9 +81,10 @@ def create_car(request):
         return Response(serializer.data,status=status.HTTP_201_CREATED)
     return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
+
 #create delete, put ,get endpoint for a single car
 @api_view(['GET','PUT','DELETE'])
-@permission_classes([IsAdmin])
+@permission_classes([IsAuthenticated,IsAdminUser])
 def car_detail(request,pk):
     try:
         car = Car.objects.get(pk=pk)
@@ -98,8 +107,10 @@ def car_detail(request,pk):
 
 # Create your views for car/cars availability below
 
+
 #create a get endpoint for all availabilities
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def get_cars_availability(request):
     cars_availabilities = CarAvailability.objects.all()
     serializer = CarAvailabilitySerializer(cars_availabilities,many = True)
@@ -107,7 +118,7 @@ def get_cars_availability(request):
 
 #create a post endpoint for creating a car
 @api_view(['POST'])
-@permission_classes([IsAdmin])
+@permission_classes([IsAuthenticated,IsAdminUser])
 def create_car_availability(request):
     serializer = CarAvailabilitySerializer(data=request.data)
     if serializer.is_valid():
@@ -115,9 +126,10 @@ def create_car_availability(request):
         return Response(serializer.data,status=status.HTTP_201_CREATED)
     return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
+
 #create delete, put ,get endpoint for a single car
 @api_view(['GET','PUT','DELETE'])
-@permission_classes([IsAdmin])
+@permission_classes([IsAuthenticated,IsAdminUser])
 def car_detail_availability(request,pk):
     try:
         cars_availability = CarAvailability.objects.get(pk=pk)
@@ -136,3 +148,4 @@ def car_detail_availability(request,pk):
     elif request.method == 'DELETE':
         cars_availability.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    

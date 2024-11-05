@@ -3,40 +3,58 @@ from django.core.validators import RegexValidator,MinLengthValidator
 import os
 from django.conf import settings
 from django.utils import timezone
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 
 # Create your models here.
-class User(models.Model):
+class UserManager(BaseUserManager):
+    def create_user(self, email, password=None, **extra_fields):
+        if not email:
+            raise ValueError("The Email field must be set")
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, password=None, **extra_fields):
+        extra_fields.setdefault('is_admin', True)
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+
+        return self.create_user(email, password, **extra_fields)
+
+class User(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    email = models.EmailField(unique=True,max_length=256)
-    phone_number = models.CharField(unique=True,max_length=20,
-                                    validators=[RegexValidator(r'^\+?1?\d{9,15}$', 
-                                    message="phone nr format ex:+40112345, max 15 digits")])
-    date_of_birth = models.DateField() #need some age validation
-    password = models.CharField(max_length=100,
-                                validators=[
-                                    MinLengthValidator(8),
-                                    RegexValidator(
-                                         regex=r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$',
-                                         message="min length >=8, mandatory at least one digit, one special char, one alphabetical char"
-
-                                    )    
-                                ])
+    email = models.EmailField(unique=True, max_length=256)
+    phone_number = models.CharField(
+        unique=True, 
+        max_length=20,
+        validators=[RegexValidator(r'^\+?1?\d{9,15}$', 
+                                   message="Phone number format: +40112345, max 15 digits")]
+    )
+    date_of_birth = models.DateField() 
+    password = models.CharField(
+        max_length=100,
+        validators=[
+            MinLengthValidator(8),
+            RegexValidator(
+                regex=r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$',
+                message="Minimum length >=8, at least one digit, one special char, one alphabetical char"
+            )
+        ]
+    )
     is_admin = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
 
-    @property
-    def is_authenticated(self):
-        return True
+    objects = UserManager()
 
-    @property
-    def is_anonymous(self):
-        return False
-    
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'phone_number', 'date_of_birth','password']
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'phone_number', 'date_of_birth']
 
-    def __str__(self) -> str:
+    def __str__(self):
         return f"{self.first_name} {self.last_name} - {self.email} - {self.phone_number}"
 
 class Car(models.Model):
