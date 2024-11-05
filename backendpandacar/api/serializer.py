@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import User,Car,CarAvailability
 
 class UserSerializer(serializers.ModelSerializer):
-    # Exclude password din output
+    # exclude password from output
     password = serializers.CharField(write_only=True, required=False)
     
     class Meta:
