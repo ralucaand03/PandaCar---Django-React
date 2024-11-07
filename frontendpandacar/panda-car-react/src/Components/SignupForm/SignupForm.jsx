@@ -1,7 +1,6 @@
 import React from 'react';
 import './SignupForm.css';
-import { FaUser } from "react-icons/fa";
-import { FaLock } from "react-icons/fa";
+import { FaUser,FaLock } from "react-icons/fa";
 
 const SignupForm = () => {
     return(
@@ -18,10 +17,7 @@ const SignupForm = () => {
                     <FaLock className='icon' />
                 </div>
 
-                <button type='submit'>Submit</button>
-                <div className='register-link'>
-                    <p>Don't have an account? <a href='#'>Register</a></p>
-                </div>
+                <button type='submit'>Create Account</button>
 
             </form>
             
