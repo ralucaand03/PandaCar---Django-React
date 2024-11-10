@@ -11,7 +11,8 @@ const SignupForm = () => {
     const [dateOfBirth, setDateOfBirth] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-
+    const [errorMessage, setErrorMessage] = useState("");  // some css, te las Raluca sa faci cum vrei tu, clasa e deja definita, vezi in form
+    const [successMessage, setSuccessMessage] = useState(""); // some css, te las Raluca sa faci cum vrei tu, clasa e deja definita, vezi in form
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -50,11 +51,15 @@ const SignupForm = () => {
             if (!response.ok) {
                 const errorData = await response.json();
                 console.error('Error:', errorData);
+                setErrorMessage("Error at creating account!");
+                setSuccessMessage('');
                 throw new Error(JSON.stringify(errorData));
             }
 
             const data = await response.json();
             console.log('Success:', data);
+            setErrorMessage('');
+            setSuccessMessage("Account created successfully!");
         } catch (error) {
             console.error('Error:', error.message);
         }
@@ -64,7 +69,8 @@ const SignupForm = () => {
         event.preventDefault();
 
         if (password !== confirmPassword) {
-            alert("Passwords do not match!");
+            setErrorMessage("Passwords do not match!");
+            setSuccessMessage('');
             return;
         }
 
@@ -87,6 +93,8 @@ const SignupForm = () => {
             <form onSubmit={handleCreateAccount}>
                 <h1>SignUp</h1>
 
+                {errorMessage && <div className="error-message">{errorMessage}</div>} 
+                {successMessage && <div className="success-message">{successMessage}</div>}
 
                 <div className='input-box'>
                     <input
