@@ -61,6 +61,8 @@ const SignupForm = () => {
             setErrorMessage('');
             setSuccessMessage("Account created successfully!");
         } catch (error) {
+            setSuccessMessage('');
+            setErrorMessage("Something went wrong!");
             console.error('Error:', error.message);
         }
     };
