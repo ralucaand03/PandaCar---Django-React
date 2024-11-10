@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './LoginForm.css';
 import { FaUser, FaLock } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link,useNavigate  } from 'react-router-dom';
 
 const LoginForm = () => {
 
@@ -9,6 +9,8 @@ const LoginForm = () => {
     const [successMessage, setSuccessMessage] = useState(""); // some css, te las Raluca sa faci cum vrei tu, clasa e deja definita, vezi in form
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const navigate = useNavigate();
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -21,10 +23,10 @@ const LoginForm = () => {
         }
     };
 
-    const fetchAPI = async (userCredetials) =>{
+    const fetchAPI = async (userCredetials) => {
 
-        try{
-            const response = await fetch("http://127.0.0.1:8000/api/login/",{
+        try {
+            const response = await fetch("http://127.0.0.1:8000/api/login/", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -41,20 +43,26 @@ const LoginForm = () => {
             }
 
             const data = await response.json();
-            const {access, refresh} = data // get access and refresh jwt tokens
+            const { access, refresh, role } = data // get access and refresh jwt tokens
 
-            //save them in local storage, maybe future implementation = cookies
+            //save them in local storage, maybe future implementation with cookies
             localStorage.setItem('access_token', access);
             localStorage.setItem('refresh_token', refresh);
 
             setSuccessMessage('Login successful!');
             setErrorMessage('');
 
+            if (role === 'admin') {
+                navigate('/admindashboard');
+            } else {
+                // navigate('/home');
+            }
+
             //need to create home page and use navigate
             //const navigate = useNavigate();
             //example: navigate('/home'); 
 
-        }catch(error){
+        } catch (error) {
             setSuccessMessage('');
             setErrorMessage("Something went wrong!");
             console.error('Error:', error.message);
@@ -63,10 +71,10 @@ const LoginForm = () => {
 
     }
 
-    const handleLoginUser = async (event) =>{
+    const handleLoginUser = async (event) => {
         event.preventDefault();
 
-        const userCredetials={
+        const userCredetials = {
             email: email,
             password: password,
         }

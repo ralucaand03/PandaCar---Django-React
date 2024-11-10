@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from .models import User,Car,CarAvailability
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
 
 class UserSerializer(serializers.ModelSerializer):
     # exclude password from output
@@ -28,7 +30,6 @@ class UserSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
     
-
 class CarSerializer(serializers.ModelSerializer):
     class Meta:
         model = Car
@@ -38,3 +39,11 @@ class CarAvailabilitySerializer(serializers.ModelSerializer):
     class Meta:
         model = CarAvailability
         fields = '__all__'
+
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    def validate(self, attrs):
+        data = super().validate(attrs)
+
+        data['role'] = 'admin' if self.user.is_admin else 'user'
+
+        return data

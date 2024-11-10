@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import get_users,create_user,user_detail,get_cars,create_car,car_detail,get_cars_availability,create_car_availability,car_detail_availability
+from .views import get_users,create_user,user_detail,get_cars,create_car,car_detail,get_cars_availability,create_car_availability,car_detail_availability,CustomTokenObtainPairView
 from rest_framework_simplejwt.views import TokenObtainPairView,TokenBlacklistView
 
 urlpatterns = [
@@ -12,6 +12,6 @@ urlpatterns = [
     path('availabilities/',get_cars_availability,name='get_cars_availability'),
     path('availabilities/create',create_car_availability,name='create_car_availability'),
     path('availabilities/<int:pk>',car_detail_availability,name = 'car_detail_availability'),
-    path('login/',TokenObtainPairView.as_view(), name='token_obtain_pair'),  #post method
+    path('login/',CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),  #post method
     path('logout/',TokenBlacklistView.as_view(), name='token_blacklist')     #post method
 ]
