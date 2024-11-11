@@ -53,7 +53,7 @@ const LoginForm = () => {
             setErrorMessage('');
 
             if (role === 'admin') {
-                navigate('/admindashboard');
+                navigate('/admin');
             } else {
                 // navigate('/home');
             }
