@@ -1,0 +1,126 @@
+.get-users-btn, .get-cars-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.get-users-btn:hover, .get-cars-btn:hover {
+    background-color: #45a049;
+}
+
+.users-section {
+    margin-bottom: 40px;
+}
+
+.users-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.user-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    width: 250px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.user-card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.user-card p {
+    margin: 5px 0;
+}
+
+.cars-section {
+    margin-top: 40px;
+}
+
+.cars-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.car-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    width: 250px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.car-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.car-card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.car-card p {
+    margin: 5px 0;
+}
+
+#adminDashboard {
+    padding: 20px;
+}
+
+.fetch-buttons {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.get-availability-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.get-availability-btn:hover {
+    background-color: #45a049;
+}
+
+.availabilities-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.availability-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    width: 250px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.availability-card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.availability-card p {
+    margin: 5px 0;
+}

@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+GB+S:ital,wght@0,100..400;1,100..400&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+.contentlogin {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url(../Assets/login2.jpg) no-repeat center center;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+
+/* The wrapper for the login form */
+.wrapper {
+    width: 420px;  /* Set a fixed width for the form */
+    background: rgba(0, 0, 0, 0.6); /* Transparent background with slight opacity */
+    border-radius: 10px;
+    padding: 30px 40px;
+    color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(30px);  /* Optional: Adds blur effect behind the form */
+}
+
+/* Form title */
+.wrapper h1 {
+    font-size: 36px;
+    text-align: center;
+}
+
+/* Input container styling */
+.wrapper .input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+}
+
+/* Input field styling */
+.input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    outline: none;
+    border: 2px solid rgba(255, 255, 255, .2);
+    border-radius: 40px;
+    font-size: 16px;
+    color: #fff;
+    padding: 20px 45px 20px 20px;
+    font-family: "Playwrite GB S", cursive;
+}
+
+/* Placeholder styling for the input */
+.input-box input::placeholder {
+    color: #fff;
+}
+
+/* Icon inside the input */
+.input-box .icon {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+}
+
+/* Submit button styling */
+.wrapper button {
+    width: 100%;
+    height: 45px;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    background: #fff;
+    color: #333;
+    font-weight: 700;
+    font-family: "Playwrite GB S", cursive;
+}
+
+/* Styling for the registration link */
+.wrapper .register-link {
+    font-size: 14.5px;
+    text-align: center;
+    margin: 20px 0 15px;
+}
+
+/* Register link color and hover effect */
+.register-link p a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-link p a:hover {
+    text-decoration: underline;
+}
