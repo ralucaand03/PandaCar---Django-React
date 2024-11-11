@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import './SignupForm.css';
 import { FaUser, FaLock, FaEnvelope, FaPhone, FaCalendarAlt } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
 
 const SignupForm = () => {
+    const navigate = useNavigate();  // Hook to navigate to other pages
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -11,30 +13,26 @@ const SignupForm = () => {
     const [dateOfBirth, setDateOfBirth] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [errorMessage, setErrorMessage] = useState("");  // some css, te las Raluca sa faci cum vrei tu, clasa e deja definita, vezi in form
-    const [successMessage, setSuccessMessage] = useState(""); // some css, te las Raluca sa faci cum vrei tu, clasa e deja definita, vezi in form
+    const [errorMessage, setErrorMessage] = useState(""); 
+    const [successMessage, setSuccessMessage] = useState(""); 
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
-
         if (name === "phone") {
             setPhone(value.replace(/[^0-9]/g, ''));
-        }
-        else if (name === "firstName" || name === "lastName") {
+        } else if (name === "firstName" || name === "lastName") {
             const sanitizedValue = value.replace(/[^a-zA-Z\s-]/g, '');
             if (name === "firstName") {
                 setFirstName(sanitizedValue);
             } else if (name === "lastName") {
                 setLastName(sanitizedValue);
             }
-        } else if (name === "email") {
-            setEmail(value);
-        } else if (name === "dateOfBirth") {
-            setDateOfBirth(value);
-        } else if (name === "password") {
-            setPassword(value);
-        } else if (name === "confirmPassword") {
-            setConfirmPassword(value);
+        } else {
+            // Handle other fields
+            if (name === "email") setEmail(value);
+            if (name === "dateOfBirth") setDateOfBirth(value);
+            if (name === "password") setPassword(value);
+            if (name === "confirmPassword") setConfirmPassword(value);
         }
     };
 
@@ -87,7 +85,11 @@ const SignupForm = () => {
         };
 
         fetchAPI(newUserData);
+    };
 
+    // Handle "Go to Login Page" button click
+    const handleGoToLogin = () => {
+        navigate('/'); // Redirect to the login page
     };
 
     return (
@@ -97,7 +99,16 @@ const SignupForm = () => {
                     <h1>SignUp</h1>
 
                     {errorMessage && <div className="error-message">{errorMessage}</div>} 
-                    {successMessage && <div className="success-message">{successMessage}</div>}
+                    {successMessage && (
+                        <div className="success-message-modal">
+                            <div className="modal-content">
+                                <p>{successMessage}</p>
+                                <button className="go-to-login-btn" onClick={handleGoToLogin}>
+                                    Go to Log in Page
+                                </button>
+                            </div>
+                        </div>
+                    )}
 
                     <div className='input-box'>
                         <input
@@ -176,9 +187,7 @@ const SignupForm = () => {
                     </div>
 
                     <button type='submit'>Create Account</button>
-
                 </form>
-
             </div>
         </div>
     );

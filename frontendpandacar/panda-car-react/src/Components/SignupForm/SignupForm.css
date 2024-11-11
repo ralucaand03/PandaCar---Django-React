@@ -107,3 +107,45 @@
 .register-link p a:hover {
   text-decoration: underline;
 }
+
+
+.success-message-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color:rgb(112, 33, 66);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 300px;
+}
+
+.success-message-modal p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.go-to-login-btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: aquamarine;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.go-to-login-btn:hover {
+  background-color: rgb(86, 170, 142);
+}
