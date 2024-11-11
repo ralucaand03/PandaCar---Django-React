@@ -14,6 +14,7 @@ body, html {
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
+    overflow: auto;
 }
 
 .carsWrapper {
@@ -59,6 +60,8 @@ body, html {
     padding: 40px;
     color: #fff;
     text-align: center;
+    margin-left: 60px; 
+    margin-top: 380px;
 }
 
 .mainContentCars h1 {
@@ -87,4 +90,54 @@ body, html {
     font-size: 18px;
     max-width: 800px;
     margin: 0 auto;
+}
+
+
+/* Card styling for car cards */
+.car-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    width: 250px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 40px;
+    color: black; /* Ensure text color is black inside the car card */
+}
+
+/* Card styling for availability cards */
+.availability-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    width: 250px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+    color: black; /* Ensure text color is black inside the availability card */
+}
+
+/* For user cards */
+.user-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    width: 250px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 40px;
+    color: black; /* Ensure text color is black inside the user card */
+}
+
+/* If you want to change the color of headings within the cards */
+.car-card h3, .availability-card h3, .user-card h3 {
+    color: rgb(73, 152, 126); /* Ensure the headings are black */
+}
+
+/* If you want to ensure the text in paragraphs is also black inside the cards */
+.car-card p, .availability-card p, .user-card p {
+    color: black; /* Ensure paragraphs are black */
 }
