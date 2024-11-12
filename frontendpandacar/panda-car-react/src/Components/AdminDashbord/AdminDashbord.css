@@ -1,18 +1,3 @@
-<<<<<<< HEAD
-.get-users-btn, .get-cars-btn {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-bottom: 20px;
-}
-
-.get-users-btn:hover, .get-cars-btn:hover {
-    background-color: #45a049;
-=======
 .contentAdmin {
     height: calc(100vh - 80px); /* Full screen minus the height of the header */
     width: 100vw;
@@ -48,7 +33,6 @@
     margin-bottom: 20px;
     font-weight: bold;
     color: aquamarine;
->>>>>>> frontend
 }
 
 .users-section {
@@ -59,13 +43,10 @@
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-<<<<<<< HEAD
-=======
     justify-content: center; /* Center the cards horizontally */
     margin: 0 auto; /* Center the list container */
     padding: 0 20px; /* Add padding to left and right */
     max-width: 1200px; /* Optional: limit the width of the list */
->>>>>>> frontend
 }
 
 .user-card {
@@ -75,11 +56,8 @@
     border-radius: 8px;
     width: 250px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-<<<<<<< HEAD
-=======
     text-align: center;
     margin-bottom: 40px; /* Increase margin-bottom to add more space below each card */
->>>>>>> frontend
 }
 
 .user-card h3 {
@@ -99,13 +77,10 @@
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-<<<<<<< HEAD
-=======
     justify-content: center; /* Center the cards horizontally */
     margin: 0 auto; /* Center the list container */
     padding: 0 20px; /* Add padding to left and right */
     max-width: 1200px; /* Optional: limit the width of the list */
->>>>>>> frontend
 }
 
 .car-card {
@@ -115,10 +90,7 @@
     border-radius: 8px;
     width: 250px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-<<<<<<< HEAD
-=======
     margin-bottom: 40px; /* Increase margin-bottom to add more space below each card */
->>>>>>> frontend
 }
 
 .car-card img {
@@ -144,24 +116,6 @@
 .fetch-buttons {
     display: flex;
     gap: 20px;
-<<<<<<< HEAD
-    margin-bottom: 20px;
-}
-
-.get-availability-btn {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-bottom: 20px;
-}
-
-.get-availability-btn:hover {
-    background-color: #45a049;
-=======
     margin-bottom: 40px; /* Increase margin-bottom to create space below the buttons */
     justify-content: center; /* Center the buttons horizontally */
     width: 100%; /* Ensure the buttons container stretches across the full width */
@@ -172,20 +126,16 @@
     display: flex;
     justify-content: center;  /* Centers items horizontally */
     align-items: center;      /* Centers items vertically */
->>>>>>> frontend
 }
 
 .availabilities-list {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-<<<<<<< HEAD
-=======
     justify-content: center; /* Center the cards horizontally */
     margin: 0 auto; /* Center the list container */
     padding: 0 20px; /* Add padding to left and right */
     max-width: 1200px; /* Optional: limit the width of the list */
->>>>>>> frontend
 }
 
 .availability-card {
@@ -193,15 +143,10 @@
     border: 1px solid #ddd;
     padding: 20px;
     border-radius: 8px;
-<<<<<<< HEAD
-    width: 250px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-=======
     text-align: center;
     width: 250px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     margin-bottom: 40px; /* Increase margin-bottom to add more space below each card */
->>>>>>> frontend
 }
 
 .availability-card h3 {
@@ -211,9 +156,6 @@
 
 .availability-card p {
     margin: 5px 0;
-<<<<<<< HEAD
-}
-=======
 }
 
 .get-users-btn, .get-cars-btn, .get-availability-btn {
@@ -240,4 +182,3 @@
     margin-bottom: 20px;
     text-align: center;
 }
->>>>>>> frontend

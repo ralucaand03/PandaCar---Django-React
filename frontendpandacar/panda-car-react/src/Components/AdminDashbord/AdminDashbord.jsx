@@ -87,6 +87,7 @@ const AdminDashbord = () => {
                             data.cars.map((car) => (
                                 <div key={car.id} className="car-card">
                                     <h3>{car.car_name} ({car.brand_name})</h3>
+                                    <img src={`http://127.0.0.1:8000${car.photo_url}`} alt={`${car.car_name} photo`} />
                                     <p>Id: {car.id}</p>
                                     <p>Image: {car.photo_name}</p>
                                     <p>Price per day: ${car.price_per_day}</p>
