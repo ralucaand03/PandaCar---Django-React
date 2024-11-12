@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import Header from '../Header/Header'; 
+import Header from '../Header/Header';
 import Filters from '../Filters/Filters';
 import './CarsPage.css';
 
 const CarsPage = () => {
     const [cars, setCars] = useState([]);
+    const [filteredCars, setFilteredCars] = useState([]); 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
@@ -29,7 +30,8 @@ const CarsPage = () => {
             }
 
             const data = await response.json();
-            setCars(data); // Update the cars state with the fetched data
+            setCars(data); 
+            setFilteredCars(data); 
         } catch (error) {
             setError('Failed to fetch cars');
         }
@@ -37,25 +39,28 @@ const CarsPage = () => {
         setLoading(false);
     };
 
-    // Use useEffect to fetch data on component mount
     useEffect(() => {
         fetchCars();
-    }, []); // Empty dependency array ensures it only runs once on mount
+    }, []); 
+
+    const handleFilterChange = (filteredCars) => {
+        setFilteredCars(filteredCars); 
+    };
 
     return (
         <div className="carsWrapper">
             <Header />
             <div className="contentCarspage">
-                <Filters />
+                <Filters onFilterChange={handleFilterChange} cars={cars} />
                 <main className="mainContentCars">
                     <h1>Available Cars</h1>
                     {loading && <p>Loading...</p>}
                     {error && <p style={{ color: 'red' }}>{error}</p>}
                     <div className="cars-list">
-                        {cars.length === 0 ? (
+                        {filteredCars.length === 0 ? (
                             <p>No cars available</p>
                         ) : (
-                            cars.map((car) => (
+                            filteredCars.map((car) => (
                                 <div key={car.id} className="car-card">
                                     <h3>{car.car_name} ({car.brand_name})</h3>
                                     <img src={`http://127.0.0.1:8000${car.photo_url}?t=${new Date().getTime()}`} alt={`${car.car_name} photo`} />
