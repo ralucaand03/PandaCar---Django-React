@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
 import './SignupForm.css';
 import { FaUser, FaLock, FaEnvelope, FaPhone, FaCalendarAlt } from "react-icons/fa";
+<<<<<<< HEAD
 
 const SignupForm = () => {
+=======
+import { useNavigate } from 'react-router-dom';
+
+const SignupForm = () => {
+    const navigate = useNavigate();  // Hook to navigate to other pages
+>>>>>>> frontend
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -11,6 +18,7 @@ const SignupForm = () => {
     const [dateOfBirth, setDateOfBirth] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+<<<<<<< HEAD
     const [errorMessage, setErrorMessage] = useState("");  // some css, te las Raluca sa faci cum vrei tu, clasa e deja definita, vezi in form
     const [successMessage, setSuccessMessage] = useState(""); // some css, te las Raluca sa faci cum vrei tu, clasa e deja definita, vezi in form
 
@@ -21,12 +29,23 @@ const SignupForm = () => {
             setPhone(value.replace(/[^0-9]/g, ''));
         }
         else if (name === "firstName" || name === "lastName") {
+=======
+    const [errorMessage, setErrorMessage] = useState(""); 
+    const [successMessage, setSuccessMessage] = useState(""); 
+
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        if (name === "phone") {
+            setPhone(value.replace(/[^0-9]/g, ''));
+        } else if (name === "firstName" || name === "lastName") {
+>>>>>>> frontend
             const sanitizedValue = value.replace(/[^a-zA-Z\s-]/g, '');
             if (name === "firstName") {
                 setFirstName(sanitizedValue);
             } else if (name === "lastName") {
                 setLastName(sanitizedValue);
             }
+<<<<<<< HEAD
         } else if (name === "email") {
             setEmail(value);
         } else if (name === "dateOfBirth") {
@@ -35,6 +54,14 @@ const SignupForm = () => {
             setPassword(value);
         } else if (name === "confirmPassword") {
             setConfirmPassword(value);
+=======
+        } else {
+            // Handle other fields
+            if (name === "email") setEmail(value);
+            if (name === "dateOfBirth") setDateOfBirth(value);
+            if (name === "password") setPassword(value);
+            if (name === "confirmPassword") setConfirmPassword(value);
+>>>>>>> frontend
         }
     };
 
@@ -87,6 +114,7 @@ const SignupForm = () => {
         };
 
         fetchAPI(newUserData);
+<<<<<<< HEAD
 
     };
 
@@ -178,6 +206,112 @@ const SignupForm = () => {
 
             </form>
 
+=======
+    };
+
+    // Handle "Go to Login Page" button click
+    const handleGoToLogin = () => {
+        navigate('/'); // Redirect to the login page
+    };
+
+    return (
+        <div className='contentsignup'>
+            <div className='wrapper'>
+                <form onSubmit={handleCreateAccount}>
+                    <h1>SignUp</h1>
+
+                    {errorMessage && <div className="error-message">{errorMessage}</div>} 
+                    {successMessage && (
+                        <div className="success-message-modal">
+                            <div className="modal-content">
+                                <p>{successMessage}</p>
+                                <button className="go-to-login-btn" onClick={handleGoToLogin}>
+                                    Go to Log in Page
+                                </button>
+                            </div>
+                        </div>
+                    )}
+
+                    <div className='input-box'>
+                        <input
+                            type="text"
+                            placeholder='First Name'
+                            name="firstName"
+                            value={firstName}
+                            onChange={handleInputChange}
+                            required
+                        />
+                        <FaUser className='icon' />
+                    </div>
+
+                    <div className='input-box'>
+                        <input
+                            type="text"
+                            placeholder='Last Name'
+                            name="lastName"
+                            value={lastName}
+                            onChange={handleInputChange}
+                            required
+                        />
+                        <FaUser className='icon' />
+                    </div>
+
+                    <div className='input-box'>
+                        <input type="email"
+                            placeholder='Email'
+                            name="email"
+                            value={email}
+                            onChange={handleInputChange}
+                            required />
+                        <FaEnvelope className='icon' />
+                    </div>
+
+                    <div className='input-box'>
+                        <input
+                            type="tel"
+                            placeholder='Phone Number'
+                            name="phone"
+                            value={phone}
+                            onChange={handleInputChange}
+                            required
+                        />
+                        <FaPhone className='icon' />
+                    </div>
+
+                    <div className='input-box'>
+                        <input type="date"
+                            placeholder='dd-mm-yyyy'
+                            name="dateOfBirth"
+                            value={dateOfBirth}
+                            onChange={handleInputChange}
+                            required />
+                        <FaCalendarAlt className='iconDate' />
+                    </div>
+
+                    <div className='input-box'>
+                        <input type="password"
+                            placeholder='Enter Password'
+                            name="password"
+                            value={password}
+                            onChange={handleInputChange}
+                            required />
+                        <FaLock className='icon' />
+                    </div>
+
+                    <div className='input-box'>
+                        <input type="password"
+                            placeholder='Confirm Password'
+                            name="confirmPassword"
+                            value={confirmPassword}
+                            onChange={handleInputChange}
+                            required />
+                        <FaLock className='icon' />
+                    </div>
+
+                    <button type='submit'>Create Account</button>
+                </form>
+            </div>
+>>>>>>> frontend
         </div>
     );
 };

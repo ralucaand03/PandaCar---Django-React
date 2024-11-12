@@ -1,0 +1,60 @@
+/* Filters.css */
+
+.filters {
+    width: 250px;
+    background-color: #1c1c1c;
+    color: #fff;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.filters h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: aquamarine;
+}
+
+.filter-item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.filter-item label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.filter-item input,
+.filter-item select {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+
+.apply-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: aquamarine;
+    border: none;
+    color: #333;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.apply-button:hover {
+    background-color: #fff;
+    color: #333;
+}

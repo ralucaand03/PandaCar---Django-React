@@ -1,0 +1,39 @@
+/* src/components/Header/Header.css */
+.header {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    background-color:rgb(75, 164, 134);
+}
+
+.nav-bar {
+    display: flex;
+    justify-content: space-between; 
+    width: 80%;
+    max-width: 800px;
+    margin: auto;
+     /* Set the navbar background color */
+    border-radius: 20px; /* Optional: for rounded corners */
+    padding: 5px 10px; /* Optional: to give padding to the navbar */
+}
+
+.nav-button {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 20px;
+    transition: background-color 0.3s, color 0.3s;
+    margin: auto;
+}
+
+.nav-button:hover {
+    background-color: #fff;
+    color: #333;
+}

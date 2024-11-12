@@ -1,0 +1,143 @@
+/* src/components/HomePage/HomePage.css */
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+.contentCarspage {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url(../Assets/login2.jpg) no-repeat center center;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    overflow: auto;
+}
+
+.carsWrapper {
+    font-family: "Playwrite GB S", cursive;
+    background-color: #1c1921;
+    min-height: 100vh;
+    color: aquamarine;
+    padding-top: 60px; /* Ensure content starts below the header */
+}
+
+.header {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.contentCarspage {
+    display: flex;
+    
+    padding-top: 20px;
+    padding-left: 200px; /* Offset the main content by sidebar width */
+}
+
+.filters {
+    position: fixed;
+    top: 70px; /* Stays below the header */
+    left: 0;
+    width: 250px; /* Fixed width for sidebar */
+    height: calc(100vh - 60px); /* Full height minus header */
+    background-color:rgb(112, 33, 66);
+    color: #fff;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    overflow-y: auto; /* Allows sidebar scrolling if content overflows */
+}
+
+
+.mainContentCars {
+    flex-grow: 1;
+    padding: 40px;
+    color: #fff;
+    text-align: center;
+    margin-left: 60px; 
+    margin-top: 380px;
+}
+
+.mainContentCars h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.mainContentCars p {
+    font-size: 18px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+.content {
+    margin-top: 100px; /* Prevent content from being overlapped by the header */
+    padding: 40px;
+    text-align: center;
+    color: #fff;
+}
+
+.content h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.content p {
+    font-size: 18px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+
+/* Card styling for car cards */
+.car-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    width: 250px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 40px;
+    color: black; /* Ensure text color is black inside the car card */
+}
+
+/* Card styling for availability cards */
+.availability-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    width: 250px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+    color: black; /* Ensure text color is black inside the availability card */
+}
+
+/* For user cards */
+.user-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    width: 250px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 40px;
+    color: black; /* Ensure text color is black inside the user card */
+}
+
+/* If you want to change the color of headings within the cards */
+.car-card h3, .availability-card h3, .user-card h3 {
+    color: rgb(73, 152, 126); /* Ensure the headings are black */
+}
+
+/* If you want to ensure the text in paragraphs is also black inside the cards */
+.car-card p, .availability-card p, .user-card p {
+    color: black; /* Ensure paragraphs are black */
+}
