@@ -10,10 +10,13 @@ const Filters = ({ onFilterChange, cars }) => {
     const [error, setError] = useState(null);
 
     const fetchBrands = (cars) => {
-        const carBrands = cars.map(car => car.brand_name);
-        const uniqueBrands = ['All', ...new Set(carBrands)];
-        setBrands(uniqueBrands);
-        setLoading(false);
+        if (cars && cars.length > 0) {
+            const carBrands = cars.map(car => car.brand_name);
+            const uniqueBrands = ['All', ...new Set(carBrands)];
+            setBrands(uniqueBrands);
+        } else {
+            setBrands(['All']); 
+        }
     };
 
     const filterCars = () => {
