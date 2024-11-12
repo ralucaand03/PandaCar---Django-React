@@ -78,8 +78,8 @@ class Car(models.Model):
     fuel_type = models.CharField(max_length=10, choices=FUEL_TYPE_CHOICES)
 
 
-    def get_photo_path(self):
-        return os.path.join(settings.MEDIA_URL, 'car_photos', self.photo_name)
+    def get_photo_url(self):
+        return f"{settings.MEDIA_URL}car_photos/{self.photo_name}"
     
     def __str__(self):
         return f"{self.car_name} ({self.brand_name}) - {self.fuel_type}, {self.horse_power} HP, {self.engine_capacity}L - ${self.price_per_day}/day"

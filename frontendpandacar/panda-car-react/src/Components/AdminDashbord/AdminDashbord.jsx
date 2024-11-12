@@ -87,6 +87,8 @@ const AdminDashbord = () => {
                             data.cars.map((car) => (
                                 <div key={car.id} className="car-card">
                                     <h3>{car.car_name} ({car.brand_name})</h3>
+                                    <p>Id: {car.id}</p>
+                                    <p>Image: {car.photo_name}</p>
                                     <p>Price per day: ${car.price_per_day}</p>
                                     <p>Fuel type: {car.fuel_type}</p>
                                     <p>Seats: {car.number_of_seats}</p>
