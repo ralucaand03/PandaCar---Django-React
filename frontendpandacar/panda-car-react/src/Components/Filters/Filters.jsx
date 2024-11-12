@@ -17,6 +17,7 @@ const Filters = ({ onFilterChange, cars }) => {
         } else {
             setBrands(['All']); 
         }
+        setLoading(false);
     };
 
     const filterCars = () => {
@@ -38,6 +39,7 @@ const Filters = ({ onFilterChange, cars }) => {
     };
 
     useEffect(() => {
+        setLoading(true);
         fetchBrands(cars);
     }, [cars]); 
 
