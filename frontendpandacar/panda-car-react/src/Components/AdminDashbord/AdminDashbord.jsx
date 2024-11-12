@@ -7,7 +7,7 @@ const AdminDashbord = () => {
         cars: [],
         availabilities: []
     });
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] =  (false);
     const [error, setError] = useState(null);
 
     const fetchAPI = async (endpoint, dataKey) => {
