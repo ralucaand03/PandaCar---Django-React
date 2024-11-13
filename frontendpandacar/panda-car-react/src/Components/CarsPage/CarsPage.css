@@ -9,13 +9,17 @@ body, html {
     width: 100vw;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; /* Align items to the top */
     background: url(../Assets/login2.jpg) no-repeat center center;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    overflow: auto;
+    overflow-y: auto; /* Enable vertical scrolling only in this container */
+    padding-top: 60px; /* Offset by the header height */
+    padding-left: 250px; /* Offset for the sidebar width */
+    box-sizing: border-box; /* Ensures padding doesn't affect width/height */
 }
+
 
 .carsWrapper {
     font-family: "Playwrite GB S", cursive;
@@ -34,6 +38,8 @@ body, html {
     overflow-y: auto;
 }
 
+
+
 .contentCarspage {
     display: flex;
     
@@ -43,11 +49,11 @@ body, html {
 
 .filters {
     position: fixed;
-    top: 70px; /* Stays below the header */
+    top: 60px; /* Offset by the header height */
     left: 0;
     width: 250px; /* Fixed width for sidebar */
     height: calc(100vh - 60px); /* Full height minus header */
-    background-color:rgb(112, 33, 66);
+    background-color: rgb(112, 33, 66);
     color: #fff;
     padding: 20px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
@@ -61,7 +67,7 @@ body, html {
     color: #fff;
     text-align: center;
     margin-left: 60px; 
-    margin-top: 380px;
+    margin-top: 40px;
 }
 
 .mainContentCars h1 {

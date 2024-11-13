@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './SignupForm.css';
 import { FaUser, FaLock, FaEnvelope, FaPhone, FaCalendarAlt } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
+import pandaIcon from '../Assets/panda4.png';
 
 const SignupForm = () => {
     const navigate = useNavigate();  // Hook to navigate to other pages
@@ -94,7 +95,13 @@ const SignupForm = () => {
 
     return (
         <div className='contentsignup'>
-            <div className='wrapper'>
+            <div className="login-header">
+                <span className="login-brand-name">
+                    <img src={pandaIcon} alt="Panda Icon" className="login-panda-icon" />
+                    PandaCar
+                </span>
+            </div>
+            <div className='sgnwrapper'>
                 <form onSubmit={handleCreateAccount}>
                     <h1>SignUp</h1>
 
@@ -110,7 +117,7 @@ const SignupForm = () => {
                         </div>
                     )}
 
-                    <div className='input-box'>
+                    <div className='sgninput-box'>
                         <input
                             type="text"
                             placeholder='First Name'
@@ -122,7 +129,7 @@ const SignupForm = () => {
                         <FaUser className='icon' />
                     </div>
 
-                    <div className='input-box'>
+                    <div className='sgninput-box'>
                         <input
                             type="text"
                             placeholder='Last Name'
@@ -134,7 +141,7 @@ const SignupForm = () => {
                         <FaUser className='icon' />
                     </div>
 
-                    <div className='input-box'>
+                    <div className='sgninput-box'>
                         <input type="email"
                             placeholder='Email'
                             name="email"
@@ -144,7 +151,7 @@ const SignupForm = () => {
                         <FaEnvelope className='icon' />
                     </div>
 
-                    <div className='input-box'>
+                    <div className='sgninput-box'>
                         <input
                             type="tel"
                             placeholder='Phone Number'
@@ -156,7 +163,7 @@ const SignupForm = () => {
                         <FaPhone className='icon' />
                     </div>
 
-                    <div className='input-box'>
+                    <div className='sgninput-box'>
                         <input type="date"
                             placeholder='dd-mm-yyyy'
                             name="dateOfBirth"
@@ -166,7 +173,7 @@ const SignupForm = () => {
                         <FaCalendarAlt className='iconDate' />
                     </div>
 
-                    <div className='input-box'>
+                    <div className='sgninput-box'>
                         <input type="password"
                             placeholder='Enter Password'
                             name="password"
@@ -176,7 +183,7 @@ const SignupForm = () => {
                         <FaLock className='icon' />
                     </div>
 
-                    <div className='input-box'>
+                    <div className='sgninput-box'>
                         <input type="password"
                             placeholder='Confirm Password'
                             name="confirmPassword"
@@ -186,7 +193,7 @@ const SignupForm = () => {
                         <FaLock className='icon' />
                     </div>
 
-                    <button type='submit'>Create Account</button>
+                    <button type='submit'  className="submit">Create Account</button>
                 </form>
             </div>
         </div>

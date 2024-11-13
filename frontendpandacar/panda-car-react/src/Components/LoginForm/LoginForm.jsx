@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './LoginForm.css';
 import { FaUser, FaLock } from "react-icons/fa";
 import { Link, useNavigate } from 'react-router-dom';
+import pandaIcon from '../Assets/panda4.png';  // Import your icon image
 
 const LoginForm = () => {
     const [errorMessage, setErrorMessage] = useState("");
@@ -75,6 +76,14 @@ const LoginForm = () => {
 
     return (
         <div className='contentlogin'>
+            {/* Header with brand name */}
+            <div className="login-header">
+                <span className="login-brand-name">
+                    <img src={pandaIcon} alt="Panda Icon" className="login-panda-icon" />
+                    PandaCar
+                </span>
+            </div>
+
             <div className='wrapper'>
                 <form onSubmit={handleLoginUser}>
                     <h1>Login</h1>
