@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import './AdminDashbord.css';
+import pandaIcon from '../Assets/panda3.png'; // Adjust path if necessary
 
 const AdminDashbord = () => {
     const [data, setData] = useState({
@@ -54,6 +55,10 @@ const AdminDashbord = () => {
                 {/* Admin Dashboard Header */}
                 <div className="admin-header">
                     <h1>Admin Dashboard</h1>
+                    <span className="admin-brand-name">
+                        <img src={pandaIcon} alt="Panda Icon" className="admin-panda-icon" />
+                        PandaCar
+                    </span>
                 </div>
 
                 {/* Users Section */}

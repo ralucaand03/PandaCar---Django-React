@@ -13,26 +13,42 @@
     text-align: center; /* Centering the text inside containers */
     padding-bottom: 20px;
 }
-
 .admin-header {
     position: fixed;
     left: 0;
     top: 0;
     width: 100%;
     z-index: 1000;
-    text-align: center;
-    padding: 20px;
-    background-color: #1c1921;
-    color: aquamarine;
+    display: flex;
+    justify-content: space-between;  /* Align left and right elements */
+    align-items: center;  /* Vertically center content */
+    padding: 10px 20px;  /* Adjust padding for better alignment */
+    background-color: #1c1c1c;
+    color: aquamarine;  /* Default text color */
     font-family: "Playwrite GB S", cursive;
-    height: 80px; /* Set the height of the header */
+    height: 80px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow for distinction */
 }
 
 .admin-header h1 {
+    padding-left: 30px ;
     font-size: 36px;
-    margin-bottom: 20px;
+    margin: 0;
     font-weight: bold;
-    color: aquamarine;
+    color: white;  /* Change brand name to white */
+}
+
+.admin-brand-name {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    gap: 10px; /* Space between the icon and brand name */
+    padding-right: 20px;
+}
+
+.admin-panda-icon {
+    width: 50px;
+    height: 50px;
 }
 
 .users-section {
@@ -47,6 +63,7 @@
     margin: 0 auto; /* Center the list container */
     padding: 0 20px; /* Add padding to left and right */
     max-width: 1200px; /* Optional: limit the width of the list */
+    margin-bottom: 10px;
 }
 
 .user-card {
@@ -81,6 +98,9 @@
     margin: 0 auto; /* Center the list container */
     padding: 0 20px; /* Add padding to left and right */
     max-width: 1200px; /* Optional: limit the width of the list */
+    
+    margin-bottom: 10px;
+
 }
 
 .car-card {
@@ -126,7 +146,7 @@
     display: flex;
     justify-content: center;  /* Centers items horizontally */
     align-items: center;      /* Centers items vertically */
-}
+   
 
 .availabilities-list {
     display: flex;
@@ -136,6 +156,7 @@
     margin: 0 auto; /* Center the list container */
     padding: 0 20px; /* Add padding to left and right */
     max-width: 1200px; /* Optional: limit the width of the list */
+    margin-bottom: 10px;
 }
 
 .availability-card {
@@ -159,11 +180,11 @@
 }
 
 .get-users-btn, .get-cars-btn, .get-availability-btn {
-    padding: 20px 20px;
+    padding: 10px 20px;
     width: 1060px; /* Set a specific width */
     height: 45px;
-    font-size: 16px;
-    background-color: aquamarine;
+    font-size: 20px;
+    background-color: #5da78c;
     color: white;
     border: none;
     cursor: pointer;
@@ -174,11 +195,14 @@
     display: block; /* Ensure the button is a block element */
     margin-left: auto; /* Center button horizontally */
     margin-right: auto; /* Center button horizontally */
+    padding: auto;
+}
 }
 
 .get-users-btn:hover, .get-cars-btn:hover, .get-availability-btn:hover {
-    background-color: rgb(86, 170, 142);
+    background-color:aquamarine;
     border-radius: 5px;
     margin-bottom: 20px;
     text-align: center;
+    color:#1c1c1c;
 }

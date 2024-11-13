@@ -6,16 +6,25 @@ const Filters = ({ onFilterChange, cars }) => {
     const [seats, setSeats] = useState('');
     const [brand, setBrand] = useState('');
     const [brands, setBrands] = useState([]);
+    const [number_of_seats, setNumberSeats] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const fetchBrands = (cars) => {
+    // States to control dropdown visibility
+    const [isSeatsDropdownOpen, setIsSeatsDropdownOpen] = useState(false);
+    const [isBrandDropdownOpen, setIsBrandDropdownOpen] = useState(false);
+
+    const fetchCarsAttributes = (cars) => {
         if (cars && cars.length > 0) {
             const carBrands = cars.map(car => car.brand_name);
+            const carSeats = cars.map(car => car.number_of_seats);
             const uniqueBrands = ['All', ...new Set(carBrands)];
+            const uniqueSeats = [...new Set(carSeats)].sort((a, b) => a - b);
             setBrands(uniqueBrands);
+            setNumberSeats(uniqueSeats);
         } else {
             setBrands(['All']); 
+            setNumberSeats([]);
         }
         setLoading(false);
     };
@@ -40,8 +49,20 @@ const Filters = ({ onFilterChange, cars }) => {
 
     useEffect(() => {
         setLoading(true);
-        fetchBrands(cars);
+        fetchCarsAttributes(cars);
     }, [cars]); 
+
+    // Handle seat selection
+    const handleSeatSelection = (seat) => {
+        setSeats(seat);
+        setIsSeatsDropdownOpen(false); // Close dropdown after selection
+    };
+
+    // Handle brand selection
+    const handleBrandSelection = (selectedBrand) => {
+        setBrand(selectedBrand);
+        setIsBrandDropdownOpen(false); // Close dropdown after selection
+    };
 
     return (
         <div className="filters">
@@ -59,41 +80,62 @@ const Filters = ({ onFilterChange, cars }) => {
                 />
             </div>
 
-            {/* Number of Seats Filter */}
+            {/* Number of Seats Filter - Custom Dropdown */}
             <div className="filter-item">
                 <label htmlFor="seats">Number of Seats:</label>
-                <select
-                    id="seats"
-                    value={seats}
-                    onChange={(e) => setSeats(e.target.value)}
-                >
-                    <option value="">Select seats</option>
-                    <option value="2">2 Seats</option>
-                    <option value="3">3 Seats</option>
-                    <option value="4">4 Seats</option>
-                    <option value="5">5 Seats</option>
-                </select>
+                <div className="custom-dropdown">
+                    <button
+                        className="dropdown-btn"
+                        onClick={() => setIsSeatsDropdownOpen(!isSeatsDropdownOpen)}
+                    >
+                        {seats || 'Select seats'}
+                    </button>
+                    {isSeatsDropdownOpen && (
+                        <ul className="dropdown-list">
+                            {number_of_seats.map((seatOption, index) => (
+                                <li
+                                    key={index}
+                                    className="dropdown-item"
+                                    onClick={() => handleSeatSelection(seatOption)}
+                                >
+                                    {seatOption} Seats
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
             </div>
 
-            {/* Brands Filter */}
+            {/* Brands Filter - Custom Dropdown */}
             <div className="filter-item">
                 <label htmlFor="brand">Brand:</label>
-                <select
-                    id="brand"
-                    value={brand}
-                    onChange={(e) => setBrand(e.target.value)}
-                >
-                    <option value="">Select a brand</option>
-                    {loading ? (
-                        <option>Loading...</option>
-                    ) : error ? (
-                        <option>{error}</option>
-                    ) : (
-                        brands.map((brandOption, index) => (
-                            <option key={index} value={brandOption}>{brandOption}</option>
-                        ))
+                <div className="custom-dropdown">
+                    <button
+                        className="dropdown-btn"
+                        onClick={() => setIsBrandDropdownOpen(!isBrandDropdownOpen)}
+                    >
+                        {brand || 'Select a brand'}
+                    </button>
+                    {isBrandDropdownOpen && (
+                        <ul className="dropdown-list">
+                            {loading ? (
+                                <li>Loading...</li>
+                            ) : error ? (
+                                <li>{error}</li>
+                            ) : (
+                                brands.map((brandOption, index) => (
+                                    <li
+                                        key={index}
+                                        className="dropdown-item"
+                                        onClick={() => handleBrandSelection(brandOption)}
+                                    >
+                                        {brandOption}
+                                    </li>
+                                ))
+                            )}
+                        </ul>
                     )}
-                </select>
+                </div>
             </div>
 
             {/* Apply Button */}
