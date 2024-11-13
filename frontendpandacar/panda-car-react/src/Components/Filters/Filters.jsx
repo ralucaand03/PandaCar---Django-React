@@ -1,62 +1,56 @@
 import React, { useState, useEffect } from 'react';
 import './Filters.css';
 
-const Filters = () => {
+const Filters = ({ onFilterChange, cars }) => {
     const [location, setLocation] = useState('');
     const [seats, setSeats] = useState('');
     const [brand, setBrand] = useState('');
-    const [brands, setBrands] = useState([]);  
-    const [loading, setLoading] = useState(true);  
+    const [brands, setBrands] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [cars, setCars] = useState([]);  
 
-    const fetchCars = async () => {
-        setLoading(true);
-        setError(null);
-        try {
-            const response = await fetch('http://127.0.0.1:8000/api/cars/', {
-                method: 'GET',
-                headers: {
-                    'Authorization': 'Bearer ' + localStorage.getItem('access_token')
-                }
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                console.error('Error:', errorData);
-                setError('Error fetching cars!');
-                return;
-            }
-
-            const data = await response.json();
-            setCars(data); 
-            console.log("Fetched Cars:", data);
-            const carBrands = data.map(car => car.brand_name); 
-            console.log("Extracted Brands:", carBrands); 
-
-            const uniqueBrands = ['All', ...new Set(carBrands)]; 
-            setBrands(uniqueBrands); 
-        } catch (error) {
-            setError('Failed to fetch cars');
+    const fetchBrands = (cars) => {
+        if (cars && cars.length > 0) {
+            const carBrands = cars.map(car => car.brand_name);
+            const uniqueBrands = ['All', ...new Set(carBrands)];
+            setBrands(uniqueBrands);
+        } else {
+            setBrands(['All']); 
         }
         setLoading(false);
     };
 
-    useEffect(() => {
-        fetchCars();
-    }, []); 
-    const handleApplyFilters = () => {
-        console.log("Applying Filters:", { location, seats, brand });
+    const filterCars = () => {
+        let filtered = cars;
+
+        if (location) {
+            filtered = filtered.filter(car => car.location.toLowerCase().includes(location.toLowerCase()));
+        }
+
+        if (seats) {
+            filtered = filtered.filter(car => car.number_of_seats === parseInt(seats));
+        }
+
+        if (brand && brand !== 'All') {
+            filtered = filtered.filter(car => car.brand_name === brand);
+        }
+
+        onFilterChange(filtered); 
     };
+
+    useEffect(() => {
+        setLoading(true);
+        fetchBrands(cars);
+    }, [cars]); 
 
     return (
         <div className="filters">
             <h2>Filters</h2>
-            
+
             {/* Location Filter */}
             <div className="filter-item">
                 <label htmlFor="location">Location:</label>
-                <input 
+                <input
                     type="text"
                     id="location"
                     placeholder="Type location..."
@@ -68,7 +62,7 @@ const Filters = () => {
             {/* Number of Seats Filter */}
             <div className="filter-item">
                 <label htmlFor="seats">Number of Seats:</label>
-                <select 
+                <select
                     id="seats"
                     value={seats}
                     onChange={(e) => setSeats(e.target.value)}
@@ -84,16 +78,16 @@ const Filters = () => {
             {/* Brands Filter */}
             <div className="filter-item">
                 <label htmlFor="brand">Brand:</label>
-                <select 
+                <select
                     id="brand"
                     value={brand}
                     onChange={(e) => setBrand(e.target.value)}
                 >
                     <option value="">Select a brand</option>
                     {loading ? (
-                        <option>Loading...</option>  
+                        <option>Loading...</option>
                     ) : error ? (
-                        <option>{error}</option>  
+                        <option>{error}</option>
                     ) : (
                         brands.map((brandOption, index) => (
                             <option key={index} value={brandOption}>{brandOption}</option>
@@ -103,7 +97,7 @@ const Filters = () => {
             </div>
 
             {/* Apply Button */}
-            <button className="apply-button" onClick={handleApplyFilters}>Apply Filters</button>
+            <button className="apply-button" onClick={filterCars}>Apply Filters</button>
         </div>
     );
 };
