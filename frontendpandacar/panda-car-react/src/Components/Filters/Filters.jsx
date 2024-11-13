@@ -6,16 +6,21 @@ const Filters = ({ onFilterChange, cars }) => {
     const [seats, setSeats] = useState('');
     const [brand, setBrand] = useState('');
     const [brands, setBrands] = useState([]);
+    const [number_of_seats, setNumberSeats] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const fetchBrands = (cars) => {
+    const fetchCarsAttributes = (cars) => {
         if (cars && cars.length > 0) {
             const carBrands = cars.map(car => car.brand_name);
+            const carSeats = cars.map(car => car.number_of_seats);
             const uniqueBrands = ['All', ...new Set(carBrands)];
+            const uniqueSeats = [...new Set(carSeats)].sort((a, b) => a - b);
             setBrands(uniqueBrands);
+            setNumberSeats(uniqueSeats);
         } else {
             setBrands(['All']); 
+            setNumberSeats(['Select Seats']);
         }
         setLoading(false);
     };
@@ -40,7 +45,7 @@ const Filters = ({ onFilterChange, cars }) => {
 
     useEffect(() => {
         setLoading(true);
-        fetchBrands(cars);
+        fetchCarsAttributes(cars);
     }, [cars]); 
 
     return (
@@ -68,10 +73,9 @@ const Filters = ({ onFilterChange, cars }) => {
                     onChange={(e) => setSeats(e.target.value)}
                 >
                     <option value="">Select seats</option>
-                    <option value="2">2 Seats</option>
-                    <option value="3">3 Seats</option>
-                    <option value="4">4 Seats</option>
-                    <option value="5">5 Seats</option>
+                    {number_of_seats.map((seatOption, index) => (
+                        <option key={index} value={seatOption}>{seatOption} Seats</option>
+                    ))}
                 </select>
             </div>
 
