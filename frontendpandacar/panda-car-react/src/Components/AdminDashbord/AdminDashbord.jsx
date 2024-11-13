@@ -7,12 +7,20 @@ const AdminDashbord = () => {
         cars: [],
         availabilities: []
     });
-    const [loading, setLoading] =  (false);
-    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState({
+        users: false,
+        cars: false,
+        availabilities: false
+    });
+    const [error, setError] = useState({
+        users: null,
+        cars: null,
+        availabilities: null
+    });
 
     const fetchAPI = async (endpoint, dataKey) => {
-        setLoading(true);
-        setError(null);
+        setLoading(prev => ({ ...prev, [dataKey]: true }));
+        setError(prev => ({ ...prev, [dataKey]: null }));
 
         try {
             const response = await fetch(`http://127.0.0.1:8000/api/${endpoint}/`, {
@@ -25,7 +33,7 @@ const AdminDashbord = () => {
             if (!response.ok) {
                 const errorData = await response.json();
                 console.error('Error:', errorData);
-                setError(`Error fetching ${endpoint}!`);
+                setError(prev => ({ ...prev, [dataKey]: `Error fetching ${endpoint}!` }));
                 throw new Error(JSON.stringify(errorData));
             }
 
@@ -35,9 +43,9 @@ const AdminDashbord = () => {
                 [dataKey]: responseData
             }));
         } catch (error) {
-            setError(`Failed to fetch ${endpoint}`);
+            setError(prev => ({ ...prev, [dataKey]: `Failed to fetch ${endpoint}` }));
         }
-        setLoading(false);
+        setLoading(prev => ({ ...prev, [dataKey]: false }));
     };
 
     return (
@@ -53,8 +61,8 @@ const AdminDashbord = () => {
                     <div className="button-container">
                         <button onClick={() => fetchAPI('users', 'users')} className="get-users-btn">Get Users</button>
                     </div>
-                    {loading && <p>Loading...</p>}
-                    {error && <p style={{ color: 'red' }}>{error}</p>}
+                    {loading.users && <p>Loading...</p>}
+                    {error.users && <p style={{ color: 'red' }}>{error.users}</p>}
                     <div className="users-list">
                         {data.users.length === 0 ? (
                             <p>No users found</p>
@@ -78,8 +86,8 @@ const AdminDashbord = () => {
                     <div className="button-container">
                         <button onClick={() => fetchAPI('cars', 'cars')} className="get-cars-btn">Get Cars</button>
                     </div>
-                    {loading && <p>Loading...</p>}
-                    {error && <p style={{ color: 'red' }}>{error}</p>}
+                    {loading.cars && <p>Loading...</p>}
+                    {error.cars && <p style={{ color: 'red' }}>{error.cars}</p>}
                     <div className="cars-list">
                         {data.cars.length === 0 ? (
                             <p>No cars found</p>
@@ -87,7 +95,7 @@ const AdminDashbord = () => {
                             data.cars.map((car) => (
                                 <div key={car.id} className="car-card">
                                     <h3>{car.car_name} ({car.brand_name})</h3>
-                                    <img src={`http://127.0.0.1:8000${car.photo_url}?t=${new Date().getTime()}`} alt={`${car.car_name} photo`} />
+                                    <img src={`http://127.0.0.1:8000${car.photo_url}`} alt={`${car.car_name} photo`} />
                                     <p>Id: {car.id}</p>
                                     <p>Image: {car.photo_name}</p>
                                     <p>Price per day: ${car.price_per_day}</p>
@@ -105,8 +113,8 @@ const AdminDashbord = () => {
                     <div className="button-container">
                         <button onClick={() => fetchAPI('availabilities', 'availabilities')} className="get-availability-btn">Get Car Availability</button>
                     </div>
-                    {loading && <p>Loading...</p>}
-                    {error && <p style={{ color: 'red' }}>{error}</p>}
+                    {loading.availabilities && <p>Loading...</p>}
+                    {error.availabilities && <p style={{ color: 'red' }}>{error.availabilities}</p>}
                     <div className="availabilities-list">
                         {data.availabilities.length === 0 ? (
                             <p>No availability data found</p>
