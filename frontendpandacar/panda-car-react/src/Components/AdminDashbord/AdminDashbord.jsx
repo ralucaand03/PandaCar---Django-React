@@ -28,6 +28,8 @@ const AdminDashbord = () => {
     const [createSuccess, setCreateSuccess] = useState(null);
 
     const [showCreateUserForm, setShowCreateUserForm] = useState(false);
+    const [showCreateCarForm, setShowCreateCarForm] = useState(false);
+
 
     const [newUser, setNewUser] = useState({
         firstName: '',
@@ -40,16 +42,43 @@ const AdminDashbord = () => {
         confirmPassword: ''
     });
 
-    const handleInputChange = (event) => {
-        const { name, value, type, checked } = event.target;
-        setNewUser(prev => ({
-            ...prev,
-            [name]: type === 'checkbox' ? checked : value
-        }));
-    };
+    const [newCar, setNewCar] = useState({
+        photo_name: '',
+        car_name: '',
+        price_per_day: '',
+        brand_name: '',
+        number_of_seats: '',
+        color: '',
+        horse_power: '',
+        engine_capacity: '',
+        fuel_type: ''
+    });
 
+    const handleInputChange = (event, formType) => {
+        const { name, value, type, checked } = event.target;
+
+        const updatedValue = type === 'checkbox'
+            ? checked
+            : (type === 'number' ? (value === '' ? '' : parseFloat(value)) : value);
+
+        if (formType === 'user') {
+            setNewUser(prev => ({
+                ...prev,
+                [name]: updatedValue
+            }));
+        } else if (formType === 'car') {
+            setNewCar(prev => ({
+                ...prev,
+                [name]: updatedValue
+            }));
+        }
+    };
     const toggleCreateUserForm = () => {
         setShowCreateUserForm(prev => !prev);
+    };
+
+    const toggleCreateCarForm = () => {
+        setShowCreateCarForm(prev => !prev);
     };
 
     const fetchAPI = async (endpoint, dataKey) => {
@@ -144,6 +173,58 @@ const AdminDashbord = () => {
 
         } catch (error) {
             setCreateError('Failed to create user');
+            console.log(error);
+        }
+    }
+
+    const handleCreateCar = async (event) => {
+        event.preventDefault();
+        setCreateError(null);
+        setCreateSuccess(null);
+
+        try {
+            const response = await fetch('http://127.0.0.1:8000/api/cars/create', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    photo_name: newCar.photo_name,
+                    car_name: newCar.car_name,
+                    price_per_day: newCar.price_per_day,
+                    brand_name: newCar.brand_name,
+                    number_of_seats: newCar.number_of_seats,
+                    color: newCar.color,
+                    horse_power: newCar.horse_power,
+                    engine_capacity: newCar.engine_capacity,
+                    fuel_type: newCar.fuel_type
+                })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error('Error creating car:', errorData);
+                setCreateError('Error creating car. Please check the input data.');
+                return;
+            }
+
+            setNewCar({
+                photo_name: '',
+                car_name: '',
+                price_per_day: '',
+                brand_name: '',
+                number_of_seats: '',
+                color: '',
+                horse_power: '',
+                engine_capacity: '',
+                fuel_type: ''
+            });
+
+            setCreateSuccess('Car created')
+
+        } catch (error) {
+            setCreateError('Failed to create car');
             console.log(error);
         }
     }
@@ -270,7 +351,7 @@ const AdminDashbord = () => {
                                 name="firstName"
                                 placeholder="First Name"
                                 value={newUser.firstName}
-                                onChange={handleInputChange}
+                                onChange={(event) => handleInputChange(event, 'user')}
                                 required
                             />
                             <input
@@ -278,7 +359,7 @@ const AdminDashbord = () => {
                                 name="lastName"
                                 placeholder="Last Name"
                                 value={newUser.lastName}
-                                onChange={handleInputChange}
+                                onChange={(event) => handleInputChange(event, 'user')}
                                 required
                             />
                             <input
@@ -286,7 +367,7 @@ const AdminDashbord = () => {
                                 name="email"
                                 placeholder="Email"
                                 value={newUser.email}
-                                onChange={handleInputChange}
+                                onChange={(event) => handleInputChange(event, 'user')}
                                 required
                             />
                             <input
@@ -295,14 +376,14 @@ const AdminDashbord = () => {
                                 placeholder="Phone Number"
                                 required
                                 value={newUser.phoneNumber}
-                                onChange={handleInputChange}
+                                onChange={(event) => handleInputChange(event, 'user')}
                             />
                             <label>
                                 <input
                                     type="checkbox"
                                     name="isAdmin"
                                     checked={newUser.isAdmin}
-                                    onChange={handleInputChange}
+                                    onChange={(event) => handleInputChange(event, 'user')}
                                 />
                                 Is Admin
                             </label>
@@ -312,14 +393,14 @@ const AdminDashbord = () => {
                                 placeholder="Date of Birth"
                                 required
                                 value={newUser.dateOfBirth}
-                                onChange={handleInputChange}
+                                onChange={(event) => handleInputChange(event, 'user')}
                             />
                             <input
                                 type="text"
                                 name="password"
                                 placeholder="Password"
                                 value={newUser.password}
-                                onChange={handleInputChange}
+                                onChange={(event) => handleInputChange(event, 'user')}
                                 required
                             />
                             <input
@@ -327,16 +408,44 @@ const AdminDashbord = () => {
                                 name="confirmPassword"
                                 placeholder="Confirm Password"
                                 value={newUser.confirmPassword}
-                                onChange={handleInputChange}
+                                onChange={(event) => handleInputChange(event, 'user')}
                                 required
                             />
                             <button type="submit">Create User</button>
-                            {createUserError && <p style={{ color: 'red' }}>{createUserError}</p>}
-                            {createUserSuccess && <p style={{ color: 'green' }}>{createUserSuccess}</p>}
+                            {createError && <p style={{ color: 'red' }}>{createError}</p>}
+                            {createSuccess && <p style={{ color: 'green' }}>{createSuccess}</p>}
                         </form>
                     </div>
                 )}
 
+
+                {/* Create New Car Form */}
+                <div className="section" id="toggleCreateCarFormDiv">
+                    <button onClick={toggleCreateCarForm} className="toggle-create-car-form-btn">
+                        {showCreateCarForm ? 'Hide Create Car Form' : 'Show Create Car Form'}
+                    </button>
+                </div>
+
+                {/* Car Creation Form */}
+                {showCreateCarForm && (
+                    <div className="section" id="createCarDiv">
+                        <h2>Create New Car</h2>
+                        <form className="create-car-form" onSubmit={handleCreateCar}>
+                            <input type="text" name="car_name" value={newCar.car_name} onChange={(event) => handleInputChange(event, 'car')} placeholder="Car Name" />
+                            <input type="text" name="brand_name" value={newCar.brand_name} onChange={(event) => handleInputChange(event, 'car')} placeholder="Brand Name" />
+                            <input type="number" name="price_per_day" value={newCar.price_per_day} onChange={(event) => handleInputChange(event, 'car')} placeholder="Price Per Day" />
+                            <input type="text" name="color" value={newCar.color} onChange={(event) => handleInputChange(event, 'car')} placeholder="Color" />
+                            <input type="number" name="horse_power" value={newCar.horse_power} onChange={(event) => handleInputChange(event, 'car')} placeholder="Horse Power" />
+                            <input type="number" name="engine_capacity" value={newCar.engine_capacity} onChange={(event) => handleInputChange(event, 'car')} placeholder="Engine Capacity" />
+                            <input type="number" name="number_of_seats" value={newCar.number_of_seats} onChange={(event) => handleInputChange(event, 'car')} placeholder="Number of Seats" />
+                            <input type="text" name="fuel_type" value={newCar.fuel_type} onChange={(event) => handleInputChange(event, 'car')} placeholder="Fuel Type" />
+                            <input type="text" name="photo_name" value={newCar.photo_name} onChange={(event) => handleInputChange(event, 'car')} placeholder="Photo Name" />
+                            <button type="submit">Create Car</button>
+                        </form>
+                        {createError && <p style={{ color: 'red' }}>{createError}</p>}
+                        {createSuccess && <p style={{ color: 'green' }}>{createSuccess}</p>}
+                    </div>
+                )}
 
             </div>
         </div>

@@ -207,7 +207,7 @@
     color:#1c1c1c;
 }
 
-.create-user-form {
+.create-user-form, .create-car-form {
     display: flex;
     flex-direction: column;
     gap: 10px; 
@@ -217,13 +217,17 @@
 
 .create-user-form input,
 .create-user-form label,
-.create-user-form button {
+.create-user-form button,
+.create-car-form input,
+.create-car-form label,
+.create-car-form button {
     width: 100%;
     padding: 8px;
     font-size: 16px;
 }
 
-.create-user-form button {
+.create-user-form button,
+.create-car-form button {
     background-color: #007BFF; 
     color: white;
     border: none;
@@ -231,11 +235,13 @@
     margin-top: 10px;
 }
 
-.create-user-form button:hover {
+.create-user-form button:hover,
+.create-car-form button:hover {
     background-color: #0056b3; 
 }
 
-.toggle-create-user-form-btn {
+.toggle-create-user-form-btn,
+.toggle-create-car-form-btn {
     padding: 10px 20px;
     background-color: #5da78c; 
     color: white;
@@ -245,11 +251,12 @@
     font-size: 16px;
     transition: background-color 0.3s ease, color 0.3s ease;
     display: inline-block;
-    margin: 0 auto;
+    margin-top: 10px;
     text-align: center;
 }
 
-.toggle-create-user-form-btn:hover {
+.toggle-create-user-form-btn:hover,
+.toggle-create-car-form-btn:hover {
     background-color: aquamarine; 
     color: #1c1c1c; 
 }
