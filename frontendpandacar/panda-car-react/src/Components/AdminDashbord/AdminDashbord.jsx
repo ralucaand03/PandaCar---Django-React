@@ -29,6 +29,7 @@ const AdminDashbord = () => {
 
     const [showCreateUserForm, setShowCreateUserForm] = useState(false);
     const [showCreateCarForm, setShowCreateCarForm] = useState(false);
+    const [showCreateAvailabilityForm, setShowCreateAvailabilityForm] = useState(false);
 
 
     const [newUser, setNewUser] = useState({
@@ -54,6 +55,12 @@ const AdminDashbord = () => {
         fuel_type: ''
     });
 
+    const [newAvailability, setNewAvailability] = useState({
+        car: '',
+        start_date: '',
+        end_date: '',
+    });
+
     const handleInputChange = (event, formType) => {
         const { name, value, type, checked } = event.target;
 
@@ -71,14 +78,21 @@ const AdminDashbord = () => {
                 ...prev,
                 [name]: updatedValue
             }));
+        } else if (formType === 'availability') {
+            setNewAvailability(prev => ({
+                ...prev,
+                [name]: updatedValue
+            }));
         }
     };
-    const toggleCreateUserForm = () => {
-        setShowCreateUserForm(prev => !prev);
-    };
-
-    const toggleCreateCarForm = () => {
-        setShowCreateCarForm(prev => !prev);
+    const toggleForm = (form) => {
+        if (form === 'user') {
+            setShowCreateUserForm(prev => !prev);
+        } else if (form === 'car') {
+            setShowCreateCarForm(prev => !prev);
+        } else if (form == 'availability') {
+            setShowCreateAvailabilityForm(prev => !prev);
+        }
     };
 
     const fetchAPI = async (endpoint, dataKey) => {
@@ -229,6 +243,46 @@ const AdminDashbord = () => {
         }
     }
 
+    const handleCreateAvailability = async (event) => {
+        event.preventDefault();
+        setCreateError(null);
+        setCreateSuccess(null);
+
+        try {
+            const response = await fetch('http://127.0.0.1:8000/api/availabilities/create', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    car: newAvailability.car,
+                    start_date: newAvailability.start_date,
+                    end_date: newAvailability.end_date,
+                })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error('Error creating availability:', errorData);
+                setCreateError('Error creating availability. Please check the input data.');
+                return;
+            }
+
+            setNewAvailability({
+                car: '',
+                start_date: '',
+                end_date: '',
+            });
+
+            setCreateSuccess('Availability created')
+
+        } catch (error) {
+            setCreateError('Failed to create availability');
+            console.log(error);
+        }
+    }
+
 
     return (
         <div className="contentAdmin">
@@ -336,7 +390,7 @@ const AdminDashbord = () => {
 
                 {/* Toggle Button for User Creation Form */}
                 <div className="section" id="toggleCreateUserFormDiv">
-                    <button onClick={toggleCreateUserForm} className="toggle-create-user-form-btn">
+                    <button onClick={() => toggleForm('user')} className="toggle-create-user-form-btn">
                         {showCreateUserForm ? 'Hide Create User Form' : 'Show Create User Form'}
                     </button>
                 </div>
@@ -421,7 +475,7 @@ const AdminDashbord = () => {
 
                 {/* Create New Car Form */}
                 <div className="section" id="toggleCreateCarFormDiv">
-                    <button onClick={toggleCreateCarForm} className="toggle-create-car-form-btn">
+                    <button onClick={() => toggleForm('car')} className="toggle-create-car-form-btn">
                         {showCreateCarForm ? 'Hide Create Car Form' : 'Show Create Car Form'}
                     </button>
                 </div>
@@ -441,6 +495,28 @@ const AdminDashbord = () => {
                             <input type="text" name="fuel_type" value={newCar.fuel_type} onChange={(event) => handleInputChange(event, 'car')} placeholder="Fuel Type" />
                             <input type="text" name="photo_name" value={newCar.photo_name} onChange={(event) => handleInputChange(event, 'car')} placeholder="Photo Name" />
                             <button type="submit">Create Car</button>
+                        </form>
+                        {createError && <p style={{ color: 'red' }}>{createError}</p>}
+                        {createSuccess && <p style={{ color: 'green' }}>{createSuccess}</p>}
+                    </div>
+                )}
+
+                {/* Create New Car Form */}
+                <div className="section" id="toggleCreateCarFormDiv">
+                    <button onClick={() => toggleForm('availability')} className="toggle-create-car-form-btn">
+                        {showCreateAvailabilityForm ? 'Hide Create Availability Form' : 'Show Create Availability Form'}
+                    </button>
+                </div>
+
+                {/* Car Creation Form */}
+                {showCreateAvailabilityForm && (
+                    <div className="section" id="createCarDiv">
+                        <h2>Create New Availability</h2>
+                        <form className="create-car-form" onSubmit={handleCreateAvailability}>
+                            <input type="number" name="car" value={newAvailability.car} onChange={(event) => handleInputChange(event, 'availability')} placeholder="Car Id" />
+                            <input type="date" name="start_date" value={newAvailability.start_date} onChange={(event) => handleInputChange(event, 'availability')} placeholder="Start Date" />
+                            <input type="date" name="end_date" value={newAvailability.end_date} onChange={(event) => handleInputChange(event, 'availability')} placeholder="End Date" />
+                            <button type="submit">Create Availability</button>
                         </form>
                         {createError && <p style={{ color: 'red' }}>{createError}</p>}
                         {createSuccess && <p style={{ color: 'green' }}>{createSuccess}</p>}
