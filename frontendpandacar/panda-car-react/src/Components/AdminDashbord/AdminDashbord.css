@@ -206,3 +206,50 @@
     text-align: center;
     color:#1c1c1c;
 }
+
+.create-user-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; 
+    max-width: 300px; 
+    margin: 0 auto; 
+}
+
+.create-user-form input,
+.create-user-form label,
+.create-user-form button {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+}
+
+.create-user-form button {
+    background-color: #007BFF; 
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.create-user-form button:hover {
+    background-color: #0056b3; 
+}
+
+.toggle-create-user-form-btn {
+    padding: 10px 20px;
+    background-color: #5da78c; 
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: inline-block;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.toggle-create-user-form-btn:hover {
+    background-color: aquamarine; 
+    color: #1c1c1c; 
+}
