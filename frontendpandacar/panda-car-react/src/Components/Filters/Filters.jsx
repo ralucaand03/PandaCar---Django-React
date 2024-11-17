@@ -23,7 +23,7 @@ const Filters = ({ onFilterChange, cars }) => {
             setBrands(uniqueBrands);
             setNumberSeats(uniqueSeats);
         } else {
-            setBrands(['All']); 
+            setBrands([]);
             setNumberSeats([]);
         }
         setLoading(false);
@@ -44,13 +44,13 @@ const Filters = ({ onFilterChange, cars }) => {
             filtered = filtered.filter(car => car.brand_name === brand);
         }
 
-        onFilterChange(filtered); 
+        onFilterChange(filtered);
     };
 
     useEffect(() => {
         setLoading(true);
         fetchCarsAttributes(cars);
-    }, [cars]); 
+    }, [cars]);
 
     // Handle seat selection
     const handleSeatSelection = (seat) => {
@@ -86,61 +86,67 @@ const Filters = ({ onFilterChange, cars }) => {
                 <div className="custom-dropdown">
                     <button
                         className="dropdown-btn"
-                        onClick={() => setIsSeatsDropdownOpen(!isSeatsDropdownOpen)}
+                        onClick={() => {
+                            setIsSeatsDropdownOpen(!isSeatsDropdownOpen);
+                            if (!isSeatsDropdownOpen) setIsBrandDropdownOpen(false); 
+                        }}
                     >
-                        {seats || 'Select seats'}
-                    </button>
-                    {isSeatsDropdownOpen && (
-                        <ul className="dropdown-list">
-                            {number_of_seats.map((seatOption, index) => (
-                                <li
-                                    key={index}
-                                    className="dropdown-item"
-                                    onClick={() => handleSeatSelection(seatOption)}
-                                >
-                                    {seatOption} Seats
-                                </li>
-                            ))}
-                        </ul>
-                    )}
-                </div>
+                    {seats || 'Select seats'}
+                </button>
+                {isSeatsDropdownOpen && (
+                    <ul className="dropdown-list">
+                        {number_of_seats.map((seatOption, index) => (
+                            <li
+                                key={index}
+                                className="dropdown-item"
+                                onClick={() => {
+                                    setIsBrandDropdownOpen(!isBrandDropdownOpen);
+                                    if (!isBrandDropdownOpen) setIsSeatsDropdownOpen(false); 
+                                }}
+                            >
+                                {seatOption} Seats
+                            </li>
+                        ))}
+                    </ul>
+                )}
             </div>
-
-            {/* Brands Filter - Custom Dropdown */}
-            <div className="filter-item">
-                <label htmlFor="brand">Brand:</label>
-                <div className="custom-dropdown">
-                    <button
-                        className="dropdown-btn"
-                        onClick={() => setIsBrandDropdownOpen(!isBrandDropdownOpen)}
-                    >
-                        {brand || 'Select a brand'}
-                    </button>
-                    {isBrandDropdownOpen && (
-                        <ul className="dropdown-list">
-                            {loading ? (
-                                <li>Loading...</li>
-                            ) : error ? (
-                                <li>{error}</li>
-                            ) : (
-                                brands.map((brandOption, index) => (
-                                    <li
-                                        key={index}
-                                        className="dropdown-item"
-                                        onClick={() => handleBrandSelection(brandOption)}
-                                    >
-                                        {brandOption}
-                                    </li>
-                                ))
-                            )}
-                        </ul>
-                    )}
-                </div>
-            </div>
-
-            {/* Apply Button */}
-            <button className="apply-button" onClick={filterCars}>Apply Filters</button>
         </div>
+
+            {/* Brands Filter - Custom Dropdown */ }
+    <div className="filter-item">
+        <label htmlFor="brand">Brand:</label>
+        <div className="custom-dropdown">
+            <button
+                className="dropdown-btn"
+                onClick={() => setIsBrandDropdownOpen(!isBrandDropdownOpen)}
+            >
+                {brand || 'Select a brand'}
+            </button>
+            {isBrandDropdownOpen && (
+                <ul className="dropdown-list">
+                    {loading ? (
+                        <li>Loading...</li>
+                    ) : error ? (
+                        <li>{error}</li>
+                    ) : (
+                        brands.map((brandOption, index) => (
+                            <li
+                                key={index}
+                                className="dropdown-item"
+                                onClick={() => handleBrandSelection(brandOption)}
+                            >
+                                {brandOption}
+                            </li>
+                        ))
+                    )}
+                </ul>
+            )}
+        </div>
+    </div>
+
+    {/* Apply Button */ }
+    <button className="apply-button" onClick={filterCars}>Apply Filters</button>
+        </div >
     );
 };
 
