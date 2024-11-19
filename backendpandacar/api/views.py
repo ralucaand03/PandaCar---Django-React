@@ -6,11 +6,52 @@ from .serializer import UserSerializer,CarSerializer,CarAvailabilitySerializer,C
 from django.contrib.auth.hashers import make_password
 from rest_framework.permissions import IsAuthenticated,AllowAny,IsAdminUser
 from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.tokens import RefreshToken
 
 # Create your views for user/users below
 
+# class CustomTokenObtainPairView(TokenObtainPairView):
+#     serializer_class = CustomTokenObtainPairSerializer
+
+#this is for login view
+#this is written as a class because we use 
+#TokenObtainPairView which is a class
 class CustomTokenObtainPairView(TokenObtainPairView):
-    serializer_class = CustomTokenObtainPairSerializer
+    def post(self,request,*args,**kwargs):
+        response = super().post(request,*args,**kwargs)
+        data = response.data()
+
+        # here we set the cookie with the access token
+        response.set_cookie(
+            key='access_token', #cookie name
+            value=data['access'], #jwt token
+            httponly=True, #javascript protection
+            samesite='Lax', #CSRF attacks protection 
+        ) 
+
+        del response.data['access']
+        return response
+
+#logout view
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def logout_user(request):
+    refresh_token = request.data.get('refresh')
+    if not refresh_token:
+        return Response({"error": "Refresh token is required"}, status=status.HTTP_400_BAD_REQUEST)
+    
+    try:
+       token = RefreshToken(refresh_token)
+       token.blacklist() 
+    except Exception as e:
+        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    
+    #delete the access cookie
+    response = Response({"message": "Successfully logged out"}, status=status.HTTP_200_OK)
+    response.delete_cookie('access_token')
+
+    return response
+
 
 #create a get endpoint for all users
 @api_view(['GET'])

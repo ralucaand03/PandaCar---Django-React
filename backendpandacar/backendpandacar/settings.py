@@ -157,3 +157,10 @@ SIMPLE_JWT = {
 
 
 AUTH_USER_MODEL = 'api.User'
+
+
+# we work for the moment only with http, no https redirection
+SECURE_SSL_REDIRECT = False
+SESSION_COOKIE_SECURE = False  
+CSRF_COOKIE_SECURE = False    
+CSRF_COOKIE_HTTPONLY = True  
