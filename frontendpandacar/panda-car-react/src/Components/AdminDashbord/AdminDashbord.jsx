@@ -102,8 +102,9 @@ const AdminDashbord = () => {
         try {
             const response = await fetch(`http://127.0.0.1:8000/api/${endpoint}/`, {
                 method: 'GET',
+                credentials: 'include',
                 headers: {
-                    'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+                    'Content-Type': 'application/json'
                 }
             });
 
