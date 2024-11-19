@@ -10,8 +10,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 # Create your views for user/users below
 
-# class CustomTokenObtainPairView(TokenObtainPairView):
-#     serializer_class = CustomTokenObtainPairSerializer
+
 
 #this is for login view
 #this is written as a class because we use 
@@ -19,7 +18,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 class CustomTokenObtainPairView(TokenObtainPairView):
     def post(self,request,*args,**kwargs):
         response = super().post(request,*args,**kwargs)
-        data = response.data()
+        data = response.data
 
         # here we set the cookie with the access token
         response.set_cookie(
@@ -30,6 +29,11 @@ class CustomTokenObtainPairView(TokenObtainPairView):
         ) 
 
         del response.data['access']
+
+        response.data = {
+            'message': 'Login successful',  
+            'refresh': data['refresh']  
+        }
         return response
 
 #logout view
