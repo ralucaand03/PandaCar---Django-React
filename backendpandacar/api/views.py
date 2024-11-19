@@ -6,34 +6,58 @@ from .serializer import UserSerializer,CarSerializer,CarAvailabilitySerializer,C
 from django.contrib.auth.hashers import make_password
 from rest_framework.permissions import IsAuthenticated,AllowAny,IsAdminUser
 from rest_framework_simplejwt.views import TokenObtainPairView
-from rest_framework_simplejwt.tokens import RefreshToken
-
-# Create your views for user/users below
-
+from rest_framework_simplejwt.tokens import RefreshToken,AccessToken
+from rest_framework_simplejwt.exceptions import InvalidToken
+from .models import User
 
 
 #this is for login view
 #this is written as a class because we use 
 #TokenObtainPairView which is a class
 class CustomTokenObtainPairView(TokenObtainPairView):
-    def post(self,request,*args,**kwargs):
-        response = super().post(request,*args,**kwargs)
-        data = response.data
 
-        # here we set the cookie with the access token
+    def post(self, request, *args, **kwargs):
+        response = super().post(request, *args, **kwargs)
+        data = response.data
+        access_token = data.get('access')
+
+        try:
+            token = AccessToken(access_token)
+            user_id = token.payload.get('user_id')  
+            user = User.objects.get(id=user_id)
+
+        except InvalidToken:
+            user = None
+        except User.DoesNotExist:
+            user = None
+
+        if user:
+            role = 'admin' if user.is_admin else 'user'
+        else:
+            return Response({'detail': 'Invalid token or user not found'}, status=status.HTTP_400_BAD_REQUEST)
+
         response.set_cookie(
-            key='access_token', #cookie name
-            value=data['access'], #jwt token
-            httponly=True, #javascript protection
-            samesite='Lax', #CSRF attacks protection 
-        ) 
+            key='access_token',
+            value=data['access'],
+            httponly=True,
+            samesite='Lax',
+        )
+
+        response.set_cookie(
+            key="refresh_token",
+            value=data['refresh'],
+            httponly=True,
+            samesite='Lax',
+        )
 
         del response.data['access']
+        del response.data['refresh']
 
         response.data = {
-            'message': 'Login successful',  
-            'refresh': data['refresh']  
+            'message': 'Login successful',
+            'role': role,  
         }
+
         return response
 
 #logout view
