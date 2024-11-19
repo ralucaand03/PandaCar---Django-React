@@ -4,7 +4,7 @@ from rest_framework import status
 from .models import User,Car,CarAvailability
 from .serializer import UserSerializer,CarSerializer,CarAvailabilitySerializer,CustomTokenObtainPairSerializer
 from django.contrib.auth.hashers import make_password
-from rest_framework.permissions import IsAuthenticated,AllowAny,IsAdminUser
+from rest_framework.permissions import AllowAny,IsAdminUser
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.tokens import RefreshToken,AccessToken
 from rest_framework_simplejwt.exceptions import InvalidToken
@@ -85,6 +85,7 @@ def logout_user(request):
 #create a get endpoint for all users
 @api_view(['GET'])
 @authentication_classes([CustomAuthentication])
+@permission_classes([IsAdminUser])
 def get_users(request):
     users = User.objects.all()
     serializer = UserSerializer(users,many = True)
@@ -113,6 +114,8 @@ def create_user(request):
 
 #create delete, put ,get endpoint for a single user
 @api_view(['GET','PUT','DELETE'])
+@authentication_classes([CustomAuthentication])
+@permission_classes([IsAdminUser])
 def user_detail(request,pk):
     try:
         user = User.objects.get(pk=pk)
@@ -138,6 +141,7 @@ def user_detail(request,pk):
 
 #create a get endpoint for all cars
 @api_view(['GET'])
+@authentication_classes([CustomAuthentication])
 def get_cars(request):
     cars = Car.objects.all()
     serializer = CarSerializer(cars,many = True)
@@ -146,6 +150,8 @@ def get_cars(request):
 
 #create a post endpoint for creating a car
 @api_view(['POST'])
+@authentication_classes([CustomAuthentication])
+@permission_classes([IsAdminUser])
 def create_car(request):
     serializer = CarSerializer(data=request.data)
     if serializer.is_valid():
@@ -156,6 +162,7 @@ def create_car(request):
 
 #create delete, put ,get endpoint for a single car
 @api_view(['GET','PUT','DELETE'])
+@authentication_classes([CustomAuthentication])
 def car_detail(request,pk):
     try:
         car = Car.objects.get(pk=pk)
@@ -181,6 +188,7 @@ def car_detail(request,pk):
 
 #create a get endpoint for all availabilities
 @api_view(['GET'])
+@authentication_classes([CustomAuthentication])
 def get_cars_availability(request):
     cars_availabilities = CarAvailability.objects.all()
     serializer = CarAvailabilitySerializer(cars_availabilities,many = True)
@@ -188,6 +196,8 @@ def get_cars_availability(request):
 
 #create a post endpoint for creating a car
 @api_view(['POST'])
+@authentication_classes([CustomAuthentication])
+@permission_classes([IsAdminUser])
 def create_car_availability(request):
     serializer = CarAvailabilitySerializer(data=request.data)
     if serializer.is_valid():
@@ -198,6 +208,7 @@ def create_car_availability(request):
 
 #create delete, put ,get endpoint for a single car
 @api_view(['GET','PUT','DELETE'])
+@authentication_classes([CustomAuthentication])
 def car_detail_availability(request,pk):
     try:
         cars_availability = CarAvailability.objects.get(pk=pk)
