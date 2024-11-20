@@ -64,6 +64,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 
 #logout view
 @api_view(['POST'])
+@authentication_classes([CustomAuthentication])
 def logout_user(request):
     refresh_token = request.data.get('refresh')
     if not refresh_token:
