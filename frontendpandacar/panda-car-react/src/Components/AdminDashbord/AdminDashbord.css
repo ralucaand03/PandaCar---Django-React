@@ -1,5 +1,13 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Admin Content */
 .contentAdmin {
-    height: calc(100vh - 80px); /* Full screen minus the height of the header */
+    height: calc(100vh - 80px); /* Full screen minus the header height */
     width: 100vw;
     display: flex;
     justify-content: center;
@@ -9,14 +17,16 @@
     background-attachment: fixed;
     overflow: auto;
     padding-top: 20px; /* Space between header and content */
-    margin-top: 80px; /* Ensures the content starts below the fixed header */
-    text-align: center; /* Centering the text inside containers */
+    margin-top: 80px; /* Ensures content starts below fixed header */
+    text-align: center; /* Center text inside containers */
     padding-bottom: 20px;
 }
+
+/* Admin Header */
 .admin-header {
     position: fixed;
-    left: 0;
     top: 0;
+    left: 0;
     width: 100%;
     z-index: 1000;
     display: flex;
@@ -27,15 +37,16 @@
     color: aquamarine;  /* Default text color */
     font-family: "Playwrite GB S", cursive;
     height: 80px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow for distinction */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow for distinction */
 }
 
+/* Brand Name */
 .admin-header h1 {
-    padding-left: 30px ;
+    padding-left: 30px;
     font-size: 36px;
     margin: 0;
     font-weight: bold;
-    color: white;  /* Change brand name to white */
+    color: white;
 }
 
 .admin-brand-name {
@@ -51,6 +62,7 @@
     height: 50px;
 }
 
+/* Section for Users */
 .users-section {
     margin-bottom: 40px;
 }
@@ -59,10 +71,10 @@
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: center; /* Center the cards horizontally */
-    margin: 0 auto; /* Center the list container */
-    padding: 0 20px; /* Add padding to left and right */
-    max-width: 1200px; /* Optional: limit the width of the list */
+    justify-content: center; /* Center cards horizontally */
+    margin: 0 auto; /* Center container */
+    padding: 0 20px;
+    max-width: 1200px;
     margin-bottom: 10px;
 }
 
@@ -74,7 +86,7 @@
     width: 250px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
-    margin-bottom: 40px; /* Increase margin-bottom to add more space below each card */
+    margin-bottom: 40px;
 }
 
 .user-card h3 {
@@ -86,6 +98,7 @@
     margin: 5px 0;
 }
 
+/* Section for Cars */
 .cars-section {
     margin-top: 40px;
 }
@@ -94,13 +107,11 @@
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: center; /* Center the cards horizontally */
-    margin: 0 auto; /* Center the list container */
-    padding: 0 20px; /* Add padding to left and right */
-    max-width: 1200px; /* Optional: limit the width of the list */
-    
+    justify-content: center; /* Center cards horizontally */
+    margin: 0 auto;
+    padding: 0 20px;
+    max-width: 1200px;
     margin-bottom: 10px;
-
 }
 
 .car-card {
@@ -110,7 +121,7 @@
     border-radius: 8px;
     width: 250px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 40px; /* Increase margin-bottom to add more space below each card */
+    margin-bottom: 40px;
 }
 
 .car-card img {
@@ -129,33 +140,36 @@
     margin: 5px 0;
 }
 
+/* Admin Dashboard */
 #adminDashboard {
     padding: 20px;
 }
 
+/* Button Containers */
 .fetch-buttons {
     display: flex;
     gap: 20px;
-    margin-bottom: 40px; /* Increase margin-bottom to create space below the buttons */
-    justify-content: center; /* Center the buttons horizontally */
-    width: 100%; /* Ensure the buttons container stretches across the full width */
-    padding: 0 20px; /* Add padding for spacing from edges */
+    margin-bottom: 40px;
+    justify-content: center;
+    width: 100%;
+    padding: 0 20px;
 }
 
 .button-container {
     display: flex;
-    justify-content: center;  /* Centers items horizontally */
-    align-items: center;      /* Centers items vertically */
-   
+    justify-content: center;
+    align-items: center;
+}
 
+/* Availability Section */
 .availabilities-list {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: center; /* Center the cards horizontally */
-    margin: 0 auto; /* Center the list container */
-    padding: 0 20px; /* Add padding to left and right */
-    max-width: 1200px; /* Optional: limit the width of the list */
+    justify-content: center;
+    margin: 0 auto;
+    padding: 0 20px;
+    max-width: 1200px;
     margin-bottom: 10px;
 }
 
@@ -167,7 +181,7 @@
     text-align: center;
     width: 250px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 40px; /* Increase margin-bottom to add more space below each card */
+    margin-bottom: 40px;
 }
 
 .availability-card h3 {
@@ -179,9 +193,10 @@
     margin: 5px 0;
 }
 
+/* Buttons */
 .get-users-btn, .get-cars-btn, .get-availability-btn {
     padding: 10px 20px;
-    width: 1060px; /* Set a specific width */
+    width: 1060px;
     height: 45px;
     font-size: 20px;
     background-color: #5da78c;
@@ -192,27 +207,24 @@
     margin-bottom: 20px;
     text-align: center;
     align-self: center;
-    display: block; /* Ensure the button is a block element */
-    margin-left: auto; /* Center button horizontally */
-    margin-right: auto; /* Center button horizontally */
-    padding: auto;
-}
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .get-users-btn:hover, .get-cars-btn:hover, .get-availability-btn:hover {
-    background-color:aquamarine;
+    background-color: aquamarine;
     border-radius: 5px;
-    margin-bottom: 20px;
-    text-align: center;
-    color:#1c1c1c;
+    color: #1c1c1c;
 }
 
+/* Form Styles */
 .create-user-form, .create-car-form {
     display: flex;
     flex-direction: column;
-    gap: 10px; 
-    max-width: 300px; 
-    margin: 0 auto; 
+    gap: 10px;
+    max-width: 300px;
+    margin: 0 auto;
 }
 
 .create-user-form input,
@@ -228,22 +240,30 @@
 
 .create-user-form button,
 .create-car-form button {
-    background-color: #007BFF; 
+    padding: 10px 20px;
+    background-color: #5da78c;
     color: white;
     border: none;
     cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: inline-block;
     margin-top: 10px;
+    text-align: center;
 }
 
 .create-user-form button:hover,
 .create-car-form button:hover {
-    background-color: #0056b3; 
+    background-color: aquamarine;
+    color: #1c1c1c;
 }
 
+/* Toggle Buttons */
 .toggle-create-user-form-btn,
 .toggle-create-car-form-btn {
     padding: 10px 20px;
-    background-color: #5da78c; 
+    background-color: #5da78c;
     color: white;
     border: none;
     cursor: pointer;
@@ -257,6 +277,65 @@
 
 .toggle-create-user-form-btn:hover,
 .toggle-create-car-form-btn:hover {
-    background-color: aquamarine; 
-    color: #1c1c1c; 
+    background-color: aquamarine;
+    color: #1c1c1c;
+}
+/* Buttons - Make the last three buttons as wide as the first three */
+.toggle-create-user-form-btn,
+.toggle-create-car-form-btn{
+    width: 1060px; /* Set the same width as the first three buttons */
+    margin-bottom: 20px;
+    text-align: center;
+    align-self: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Make sure the hover effect for the last three buttons is maintained */
+.toggle-create-user-form-btn:hover,
+.toggle-create-car-form-btn:hover{
+    background-color: aquamarine;
+    color: #1c1c1c;
+}
+ /* Style the default checkbox appearance */
+input[type="checkbox"] {
+    appearance: none; /* Remove default styles */
+    width: 20px; /* Adjust size */
+    height: 20px; /* Adjust size */
+    border: 2px solid #5da78c; /* Border color */
+    border-radius: 3px; /* Optional: make it slightly rounded */
+    background-color: transparent; /* Default background */
+    cursor: pointer; /* Change cursor to pointer */
+    transition: background-color 0.3s ease, border-color 0.3s ease; /* Smooth transition */
+    vertical-align: middle; /* Align with text */
+    margin-right: 8px; /* Space between checkbox and label */
+}
+
+/* Style for checked state */
+input[type="checkbox"]:checked {
+    background-color: #5da78c; /* Fill color when checked */
+    border-color: #5da78c; /* Match border color */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Optional: Add a checkmark or inner style when checked */
+input[type="checkbox"]:checked::after {
+    content: "✓"; /* Checkmark */
+    color: white; /* Checkmark color */
+    font-size: 16px; /* Adjust size of the checkmark */
+    display: block;
+    text-align: center;
+    line-height: 18px; /* Center the checkmark inside the box */
+}
+
+/* Label styling */
+label {
+    font-size: 16px; /* Adjust text size */
+    color: #333; /* Text color */
+    display: flex; /* Align items */
+    align-items: center; /* Vertical alignment */
+    cursor: pointer; /* Change cursor when hovering */
 }

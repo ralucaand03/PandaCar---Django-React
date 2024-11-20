@@ -5,7 +5,7 @@ import './CarsPage.css';
 
 const CarsPage = () => {
     const [cars, setCars] = useState([]);
-    const [filteredCars, setFilteredCars] = useState([]); 
+    const [filteredCars, setFilteredCars] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
@@ -13,12 +13,13 @@ const CarsPage = () => {
     const fetchCars = async () => {
         setLoading(true);
         setError(null);
-        
+
         try {
             const response = await fetch('http://127.0.0.1:8000/api/cars/', {
                 method: 'GET',
+                credentials: 'include',
                 headers: {
-                    'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+                    'Content-Type': 'application/json'
                 }
             });
 
@@ -30,8 +31,8 @@ const CarsPage = () => {
             }
 
             const data = await response.json();
-            setCars(data); 
-            setFilteredCars(data); 
+            setCars(data);
+            setFilteredCars(data);
         } catch (error) {
             setError('Failed to fetch cars');
         }
@@ -41,10 +42,10 @@ const CarsPage = () => {
 
     useEffect(() => {
         fetchCars();
-    }, []); 
+    }, []);
 
     const handleFilterChange = (filteredCars) => {
-        setFilteredCars(filteredCars); 
+        setFilteredCars(filteredCars);
     };
 
     return (

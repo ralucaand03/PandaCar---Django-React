@@ -150,8 +150,8 @@ const AdminDashbord = () => {
 
             const response = await fetch('http://127.0.0.1:8000/api/users/create', {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
-                    'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
@@ -200,8 +200,8 @@ const AdminDashbord = () => {
         try {
             const response = await fetch('http://127.0.0.1:8000/api/cars/create', {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
-                    'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
@@ -252,8 +252,8 @@ const AdminDashbord = () => {
         try {
             const response = await fetch('http://127.0.0.1:8000/api/availabilities/create', {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
-                    'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
