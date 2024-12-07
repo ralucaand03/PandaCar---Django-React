@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect  } from 'react';
 import './LoginForm.css';
 import { FaUser, FaLock } from "react-icons/fa";
 import { Link, useNavigate } from 'react-router-dom';
@@ -23,6 +23,9 @@ const LoginForm = () => {
     };
 
     const fetchAPI = async (userCredentials) => {
+
+        console.log(userCredentials);
+
         try {
             const response = await fetch("http://127.0.0.1:8000/api/login/", {
                 method: 'POST',
@@ -30,6 +33,7 @@ const LoginForm = () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(userCredentials),
+                credentials: 'include', //include cookies in request for the server
             });
 
             if (!response.ok) {
@@ -41,12 +45,9 @@ const LoginForm = () => {
             }
 
             const data = await response.json();
-            const { access, refresh, role } = data; // Get access and refresh JWT tokens
+            const { role } = data; 
 
-            // Save them in local storage (or use cookies in the future)
-            localStorage.setItem('access_token', access);
-            localStorage.setItem('refresh_token', refresh);
-
+            console.log(role);
             setSuccessMessage('Login successful!');
             setErrorMessage('');
 

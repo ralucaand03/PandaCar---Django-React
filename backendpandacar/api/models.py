@@ -66,7 +66,6 @@ class Car(models.Model):
         ('Hybrid', 'Hybrid&Petrol // Hybrid&Diesel'),
     ]
 
-
     photo_name = models.CharField(max_length=255)
     car_name = models.CharField(max_length=255)
     price_per_day = models.IntegerField()
@@ -95,5 +94,3 @@ class CarAvailability(models.Model):
     
     def __str__(self):
         return f"{self.car.car_name} available from {self.start_date} to {self.end_date}"
-
-    
