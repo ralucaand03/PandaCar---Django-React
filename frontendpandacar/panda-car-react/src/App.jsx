@@ -6,6 +6,7 @@ import HomePage from './Components/HomePage/HomePage';
 import CarsPage from './Components/CarsPage/CarsPage'; 
 import Favorites from './Components/Favorites/Favorites'; 
 import Account from './Components/Account/Account'; 
+import Contact from './Components/Contact/Contact'; 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path='/cars' element={<CarsPage />} />
         <Route path='/favorites' element={<Favorites />} />
         <Route path='/account' element={<Account />} />
+        <Route path='/contact' element={<Contact />} />
       </Routes>
     </Router>
   );
