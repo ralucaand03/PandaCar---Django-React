@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import logout_user,get_users,create_user,user_detail,get_cars,create_car,car_detail,get_cars_availability,create_car_availability,car_detail_availability,add_to_favorites, remove_from_favorites, get_user_favorites,my_account_details,CustomTokenObtainPairView
+from .views import logout_user,get_users,create_user,user_detail,get_cars,create_car,car_detail,get_cars_availability,create_car_availability,car_detail_availability
+from .views import add_to_favorites, remove_from_favorites, get_user_favorites, add_to_cart,remove_from_cart,get_user_cart,my_account_details,CustomTokenObtainPairView
 from rest_framework_simplejwt.views import TokenObtainPairView,TokenBlacklistView
 
 urlpatterns = [
@@ -16,6 +17,9 @@ urlpatterns = [
     path('favorites/', get_user_favorites, name='get_user_favorites'), 
     path('favorites/add/<int:car_id>/', add_to_favorites, name='add_to_favorites'),
     path('favorites/remove/<int:car_id>/', remove_from_favorites, name='remove_from_favorites'),
+    path('cart/', get_user_cart, name='get_user_cart'), 
+    path('cart/add/<int:car_id>/', add_to_cart, name='add_to_cart'),
+    path('cart/remove/<int:car_id>/', remove_from_cart, name='remove_from_cart'),
     path('login/',CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),  
     path('logout/',logout_user, name='logout_user')
     

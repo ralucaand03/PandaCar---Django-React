@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view,permission_classes,authentication_classes
 from rest_framework.response import Response
 from rest_framework import status
-from .models import User, Car, CarAvailability, UserFavoriteCar
+from .models import User, Car, CarAvailability, UserFavoriteCar,UserCart
 from .serializer import UserSerializer,CarSerializer,CarAvailabilitySerializer,CustomTokenObtainPairSerializer
 from django.contrib.auth.hashers import make_password
 from rest_framework.permissions import AllowAny,IsAdminUser
@@ -303,3 +303,62 @@ def my_account_details(request):
     serializer = UserSerializer(user)
     return Response(serializer.data, status=status.HTTP_200_OK)
       
+#------------------------------------------------------------create cart
+     
+#------------------------------------------------------------create cart
+@api_view(['POST'])
+@authentication_classes([CustomAuthentication])
+def add_to_cart(request, car_id):
+    try:
+        car = Car.objects.get(pk=car_id)
+    except Car.DoesNotExist:
+        return Response({"error": "Car not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    user = request.user
+
+    
+    if not UserCart.objects.filter(user=user, car=car).exists():
+        
+        UserCart.objects.create(user=user, car=car)
+        return Response({"message": f"{car.car_name} added to your cart!"}, status=status.HTTP_201_CREATED)
+    
+    return Response({"message": f"{car.car_name} is already in your cart!"}, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+@authentication_classes([CustomAuthentication])
+def get_user_cart(request):
+    user = request.user  # Get the current authenticated user
+
+    try:
+       
+        cart_cars = UserCart.objects.filter(user=user)
+        if cart_cars.exists():
+            
+            cars = [cart_car.car for cart_car in cart_cars]
+            serializer = CarSerializer(cars, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response({"message": "No cars found in cart."}, status=status.HTTP_200_OK)
+    
+    except Exception as e:
+        
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@api_view(['DELETE'])
+@authentication_classes([CustomAuthentication])
+def remove_from_cart(request, car_id):
+    try:
+        car = Car.objects.get(pk=car_id)
+    except Car.DoesNotExist:
+        return Response({"error": "Car not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    user = request.user
+
+    cart_entry = UserCart.objects.filter(user=user, car=car)
+
+    if cart_entry.exists():
+        # Remove the car from the user's cart
+        cart_entry.delete()
+        return Response({"message": f"{car.car_name} removed from your cart!"}, status=status.HTTP_200_OK)
+    
+    return Response({"message": f"{car.car_name} is not in your cart!"}, status=status.HTTP_200_OK)

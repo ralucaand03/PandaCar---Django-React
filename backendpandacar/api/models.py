@@ -112,3 +112,17 @@ class UserFavoriteCar(models.Model):
 
     def __str__(self):
         return f"{self.user} favorite {self.car}"
+
+# Add UserCart model
+class UserCart(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    car = models.ForeignKey(Car, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['user', 'car'], name='cart')
+        ]
+
+    def __str__(self):
+        return f"{self.user} cart {self.car}"
