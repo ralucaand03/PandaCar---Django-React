@@ -1,9 +1,9 @@
-/* src/components/HomePage/HomePage.css */
 body, html {
     margin: 0;
     padding: 0;
-    overflow-x: hidden; /* Prevent horizontal scrolling */
+    overflow-x: hidden;
 }
+
 .contentHomepage {
     height: 100vh;
     width: 100vw;
@@ -21,7 +21,7 @@ body, html {
     background-color: #1c1921;
     min-height: 100vh;
     color: aquamarine;
-    padding-top: 60px; /* Ensure content starts below the header */
+    padding-top: 60px;
 }
 
 .header {
@@ -35,24 +35,22 @@ body, html {
 
 .contentHomepage {
     display: flex;
-    
     padding-top: 20px;
-    padding-left: 200px; /* Offset the main content by sidebar width */
+    padding-left: 200px;
 }
 
 .filters {
     position: fixed;
-    top: 70px; /* Stays below the header */
+    top: 70px;
     left: 0;
-    width: 250px; /* Fixed width for sidebar */
-    height: calc(100vh - 60px); /* Full height minus header */
-    background-color:rgb(112, 33, 66);
+    width: 250px;
+    height: calc(100vh - 60px);
+    background-color: rgb(112, 33, 66);
     color: #fff;
     padding: 20px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-    overflow-y: auto; /* Allows sidebar scrolling if content overflows */
+    overflow-y: auto;
 }
-
 
 .mainContent {
     flex-grow: 1;
@@ -71,8 +69,9 @@ body, html {
     max-width: 800px;
     margin: 0 auto;
 }
+
 .content {
-    margin-top: 100px; /* Prevent content from being overlapped by the header */
+    margin-top: 100px;
     padding: 40px;
     text-align: center;
     color: #fff;
@@ -83,9 +82,42 @@ body, html {
     margin-bottom: 20px;
 }
 
+
 .content p {
     font-size: 18px;
     max-width: 800px;
     margin: 0 auto;
 }
 
+.transparentContainer {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(30px);
+    border-radius: 10px;
+    max-width: 1000px; /* Set a smaller maximum width */
+    max-height: 500px;
+    margin-left: 50px;
+    margin-bottom: 70px;
+    padding: 20px; /* Add internal spacing */
+}
+
+
+.panda-home-content {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .panda-home {
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 200px;
+    margin-top: 18px;
+    margin-right: 10px;
+  }
+  
+  .panda-home img {
+    width: 100%;
+    height: auto;
+  }

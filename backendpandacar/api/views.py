@@ -1,15 +1,15 @@
 from rest_framework.decorators import api_view,permission_classes,authentication_classes
 from rest_framework.response import Response
 from rest_framework import status
-from .models import User,Car,CarAvailability
+from .models import User, Car, CarAvailability, UserFavoriteCar
 from .serializer import UserSerializer,CarSerializer,CarAvailabilitySerializer,CustomTokenObtainPairSerializer
 from django.contrib.auth.hashers import make_password
 from rest_framework.permissions import AllowAny,IsAdminUser
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.tokens import RefreshToken,AccessToken
 from rest_framework_simplejwt.exceptions import InvalidToken
-from .models import User
 from backendpandacar.custom_classes import CustomAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 #this is for login view
 #this is written as a class because we use 
@@ -185,8 +185,6 @@ def car_detail(request,pk):
     
 
 # Create your views for car/cars availability below
-
-
 #create a get endpoint for all availabilities
 @api_view(['GET'])
 @authentication_classes([CustomAuthentication])
@@ -229,3 +227,79 @@ def car_detail_availability(request,pk):
         cars_availability.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
+#create fav
+@api_view(['POST'])
+@authentication_classes([CustomAuthentication])
+def add_to_favorites(request, car_id):
+    # Get the car object
+    try:
+        car = Car.objects.get(pk=car_id)
+    except Car.DoesNotExist:
+        return Response({"error": "Car not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    user = request.user
+
+    # Check if the car is already in the user's favorites
+    if not UserFavoriteCar.objects.filter(user=user, car=car).exists():
+        # Add the car to the user's favorites
+        UserFavoriteCar.objects.create(user=user, car=car)
+        return Response({"message": f"{car.car_name} added to your favorites!"}, status=status.HTTP_201_CREATED)
+    
+    return Response({"message": f"{car.car_name} is already in your favorites!"}, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+@authentication_classes([CustomAuthentication])
+def get_user_favorites(request):
+    user = request.user  # Get the current authenticated user
+
+    try:
+        # Fetch all the UserFavoriteCar entries for the user, which will give us their favorite cars
+        favorite_cars = UserFavoriteCar.objects.filter(user=user)
+
+        # Check if the user has any favorite cars
+        if favorite_cars.exists():
+            # Serialize the Car objects based on the UserFavoriteCar model
+            cars = [favorite_car.car for favorite_car in favorite_cars]
+            serializer = CarSerializer(cars, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response({"message": "No favorite cars found."}, status=status.HTTP_200_OK)
+    
+    except Exception as e:
+        # Handle any exceptions that occur while fetching the data
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@api_view(['DELETE'])
+@authentication_classes([CustomAuthentication])
+def remove_from_favorites(request, car_id):
+    try:
+        # Get the car object by ID
+        car = Car.objects.get(pk=car_id)
+    except Car.DoesNotExist:
+        return Response({"error": "Car not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    user = request.user
+
+    # Check if the car is in the user's favorites
+    favorite_entry = UserFavoriteCar.objects.filter(user=user, car=car)
+
+    if favorite_entry.exists():
+        # Remove the car from the user's favorites
+        favorite_entry.delete()
+        return Response({"message": f"{car.car_name} removed from your favorites!"}, status=status.HTTP_200_OK)
+    
+    return Response({"message": f"{car.car_name} is not in your favorites!"}, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+@authentication_classes([CustomAuthentication])
+@permission_classes([IsAuthenticated])
+def my_account_details(request):
+    user = request.user  # Get the authenticated user from the request
+
+    if user is None:
+        return Response({'detail': 'User not authenticated'}, status=status.HTTP_401_UNAUTHORIZED)
+
+    # Serialize the user object and return it as a response
+    serializer = UserSerializer(user)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+      

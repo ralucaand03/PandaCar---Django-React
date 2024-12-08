@@ -6,6 +6,7 @@ import './CarsPage.css';
 const CarsPage = () => {
     const [cars, setCars] = useState([]);
     const [filteredCars, setFilteredCars] = useState([]);
+    const [favorites, setFavorites] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
@@ -13,7 +14,6 @@ const CarsPage = () => {
     const fetchCars = async () => {
         setLoading(true);
         setError(null);
-
         try {
             const response = await fetch('http://127.0.0.1:8000/api/cars/', {
                 method: 'GET',
@@ -48,6 +48,38 @@ const CarsPage = () => {
         setFilteredCars(filteredCars);
     };
 
+    const handleAddToFavorites = async (car) => {
+        try {
+            const response = await fetch(`http://127.0.0.1:8000/api/favorites/add/${car.id}/`, {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+    
+            // Parse the JSON response
+            const data = await response.json();
+    
+            if (response.status === 201) {
+                // Successfully added to favorites
+                console.log(`${car.car_name} added to favorites`);
+                setSuccessMessage(`${car.car_name} added to your favorites!`);
+            } else if (response.status === 200 && data.message.includes("already")) {
+                // Already in favorites
+                console.log(`${car.car_name} is already in your favorites`);
+                setInfoMessage(`${car.car_name} is already in your favorites.`);
+            } else {
+                // Something went wrong (error)
+                console.error('Failed to add to favorites');
+                setErrorMessage('Failed to add to favorites. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error in handleAddToFavorites:', error);
+            setErrorMessage('Failed to add to favorites');
+        }
+    };
+    
     return (
         <div className="carsWrapper">
             <Header />
@@ -69,6 +101,20 @@ const CarsPage = () => {
                                     <p>Fuel type: {car.fuel_type}</p>
                                     <p>Seats: {car.number_of_seats}</p>
                                     <p>Horsepower: {car.horse_power} HP</p>
+                                    <div className="car-card-buttons">
+                                        <button 
+                                            className="favorite-button" 
+                                            onClick={() => handleAddToFavorites(car)}
+                                        >
+                                            Add to favorites
+                                        </button>
+                                        <button 
+                                            className="details-button" 
+                                            onClick={() => handleViewDetails(car)}
+                                        >
+                                            View details
+                                        </button>
+                                    </div>
                                 </div>
                             ))
                         )}

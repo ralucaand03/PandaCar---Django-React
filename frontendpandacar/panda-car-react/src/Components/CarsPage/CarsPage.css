@@ -147,3 +147,53 @@ body, html {
 .car-card p, .availability-card p, .user-card p {
     color: black; /* Ensure paragraphs are black */
 }
+
+/* ------------------------------------------------------------ */
+.car-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    width: 250px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 40px;
+    color: black; /* Ensure text color is black inside the car card */
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    justify-content: space-between; /* Push content apart */
+    height: 500px; /* Set consistent height for all cards */
+    position: relative; /* Allows precise positioning of child elements */
+}
+
+.car-card-buttons {
+    margin-top: auto; /* Push the buttons to the bottom */
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    align-items: center; /* Center-align the buttons */
+    gap: 10px; /* Add space between buttons */
+}
+
+.car-card-buttons button {
+    background-color: rgb(73, 152, 126); /* Matches the heading color */
+    color: #fff; /* White text for contrast */
+    border: none; /* Remove default borders */
+    padding: 10px 15px; /* Add padding for a better look */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 14px; /* Standard button text size */
+    cursor: pointer; /* Change cursor to pointer */
+    transition: background-color 0.3s ease; /* Smooth hover transition */
+    width: 100%; /* Make buttons full-width within their container */
+    max-width: 200px; /* Optional: Set a max width for the buttons */
+    text-align: center; /* Center text inside the button */
+}
+
+/* Hover effect for buttons */
+.car-card-buttons button:hover {
+    background-color: rgb(57, 123, 102); /* Darker shade for hover */
+}
+
+/* Optional: Active effect for buttons */
+.car-card-buttons button:active {
+    background-color: rgb(46, 102, 85); /* Even darker shade when clicked */
+}

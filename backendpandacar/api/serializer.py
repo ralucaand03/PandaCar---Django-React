@@ -3,6 +3,14 @@ from .models import User,Car,CarAvailability
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.conf import settings
 
+class CarSerializer(serializers.ModelSerializer):
+    photo_url = serializers.SerializerMethodField()
+    class Meta:
+        model = Car
+        fields = '__all__'
+    def get_photo_url(self, obj):
+        return f"{settings.MEDIA_URL}car_photos/{obj.photo_name}"
+
 class UserSerializer(serializers.ModelSerializer):
     # exclude password from output
     password = serializers.CharField(write_only=True, required=False)
@@ -30,13 +38,6 @@ class UserSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
     
-class CarSerializer(serializers.ModelSerializer):
-    photo_url = serializers.SerializerMethodField()
-    class Meta:
-        model = Car
-        fields = '__all__'
-    def get_photo_url(self, obj):
-        return f"{settings.MEDIA_URL}car_photos/{obj.photo_name}"
 
 class CarAvailabilitySerializer(serializers.ModelSerializer):
     class Meta:
