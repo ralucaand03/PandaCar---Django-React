@@ -72,15 +72,18 @@ body, html {
 
 /* Card styling for favorite cars */
 .fav-car-card {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
+    background: rgba(255, 255, 255, 0.1); /* Transparent background */
+    border: 2px solid rgba(255, 255, 255, .2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    backdrop-filter: blur(30px); /* Apply blur effect behind the wrapper */
+    color: #fff;
     padding: 20px;
     border-radius: 8px;
     width: 250px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
     margin-bottom: 40px;
-    color: black; /* Ensure text color is black inside the car card */
+    color: #fff; /* Ensure text color is black inside the car card */
     display: flex;
     flex-direction: column; /* Stack items vertically */
     justify-content: space-between; /* Push content apart */
@@ -113,7 +116,6 @@ body, html {
     align-items: center; /* Center-align the buttons */
     gap: 10px; /* Add space between buttons */
 }
-
 .fav-card-buttons button {
     background-color: rgb(73, 152, 126); /* Matches the heading color */
     color: #fff; /* White text for contrast */
@@ -122,15 +124,16 @@ body, html {
     border-radius: 4px; /* Rounded corners */
     font-size: 14px; /* Standard button text size */
     cursor: pointer; /* Change cursor to pointer */
-    transition: background-color 0.3s ease; /* Smooth hover transition */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth hover transition */
     width: 100%; /* Make buttons full-width within their container */
     max-width: 200px; /* Optional: Set a max width for the buttons */
     text-align: center; /* Center text inside the button */
 }
 
-/* Hover effect for buttons */
+/* Correct Hover Effect for Buttons */
 .fav-card-buttons button:hover {
-    background-color: rgb(57, 123, 102); /* Darker shade for hover */
+    background-color: rgb(255, 255, 255); /* Change background color on hover */
+    color: rgb(86, 170, 142); /* Change text color on hover */
 }
 
 /* Optional: Active effect for buttons */

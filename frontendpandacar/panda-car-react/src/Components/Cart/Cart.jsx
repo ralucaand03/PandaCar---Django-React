@@ -7,11 +7,8 @@ const Cart = () => {
     const [cars, setCars] = useState([]);  // Cars fetched from API
     const [loading, setLoading] = useState(true);  // Loading state
     const [error, setError] = useState(null);  // Error state
-    const [carsAvailable, setCarsAvailable] = useState(false);  // Track if cars are available in the cart
-
-    const navigate = useNavigate();  // Initialize navigate hook
-
-    // Fetch cars in the cart from the API
+    const [carsAvailable, setCarsAvailable] = useState(false);  
+    const navigate = useNavigate();  
     const fetchCartCars = async () => {
         setLoading(true);
         setError(null);
@@ -53,7 +50,7 @@ const Cart = () => {
         }
     };
 
-    // Remove car from the cart
+    
     const handleRemoveFromCart = async (car) => {
         console.log('Removing car:', car);
         try {

@@ -17,6 +17,19 @@
     flex-direction: column;
     gap: 15px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+    
+}
+.filters {
+    position: fixed;
+    top: 60px; /* Offset by the header height */
+    left: 0;
+    width: 250px; /* Fixed width for sidebar */
+    height: calc(100vh - 60px); /* Full height minus header */
+    background-color: rgb(112, 33, 66);
+    color: #fff;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    overflow-y: auto; /* Allows sidebar scrolling if content overflows */
 }
 
 /* Header style for filters */

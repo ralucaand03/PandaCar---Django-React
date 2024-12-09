@@ -59,15 +59,18 @@ body, html {
 }
 
 .Cart-car-card {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
+    background: rgba(255, 255, 255, 0.1); /* Transparent background */
+    border: 2px solid rgba(255, 255, 255, .2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    backdrop-filter: blur(30px); /* Apply blur effect behind the wrapper */
+    color: #fff;
     padding: 20px;
     border-radius: 8px;
     width: 250px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
     margin-bottom: 40px;
-    color: black;
+    color: white;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -115,7 +118,8 @@ body, html {
 }
 
 .Cart-card-buttons button:hover {
-    background-color: rgb(57, 123, 102);
+    background-color: white;
+    color: rgb(57, 123, 102);
 }
 
 .Cart-card-buttons button:active {
