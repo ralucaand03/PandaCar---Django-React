@@ -85,6 +85,7 @@ const AdminDashbord = () => {
             }));
         }
     };
+
     const toggleForm = (form) => {
         if (form === 'user') {
             setShowCreateUserForm(prev => !prev);
@@ -284,6 +285,37 @@ const AdminDashbord = () => {
         }
     }
 
+    const handleDeleteContent = async (contentType, id) => {
+
+        const url = `http://127.0.0.1:8000/api/${contentType}/${id}`;
+
+        try {
+            const response = await fetch(url, {
+                method: 'DELETE',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error('Error:', errorData);
+                throw new Error(JSON.stringify(errorData));
+            }
+
+            setData(prevState => {
+                const updatedData = { ...prevState };
+                updatedData[contentType] = updatedData[contentType].filter(item => item.id !== id);
+                return updatedData;
+            });
+
+            console.log('Deleted successfully!');
+        } catch (error) {
+            console.log("Error catched" + error);
+        }
+
+    };
 
     return (
         <div className="contentAdmin">
@@ -315,13 +347,14 @@ const AdminDashbord = () => {
                                     data.users.map((user) => (
                                         <div key={user.id} className="usercard">
                                             <h3>{user.first_name} {user.last_name}</h3>
+                                            <p>Id: {user.id}</p>
                                             <p>Email: {user.email}</p>
                                             <p>Phone: {user.phone_number}</p>
                                             <p>Staff: {user.is_staff ? 'Yes' : 'No'}</p>
                                             <p>Admin: {user.is_admin ? 'Yes' : 'No'}</p>
                                             <p>Age: {user.date_of_birth}</p>
-                                            <button>Delete User</button>
-                                            <button className="edit-button">Edit User</button>
+                                            <button onClick={() => handleDeleteContent('users', user.id)}>Delete User</button>
+                                            <button className="edit-button" >Edit User</button>
                                         </div>
                                     ))
                                 )}
@@ -355,8 +388,8 @@ const AdminDashbord = () => {
                                             <p>Fuel type: {car.fuel_type}</p>
                                             <p>Seats: {car.number_of_seats}</p>
                                             <p>Horsepower: {car.horse_power} HP</p>
-                                            <button>Delete Car</button>
-                                            <button className="edit-button">Edit Car</button>
+                                            <button onClick={() => handleDeleteContent('cars', car.id)}>Delete Car</button>
+                                            <button className="edit-button" >Edit Car</button>
                                         </div>
                                     ))
                                 )}
@@ -383,10 +416,11 @@ const AdminDashbord = () => {
                                     data.availabilities.map((availability) => (
                                         <div key={availability.id} className="availabilitycard">
                                             <h3>{availability.car.car_name}</h3>
+                                            <p>Id: {availability.id}</p>
                                             <p>Available from: {availability.start_date}</p>
                                             <p>Available until: {availability.end_date}</p>
-                                            <button>Delete Availability</button>
-                                            <button className="edit-button">Edit Availability</button>
+                                            <button onClick={() => handleDeleteContent('availabilities', availability.id)}>Delete Availability</button>
+                                            <button className="edit-button" >Edit Availability</button>
                                         </div>
                                     ))
                                 )}

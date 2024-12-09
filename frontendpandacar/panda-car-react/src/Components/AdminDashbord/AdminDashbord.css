@@ -1,28 +1,25 @@
-/* General Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Admin Content */
 .contentAdmin {
-    height: calc(100vh - 80px); /* Full screen minus the header height */
+    height: calc(100vh - 80px); 
     width: 100vw;
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Adjust content alignment */
+    align-items: flex-start; 
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
     overflow: auto;
-    padding-top: 20px; /* Space between header and content */
-    margin-top: 80px; /* Ensures content starts below fixed header */
-    text-align: center; /* Center text inside containers */
+    padding-top: 20px; 
+    margin-top: 80px;
+    text-align: center; 
     padding-bottom: 20px;
 }
 
-/* Admin Header */
 .admin-header {
     position: fixed;
     top: 0;
@@ -30,17 +27,16 @@
     width: 100%;
     z-index: 1000;
     display: flex;
-    justify-content: space-between;  /* Align left and right elements */
-    align-items: center;  /* Vertically center content */
-    padding: 10px 20px;  /* Adjust padding for better alignment */
+    justify-content: space-between;  
+    align-items: center;  
+    padding: 10px 20px;  
     background-color: #1c1c1c;
-    color: aquamarine;  /* Default text color */
+    color: aquamarine; 
     font-family: "Playwrite GB S", cursive;
     height: 80px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow for distinction */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
 }
 
-/* Brand Name */
 .admin-header h1 {
     padding-left: 30px;
     font-size: 36px;
@@ -53,7 +49,7 @@
     display: flex;
     align-items: center;
     color: #fff;
-    gap: 10px; /* Space between the icon and brand name */
+    gap: 10px; 
     padding-right: 20px;
 }
 
@@ -62,7 +58,6 @@
     height: 50px;
 }
 
-/* Section for Users */
 .users-section {
     margin-bottom: 40px;
 }
@@ -71,8 +66,8 @@
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: center; /* Center cards horizontally */
-    margin: 0 auto; /* Center container */
+    justify-content: center; 
+    margin: 0 auto; 
     padding: 0 20px;
     max-width: 1200px;
     margin-bottom: 10px;
@@ -126,28 +121,25 @@
 }
 
 .usercard button:hover, .carcard button:hover, .availabilitycard button:hover {
-    background-color: #d32f2f; /* Darker red when hovering */
-    transform: scale(1.05); /* Slightly enlarge the button */
+    background-color: #d32f2f; 
+    transform: scale(1.05); 
 }
 
-/* Button focus effect */
 .usercard button:focus,.carcard button:focus, .availabilitycard button:focus {
     outline: none;
-    box-shadow: 0 0 5px rgba(255, 87, 34, 0.7); /* Orange glow when focused */
+    box-shadow: 0 0 5px rgba(255, 87, 34, 0.7);
 }
 
 .usercard .edit-button:hover, .carcard .edit-button:hover, .availabilitycard .edit-button:hover {
-    background-color: rgb(73, 0, 189); /* Darker red when hovering */
-    transform: scale(1.05); /* Slightly enlarge the button */
+    background-color: rgb(73, 0, 189); 
+    transform: scale(1.05); 
 }
 
-/* Button focus effect */
 .usercard .edit-button:focus,.carcard .edit-button:focus, .availabilitycard .edit-button:focus {
     outline: none;
-    box-shadow: 0 0 5px rgb(98, 0, 255, 0.7); /* Orange glow when focused */
+    box-shadow: 0 0 5px rgb(98, 0, 255, 0.7); 
 }
 
-/* Section for Cars */
 .cars-section {
     margin-top: 40px;
 }
@@ -156,7 +148,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: center; /* Center cards horizontally */
+    justify-content: center; 
     margin: 0 auto;
     padding: 0 20px;
     max-width: 1200px;
@@ -170,12 +162,10 @@
     margin-bottom: 15px;
 }
 
-/* Admin Dashboard */
 #adminDashboard {
     padding: 20px;
 }
 
-/* Button Containers */
 .fetch-buttons {
     display: flex;
     gap: 20px;
@@ -191,7 +181,6 @@
     align-items: center;
 }
 
-/* Availability Section */
 .availabilities-list {
     display: flex;
     flex-wrap: wrap;
@@ -203,7 +192,6 @@
     margin-bottom: 10px;
 }
 
-/* Buttons */
 .get-users-btn, .get-cars-btn, .get-availability-btn {
     padding: 10px 20px;
     width: 1060px;
@@ -228,7 +216,6 @@
     color: #1c1c1c;
 }
 
-/* Form Styles */
 .create-user-form, .create-car-form {
     display: flex;
     flex-direction: column;
@@ -269,7 +256,6 @@
     color: #1c1c1c;
 }
 
-/* Toggle Buttons */
 .toggle-create-user-form-btn,
 .toggle-create-car-form-btn {
     padding: 10px 20px;
@@ -290,10 +276,9 @@
     background-color: aquamarine;
     color: #1c1c1c;
 }
-/* Buttons - Make the last three buttons as wide as the first three */
 .toggle-create-user-form-btn,
 .toggle-create-car-form-btn{
-    width: 1060px; /* Set the same width as the first three buttons */
+    width: 1060px; 
     margin-bottom: 20px;
     text-align: center;
     align-self: center;
@@ -302,50 +287,45 @@
     margin-right: auto;
 }
 
-/* Make sure the hover effect for the last three buttons is maintained */
 .toggle-create-user-form-btn:hover,
 .toggle-create-car-form-btn:hover{
     background-color: aquamarine;
     color: #1c1c1c;
 }
- /* Style the default checkbox appearance */
 input[type="checkbox"] {
-    appearance: none; /* Remove default styles */
-    width: 20px; /* Adjust size */
-    height: 20px; /* Adjust size */
-    border: 2px solid #5da78c; /* Border color */
-    border-radius: 3px; /* Optional: make it slightly rounded */
-    background-color: transparent; /* Default background */
-    cursor: pointer; /* Change cursor to pointer */
-    transition: background-color 0.3s ease, border-color 0.3s ease; /* Smooth transition */
-    vertical-align: middle; /* Align with text */
-    margin-right: 8px; /* Space between checkbox and label */
+    appearance: none; 
+    width: 20px; 
+    height: 20px;
+    border: 2px solid #5da78c; 
+    border-radius: 3px; 
+    background-color: transparent; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease, border-color 0.3s ease; 
+    vertical-align: middle; 
+    margin-right: 8px;
 }
 
-/* Style for checked state */
 input[type="checkbox"]:checked {
-    background-color: #5da78c; /* Fill color when checked */
-    border-color: #5da78c; /* Match border color */
+    background-color: #5da78c; 
+    border-color: #5da78c; 
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-/* Optional: Add a checkmark or inner style when checked */
 input[type="checkbox"]:checked::after {
-    content: "✓"; /* Checkmark */
-    color: white; /* Checkmark color */
-    font-size: 16px; /* Adjust size of the checkmark */
+    content: "✓"; 
+    color: white; 
+    font-size: 16px; 
     display: block;
     text-align: center;
-    line-height: 18px; /* Center the checkmark inside the box */
+    line-height: 18px; 
 }
 
-/* Label styling */
 label {
-    font-size: 16px; /* Adjust text size */
-    color: #333; /* Text color */
-    display: flex; /* Align items */
-    align-items: center; /* Vertical alignment */
-    cursor: pointer; /* Change cursor when hovering */
+    font-size: 16px; 
+    color: #333;
+    display: flex; 
+    align-items: center; 
+    cursor: pointer; 
 }
