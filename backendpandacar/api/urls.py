@@ -1,7 +1,6 @@
 from django.urls import path
 from .views import logout_user,get_users,create_user,user_detail,get_cars,create_car,car_detail,get_cars_availability,create_car_availability,car_detail_availability
 from .views import add_to_favorites, remove_from_favorites, get_user_favorites, add_to_cart,remove_from_cart,get_user_cart,my_account_details,CustomTokenObtainPairView
-from rest_framework_simplejwt.views import TokenObtainPairView,TokenBlacklistView
 
 urlpatterns = [
     path('users/',get_users,name = 'get_users'),

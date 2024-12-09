@@ -66,20 +66,19 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 @api_view(['POST'])
 @authentication_classes([CustomAuthentication])
 def logout_user(request):
-    refresh_token = request.data.get('refresh')
+    refresh_token = request.COOKIES.get('refresh_token')
     if not refresh_token:
         return Response({"error": "Refresh token is required"}, status=status.HTTP_400_BAD_REQUEST)
-    
     try:
        token = RefreshToken(refresh_token)
        token.blacklist() 
     except Exception as e:
-        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "Invalid or expired refresh token"}, status=status.HTTP_400_BAD_REQUEST)
     
     #delete the access cookie
     response = Response({"message": "Successfully logged out"}, status=status.HTTP_200_OK)
-    response.delete_cookie('access_token')
-    response.delete_cookie('refresh_token')
+    response.delete_cookie('access_token', path='/', domain='127.0.0.1', samesite='None')
+    response.delete_cookie('refresh_token', path='/', domain='127.0.0.1', samesite='None')
     return response
 
 

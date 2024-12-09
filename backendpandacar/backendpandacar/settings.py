@@ -56,6 +56,7 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
+    'http://127.0.0.1'
 ]
 CORS_ALLOW_CREDENTIALS = True
 
@@ -150,25 +151,35 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'BLACKLIST_AFTER_ROTATION': True,
 
-    "AUTH_COOKIE": "access_token",  # Numele cookie-ului pentru token-ul de acces
-    "AUTH_COOKIE_DOMAIN": None,  # Domeniul pentru care cookie-ul este valabil
-    "AUTH_COOKIE_SECURE": True,  # Asigură-te că folosești HTTPS
-    "AUTH_COOKIE_HTTP_ONLY": True,  # Protejează cookie-ul de atacuri XSS
-    "AUTH_COOKIE_PATH": "/",  # Calea unde cookie-ul este disponibil
-    "AUTH_COOKIE_SAMESITE": "None",
+    "AUTH_COOKIE": "access_token",  
+    "AUTH_COOKIE_DOMAIN": "localhost",  
+    "AUTH_COOKIE_SECURE": False,  
+    "AUTH_COOKIE_HTTP_ONLY": True,  
+    "AUTH_COOKIE_PATH": "/",  
+    "AUTH_COOKIE_SAMESITE": None,
 
-    "AUTH_COOKIE_REFRESH_TOKEN": "refresh_token",  # Numele cookie-ului pentru refresh token
-    "AUTH_COOKIE_REFRESH_TOKEN_SECURE": True,  # Asigură-te că folosești HTTPS pentru refresh token
-    "AUTH_COOKIE_REFRESH_TOKEN_HTTP_ONLY": True,  # Protejează refresh token-ul de atacuri XSS
-    "AUTH_COOKIE_REFRESH_TOKEN_PATH": "/",  # Calea unde este disponibil refresh token-ul
-    "AUTH_COOKIE_REFRESH_TOKEN_SAMESITE": "None", 
+    "AUTH_COOKIE_REFRESH_TOKEN": "refresh_token",  
+    "AUTH_COOKIE_REFRESH_TOKEN_DOMAIN": "localhost",
+    "AUTH_COOKIE_REFRESH_TOKEN_SECURE": False,  
+    "AUTH_COOKIE_REFRESH_TOKEN_HTTP_ONLY": True,  
+    "AUTH_COOKIE_REFRESH_TOKEN_PATH": "/",  
+    "AUTH_COOKIE_REFRESH_TOKEN_SAMESITE": None, 
 }
+
+SIMPLE_JWT["TOKEN_BLACKLIST"] = True
+
 
 
 AUTH_USER_MODEL = 'api.User'
 
 
 # we work for the moment only with http, no https redirection
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:5173", 
+    'http://127.0.0.1' 
+]
+
 SECURE_SSL_REDIRECT = False
 SESSION_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_SECURE = False  

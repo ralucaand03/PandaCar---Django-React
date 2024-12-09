@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from '../Header/Header';
 import './Account.css';
-import pandaProfile from '../Assets/panda5.png'; 
+import pandaProfile from '../Assets/panda5.png';
+
 
 const Account = () => {
+
+    const navigate = useNavigate();
+
     const [userData, setUserData] = useState({
         id: '',
         first_name: '',
@@ -17,11 +22,11 @@ const Account = () => {
 
     // Fetch user data from the backend API
     const fetchUserData = async () => {
-        
+
         try {
             const response = await fetch(`http://127.0.0.1:8000/api/myaccount/`, {
                 method: 'GET',
-                credentials: 'include', 
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                 }
@@ -35,7 +40,7 @@ const Account = () => {
             }
 
             const data = await response.json();
-            setUserData(data); 
+            setUserData(data);
         } catch (error) {
             setError('Error fetching user data');
             console.error(error);
@@ -43,21 +48,41 @@ const Account = () => {
     };
 
     // Handle the logout action
-    const handleLogout = () => {
-        
+    const handleLogout = async () => {
+        try {
+            const response = await fetch("http://127.0.0.1:8000/api/logout/", {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error("Error logging out:", errorData);
+                throw new Error("Logout failed");
+            }
+
+            console.log("Successfully logged out");
+            navigate("/");
+
+        } catch (error) {
+            console.error("Error:", error.message);
+        }
     };
 
     useEffect(() => {
         fetchUserData();
-    }, []); 
+    }, []);
     return (
         <div className="accountWrapper">
             <Header />
             <div className="contentAccount">
                 <main className="mainContentAccount">
-                <span className="Panda-profile-content">
-                    <img src={pandaProfile} alt="Panda Profile" className="panda-profile" /> 
-                </span>
+                    <span className="Panda-profile-content">
+                        <img src={pandaProfile} alt="Panda Profile" className="panda-profile" />
+                    </span>
 
                     <h1>Your Account Details</h1>
                     {error && <p className="error">{error}</p>}
