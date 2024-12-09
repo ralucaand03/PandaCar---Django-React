@@ -320,6 +320,8 @@ const AdminDashbord = () => {
                                             <p>Staff: {user.is_staff ? 'Yes' : 'No'}</p>
                                             <p>Admin: {user.is_admin ? 'Yes' : 'No'}</p>
                                             <p>Age: {user.date_of_birth}</p>
+                                            <button>Delete User</button>
+                                            <button className="edit-button">Edit User</button>
                                         </div>
                                     ))
                                 )}
@@ -353,6 +355,8 @@ const AdminDashbord = () => {
                                             <p>Fuel type: {car.fuel_type}</p>
                                             <p>Seats: {car.number_of_seats}</p>
                                             <p>Horsepower: {car.horse_power} HP</p>
+                                            <button>Delete Car</button>
+                                            <button className="edit-button">Edit Car</button>
                                         </div>
                                     ))
                                 )}
@@ -381,6 +385,8 @@ const AdminDashbord = () => {
                                             <h3>{availability.car.car_name}</h3>
                                             <p>Available from: {availability.start_date}</p>
                                             <p>Available until: {availability.end_date}</p>
+                                            <button>Delete Availability</button>
+                                            <button className="edit-button">Edit Availability</button>
                                         </div>
                                     ))
                                 )}

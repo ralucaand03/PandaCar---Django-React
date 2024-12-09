@@ -99,6 +99,54 @@
     margin: 5px 0;
 }
 
+.availabilitycard .edit-button, .usercard .edit-button , .carcard .edit-button{
+    background-color: rgb(98, 0, 255); 
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.usercard button, .carcard button, .availabilitycard button  {
+    background-color: #f44336; 
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.usercard button:hover, .carcard button:hover, .availabilitycard button:hover {
+    background-color: #d32f2f; /* Darker red when hovering */
+    transform: scale(1.05); /* Slightly enlarge the button */
+}
+
+/* Button focus effect */
+.usercard button:focus,.carcard button:focus, .availabilitycard button:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 87, 34, 0.7); /* Orange glow when focused */
+}
+
+.usercard .edit-button:hover, .carcard .edit-button:hover, .availabilitycard .edit-button:hover {
+    background-color: rgb(73, 0, 189); /* Darker red when hovering */
+    transform: scale(1.05); /* Slightly enlarge the button */
+}
+
+/* Button focus effect */
+.usercard .edit-button:focus,.carcard .edit-button:focus, .availabilitycard .edit-button:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgb(98, 0, 255, 0.7); /* Orange glow when focused */
+}
+
 /* Section for Cars */
 .cars-section {
     margin-top: 40px;
