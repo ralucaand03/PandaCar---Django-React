@@ -313,7 +313,7 @@ const AdminDashbord = () => {
                                     <p>No users found</p>
                                 ) : (
                                     data.users.map((user) => (
-                                        <div key={user.id} className="user-card">
+                                        <div key={user.id} className="usercard">
                                             <h3>{user.first_name} {user.last_name}</h3>
                                             <p>Email: {user.email}</p>
                                             <p>Phone: {user.phone_number}</p>
@@ -344,7 +344,7 @@ const AdminDashbord = () => {
                                     <p>No cars found</p>
                                 ) : (
                                     data.cars.map((car) => (
-                                        <div key={car.id} className="car-card">
+                                        <div key={car.id} className="carcard">
                                             <h3>{car.car_name} ({car.brand_name})</h3>
                                             <img src={`http://127.0.0.1:8000${car.photo_url}`} alt={`${car.car_name} photo`} />
                                             <p>Id: {car.id}</p>
@@ -377,7 +377,7 @@ const AdminDashbord = () => {
                                     <p>No availability data found</p>
                                 ) : (
                                     data.availabilities.map((availability) => (
-                                        <div key={availability.id} className="availability-card">
+                                        <div key={availability.id} className="availabilitycard">
                                             <h3>{availability.car.car_name}</h3>
                                             <p>Available from: {availability.start_date}</p>
                                             <p>Available until: {availability.end_date}</p>

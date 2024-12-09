@@ -1,0 +1,139 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.CartWrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: "Arial", sans-serif;
+    background-color: #1c1921;
+    color: aquamarine;
+}
+
+.contentCart {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;  /* Align items to the top */
+    background: url(../Assets/login2.jpg) no-repeat center center;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    overflow-y: auto;
+    box-sizing: border-box;
+    padding-top: 60px;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.mainContentCart {
+    flex-grow: 1;
+    padding: 40px;
+    color: #fff;
+    text-align: center;
+    width: 100%;
+    max-width: 1200px;  /* This will restrict the content width and center it */
+    margin: 0 auto; /* This centers the content horizontally */
+}
+
+.mainContentCart h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.mainContentCart p {
+    font-size: 18px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.Cart-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.Cart-car-card {
+    background: rgba(255, 255, 255, 0.1); /* Transparent background */
+    border: 2px solid rgba(255, 255, 255, .2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    backdrop-filter: blur(30px); /* Apply blur effect behind the wrapper */
+    color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 250px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 40px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 500px;
+    position: relative;
+}
+
+.Cart-car-card h3 {
+    font-size: 18px;
+    color: rgb(73, 152, 126);
+}
+
+.Cart-car-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+.Cart-car-card p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.Cart-card-buttons {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.Cart-card-buttons button {
+    background-color: rgb(73, 152, 126);
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    max-width: 200px;
+    text-align: center;
+}
+
+.Cart-card-buttons button:hover {
+    background-color: white;
+    color: rgb(57, 123, 102);
+}
+
+.Cart-card-buttons button:active {
+    background-color: rgb(46, 102, 85);
+}
+
+.error-message {
+    color: red;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.loading-message {
+    color: aquamarine;
+    font-size: 18px;
+    margin-top: 20px;
+}

@@ -17,13 +17,26 @@
     flex-direction: column;
     gap: 15px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+    
+}
+.filters {
+    position: fixed;
+    top: 60px; /* Offset by the header height */
+    left: 0;
+    width: 250px; /* Fixed width for sidebar */
+    height: calc(100vh - 60px); /* Full height minus header */
+    background-color: rgb(112, 33, 66);
+    color: #fff;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    overflow-y: auto; /* Allows sidebar scrolling if content overflows */
 }
 
 /* Header style for filters */
 .filters h2 {
     font-size: 24px;
     margin-bottom: 20px;
-    color: aquamarine;
+    color:  rgb(105, 192, 163);;
 }
 
 /* Filter item styling */
@@ -38,6 +51,7 @@
     margin-bottom: 5px;
     font-weight: bold;
     font-family: "Playwrite GB S", cursive; 
+    color: #fff;
 }
 
 /* Styling for input and select elements */
@@ -120,23 +134,20 @@
     transition: background-color 0.3s ease;
 }
 
-/* Hover effect for the apply button */
 .apply-button:hover {
     background-color: #fff;
     color: rgb(86, 170, 142);
 }
 /* Taskbar styles */
 .taskbar {
-    background-color: rgb(86, 170, 142);
+    background-color:  rgb(86, 170, 142);
     color: #ffffff; /* Optional: adjust text color for readability */
     padding: 10px 20px; /* Optional: add padding */
     display: flex;
     align-items: center;
-    /* Other styles for the taskbar as needed */
 }
 
-/* Style for the entire scrollbar */
 ::-webkit-scrollbar {
-    width: 12px; /* Width of the scrollbar */
+    width: 12px; 
 }
 

@@ -78,7 +78,7 @@
     margin-bottom: 10px;
 }
 
-.user-card {
+.usercard, .carcard, .availabilitycard {
     background-color: #f9f9f9;
     border: 1px solid #ddd;
     padding: 20px;
@@ -89,12 +89,13 @@
     margin-bottom: 40px;
 }
 
-.user-card h3 {
+.usercard h3, .carcard h3, .availabilitycard h3 {
     font-size: 20px;
     margin-bottom: 10px;
+    color: #5da78c;
 }
 
-.user-card p {
+.usercard p, .carcard p, .availabilitycard p{
     margin: 5px 0;
 }
 
@@ -114,30 +115,11 @@
     margin-bottom: 10px;
 }
 
-.car-card {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    padding: 20px;
-    border-radius: 8px;
-    width: 250px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 40px;
-}
-
-.car-card img {
+.carcard img {
     width: 100%;
     height: auto;
     border-radius: 8px;
     margin-bottom: 15px;
-}
-
-.car-card h3 {
-    font-size: 20px;
-    margin-bottom: 10px;
-}
-
-.car-card p {
-    margin: 5px 0;
 }
 
 /* Admin Dashboard */
@@ -171,26 +153,6 @@
     padding: 0 20px;
     max-width: 1200px;
     margin-bottom: 10px;
-}
-
-.availability-card {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
-    width: 250px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 40px;
-}
-
-.availability-card h3 {
-    font-size: 20px;
-    margin-bottom: 10px;
-}
-
-.availability-card p {
-    margin: 5px 0;
 }
 
 /* Buttons */
@@ -268,7 +230,7 @@
     border: none;
     cursor: pointer;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 20px;
     transition: background-color 0.3s ease, color 0.3s ease;
     display: inline-block;
     margin-top: 10px;
