@@ -1,20 +1,23 @@
-from rest_framework.decorators import api_view,permission_classes,authentication_classes
+from rest_framework.decorators import throttle_classes,api_view,permission_classes,authentication_classes
 from rest_framework.response import Response
 from rest_framework import status
 from .models import User, Car, CarAvailability, UserFavoriteCar,UserCart
 from .serializer import UserSerializer,CarSerializer,CarAvailabilitySerializer,CustomTokenObtainPairSerializer
-from django.contrib.auth.hashers import make_password
 from rest_framework.permissions import AllowAny,IsAdminUser
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.tokens import RefreshToken,AccessToken
 from rest_framework_simplejwt.exceptions import InvalidToken
 from backendpandacar.custom_classes import CustomAuthentication
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.throttling import ScopedRateThrottle
 
 #this is for login view
 #this is written as a class because we use 
 #TokenObtainPairView which is a class
 class CustomTokenObtainPairView(TokenObtainPairView):
+
+    throttle_scope = 'custom_login'
+    throttle_classes = (ScopedRateThrottle,) 
 
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
@@ -87,6 +90,10 @@ def logout_user(request):
 @authentication_classes([CustomAuthentication])
 @permission_classes([IsAdminUser])
 def get_users(request):
+
+    view = get_users.view_class
+    view.throttle_scope = 'custom_users'
+
     users = User.objects.all()
     serializer = UserSerializer(users,many = True)
     return Response(serializer.data,status=status.HTTP_200_OK)
@@ -141,8 +148,13 @@ def user_detail(request,pk):
 
 #create a get endpoint for all cars
 @api_view(['GET'])
+@throttle_classes([ScopedRateThrottle])
 @authentication_classes([CustomAuthentication])
 def get_cars(request):
+
+    view = get_cars.view_class
+    view.throttle_scope = 'custom_cars'
+
     cars = Car.objects.all()
     serializer = CarSerializer(cars,many = True)
     return Response(serializer.data,status=status.HTTP_200_OK)
@@ -186,8 +198,13 @@ def car_detail(request,pk):
 # Create your views for car/cars availability below
 #create a get endpoint for all availabilities
 @api_view(['GET'])
+@throttle_classes([ScopedRateThrottle])
 @authentication_classes([CustomAuthentication])
 def get_cars_availability(request):
+
+    view = get_cars.view_class
+    view.throttle_scope = 'custom_availability'
+
     cars_availabilities = CarAvailability.objects.all()
     serializer = CarAvailabilitySerializer(cars_availabilities,many = True)
     return Response(serializer.data,status=status.HTTP_200_OK)
@@ -228,8 +245,13 @@ def car_detail_availability(request,pk):
     
 #create fav
 @api_view(['POST'])
+@throttle_classes([ScopedRateThrottle])
 @authentication_classes([CustomAuthentication])
 def add_to_favorites(request, car_id):
+
+    view = add_to_favorites.view_class
+    view.throttle_scope = 'custom_add_to_favorites'
+
     # Get the car object
     try:
         car = Car.objects.get(pk=car_id)
@@ -247,8 +269,13 @@ def add_to_favorites(request, car_id):
     return Response({"message": f"{car.car_name} is already in your favorites!"}, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
+@throttle_classes([ScopedRateThrottle])
 @authentication_classes([CustomAuthentication])
 def get_user_favorites(request):
+
+    view = get_user_favorites.view_class
+    view.throttle_scope = 'custom_get_to_favorites'
+
     user = request.user  # Get the current authenticated user
 
     try:
@@ -306,8 +333,13 @@ def my_account_details(request):
      
 #------------------------------------------------------------create cart
 @api_view(['POST'])
+@throttle_classes([ScopedRateThrottle])
 @authentication_classes([CustomAuthentication])
 def add_to_cart(request, car_id):
+
+    view = add_to_cart.view_class
+    view.throttle_scope = 'custom_add_to_cart'
+
     try:
         car = Car.objects.get(pk=car_id)
     except Car.DoesNotExist:
@@ -326,6 +358,10 @@ def add_to_cart(request, car_id):
 @api_view(['GET'])
 @authentication_classes([CustomAuthentication])
 def get_user_cart(request):
+
+    view = get_user_cart.view_class
+    view.throttle_scope = 'custom_get_cart'
+
     user = request.user  # Get the current authenticated user
 
     try:

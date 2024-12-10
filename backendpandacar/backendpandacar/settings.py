@@ -143,7 +143,26 @@ from datetime import timedelta
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'backendpandacar.custom_classes.CustomAuthentication'
-    )
+    ),
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle',
+        'rest_framework.throttling.ScopedRateThrottle'
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '20/min',  #anonymous user limit
+        'user': '50/min',  #user limit
+        'custom_login': '20/min',  #login endpoint limit 
+        'custom_cars': '10/min',  #get_cars endpoint limit
+        'custom_availability': '10/min', #get_availability endpoint limit
+        'custom_users': '10/min',  #get_users endpoint limit
+        'custom_add_to_favorites': '10/min',#add_to_favorites ednpoint limit
+        'custom_add_to_cart': '10/min',#add_to_cart ednpoint limit
+        'custom_get_to_favorites': '10/min',#get_to_favorites ednpoint limit
+        'custom_get_cart': '10/min',#get_cart ednpoint limit
+    },
+
+
 }
 
 SIMPLE_JWT = {
