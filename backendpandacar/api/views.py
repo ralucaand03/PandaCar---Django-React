@@ -2,7 +2,7 @@ from rest_framework.decorators import throttle_classes,api_view,permission_class
 from rest_framework.response import Response
 from rest_framework import status
 from .models import User, Car, CarAvailability, UserFavoriteCar,UserCart
-from .serializer import UserSerializer,CarSerializer,CarAvailabilitySerializer,CustomTokenObtainPairSerializer
+from .serializer import UserSerializer,CarSerializer,CarAvailabilitySerializer
 from rest_framework.permissions import AllowAny,IsAdminUser
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.tokens import RefreshToken,AccessToken
