@@ -15,7 +15,7 @@ const Favorites = () => {
 
     const fetchFavCars = async () => {
         setLoading(true);
-        setError(null);  
+        setError(null);
         try {
             const response = await fetch('http://127.0.0.1:8000/api/favorites/', {
                 method: 'GET',
@@ -105,6 +105,48 @@ const Favorites = () => {
 
     const handleAddToCart = async (car) => {
         try {
+            const checkResponse = await fetch(`http://127.0.0.1:8000/api/availabilities`, {
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (checkResponse.status === 404) {
+                console.error("Availability data not found.");
+                return;
+            }
+
+            const availabilities = await checkResponse.json();
+
+            const carAvailabilities = availabilities.filter(
+                (availability) => availability.car === car.id
+            );
+
+            if (carAvailabilities.length === 0) {
+                console.error("No availability data found for this car.");
+                return;
+            }
+
+            const userStartDate = new Date(startDate);
+            const userEndDate = new Date(endDate);
+
+            const isAvailable = carAvailabilities.some((availability) => {
+                const availabilityStartDate = new Date(availability.start_date);
+                const availabilityEndDate = new Date(availability.end_date);
+
+                return (
+                    userStartDate >= availabilityStartDate &&
+                    userEndDate <= availabilityEndDate
+                );
+            });
+
+            if (!isAvailable) {
+                console.error("Car is not available for the selected period.");
+                return;
+            }
+
             const response = await fetch(`http://127.0.0.1:8000/api/cart/add/${car.id}/`, {
                 method: 'POST',
                 credentials: 'include',

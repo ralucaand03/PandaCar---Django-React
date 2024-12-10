@@ -751,9 +751,10 @@ const AdminDashbord = () => {
                                                 </form>
                                             ) : (
                                                 <div>
-                                                    <h3>{availability.car.car_name}</h3>
+                                                    <h3>Id of availability: {availability.id}</h3>
                                                     <p>Available from: {availability.start_date}</p>
                                                     <p>Available until: {availability.end_date}</p>
+                                                    <p>Id of car: {availability.car}</p>
                                                     <button onClick={() => handleDeleteContent('availabilities', availability.id)}>Delete Availability</button>
                                                     <button className="edit-button" onClick={() => handleEditAvailability(availability)}>
                                                         Edit Availability
