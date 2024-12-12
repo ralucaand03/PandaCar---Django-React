@@ -48,14 +48,14 @@
     align-items: center; /* Vertically center the icon and text */
     font-family: 'Playwrite GB S', cursive;
     color: #fff;
-    font-size: 1.7em;
+    font-size: 1.6em;
     width: 40px;
     white-space: nowrap;
 }
 
 .panda-icon {
-    width: 40px; /* Adjust size as needed */
+    width: 50px; /* Adjust size as needed */
     height: auto;
     margin-right: 10px; /* Space between icon and text */
-    margin-left: 80px;
+    margin-left: 30px;
 }

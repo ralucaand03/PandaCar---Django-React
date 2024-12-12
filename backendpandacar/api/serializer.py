@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User,Car,CarAvailability
+from .models import User,Car,CarAvailability,RecommendedCar
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.conf import settings
 
@@ -51,3 +51,10 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         data['role'] = 'admin' if self.user.is_admin else 'user'
 
         return data
+    
+class RecommendedCarSerializer(serializers.ModelSerializer):
+    car = CarSerializer()  # Nested serializer for Car model
+
+    class Meta:
+        model = RecommendedCar
+        fields = ['id', 'user', 'car', 'created_at']

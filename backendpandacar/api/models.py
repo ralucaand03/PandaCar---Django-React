@@ -98,8 +98,6 @@ class CarAvailability(models.Model):
     def __str__(self):
         return f"{self.car.car_name} available from {self.start_date} to {self.end_date}"
 
-    
-# Add UserFavoriteCar model
 class UserFavoriteCar(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     car = models.ForeignKey(Car, on_delete=models.CASCADE)
@@ -113,7 +111,6 @@ class UserFavoriteCar(models.Model):
     def __str__(self):
         return f"{self.user} favorite {self.car}"
 
-# Add UserCart model
 class UserCart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     car = models.ForeignKey(Car, on_delete=models.CASCADE)
@@ -126,3 +123,13 @@ class UserCart(models.Model):
 
     def __str__(self):
         return f"{self.user} cart {self.car}"
+
+class RecommendedCar(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    car = models.ForeignKey(Car, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['user', 'car'], name='unique_recomandation')
+        ]

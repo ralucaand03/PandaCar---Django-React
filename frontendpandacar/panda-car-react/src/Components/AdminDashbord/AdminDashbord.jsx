@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import './AdminDashbord.css';
 import pandaIcon from '../Assets/panda3.png';
 
@@ -61,6 +61,49 @@ const AdminDashbord = () => {
         end_date: '',
     });
 
+    const [editUser, setEditUser] = useState(null);
+
+    const [updatedUser, setUpdatedUser] = useState({
+        first_name: '',
+        last_name: '',
+        email: '',
+        phone_number: '',
+        is_staff: false,
+        is_admin: false,
+        date_of_birth: ''
+    });
+
+    const [editCar, setEditCar] = useState(null);
+
+    const [updatedCar, setUpdatedCar] = useState({
+        car_name: '',
+        brand_name: '',
+        photo_url: '',
+        price_per_day: '',
+        fuel_type: '',
+        number_of_seats: '',
+        horse_power: ''
+    });
+
+    const [editAvailability, setEditAvailability] = useState(null);
+
+    const [updateAvailability, setUpdateAvailability] = useState({
+        start_date: '',
+        end_date: '',
+    });
+
+    const userCardRef = useRef(null);
+
+    const formRef = useRef(null);
+
+    const carCardRef = useRef(null);
+
+    const carFormRef = useRef(null);
+
+    const availabilityCardRef = useRef(null);
+
+    const availabilityFormRef = useRef(null);
+
     const handleInputChange = (event, formType) => {
         const { name, value, type, checked } = event.target;
 
@@ -85,6 +128,7 @@ const AdminDashbord = () => {
             }));
         }
     };
+
     const toggleForm = (form) => {
         if (form === 'user') {
             setShowCreateUserForm(prev => !prev);
@@ -284,6 +328,174 @@ const AdminDashbord = () => {
         }
     }
 
+    const handleDeleteContent = async (contentType, id) => {
+
+        const url = `http://127.0.0.1:8000/api/${contentType}/${id}`;
+
+        try {
+            const response = await fetch(url, {
+                method: 'DELETE',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error('Error:', errorData);
+                throw new Error(JSON.stringify(errorData));
+            }
+
+            setData(prevState => {
+                const updatedData = { ...prevState };
+                updatedData[contentType] = updatedData[contentType].filter(item => item.id !== id);
+                return updatedData;
+            });
+
+            console.log('Deleted successfully!');
+        } catch (error) {
+            console.log("Error catched" + error);
+        }
+
+    };
+
+    const handleEditUser = (user) => {
+        setEditUser(user.id);
+        setUpdatedUser({ ...user });
+    };
+
+    const handleEditAvailability = (availability) => {
+        setEditAvailability(availability.id);
+        setUpdateAvailability({ ...availability });
+    };
+
+    const handleEditCar = (car) => {
+        setEditCar(car.id);
+        setUpdatedCar({ ...car });
+    };
+
+    const handleUpdateUser = async (e) => {
+        e.preventDefault();
+
+        const response = await fetch(`http://127.0.0.1:8000/api/users/${updatedUser.id}`, {
+            method: 'PUT',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updatedUser),
+        });
+
+        if (response.ok) {
+            console.log('User updated successfully');
+            setEditUser(null);
+            fetchAPI('users', 'users');
+        } else {
+            const errorData = await response.json();
+            console.log('Error updating user: ' + errorData);
+        }
+    };
+
+    const handleUpdateCar = async (e) => {
+        e.preventDefault();
+
+        const response = await fetch(`http://127.0.0.1:8000/api/cars/${updatedCar.id}`, {
+            method: 'PUT',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updatedCar),
+        });
+
+        if (response.ok) {
+            console.log('Car updated successfully');
+            setEditCar(null);
+            fetchAPI('cars', 'cars');
+        } else {
+            const errorData = await response.json();
+            console.log('Error updating car: ' + errorData);
+        }
+    };
+
+    const handleUpdateAvailability = async (e) => {
+        e.preventDefault();
+
+        const response = await fetch(`http://127.0.0.1:8000/api/availabilities/${updateAvailability.id}`, {
+            method: 'PUT',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updateAvailability),
+        });
+
+        if (response.ok) {
+            console.log('Availability updated successfully');
+            setEditAvailability(null);
+            fetchAPI('availabilities', 'availabilities');
+        } else {
+            const errorData = await response.json();
+            console.log('Error updating availability: ' + errorData);
+        }
+    };
+
+    useEffect(() => {
+        const handleClickOutsideUser = (event) => {
+            if (
+                userCardRef.current &&
+                !userCardRef.current.contains(event.target) &&
+                formRef.current &&
+                !formRef.current.contains(event.target)
+            ) {
+                setEditUser(null);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutsideUser);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutsideUser);
+        };
+    }, []);
+
+    useEffect(() => {
+        const handleClickOutsideCar = (event) => {
+            if (
+                carCardRef.current &&
+                !carCardRef.current.contains(event.target) &&
+                carFormRef.current &&
+                !carFormRef.current.contains(event.target)
+            ) {
+                setEditCar(null);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutsideCar);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutsideCar);
+        };
+    }, []);
+
+    useEffect(() => {
+        const handleClickOutsideAvailability = (event) => {
+            if (
+                availabilityCardRef.current &&
+                !availabilityCardRef.current.contains(event.target) &&
+                availabilityFormRef.current &&
+                !availabilityFormRef.current.contains(event.target)
+            ) {
+                setEditAvailability(null);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutsideAvailability);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutsideAvailability);
+        };
+    }, []);
 
     return (
         <div className="contentAdmin">
@@ -304,6 +516,7 @@ const AdminDashbord = () => {
                             {showData.users ? 'Hide Users' : 'Get Users'}
                         </button>
                     </div>
+
                     {showData.users && (
                         <>
                             {loading.users && <p>Loading...</p>}
@@ -313,13 +526,70 @@ const AdminDashbord = () => {
                                     <p>No users found</p>
                                 ) : (
                                     data.users.map((user) => (
-                                        <div key={user.id} className="user-card">
-                                            <h3>{user.first_name} {user.last_name}</h3>
-                                            <p>Email: {user.email}</p>
-                                            <p>Phone: {user.phone_number}</p>
-                                            <p>Staff: {user.is_staff ? 'Yes' : 'No'}</p>
-                                            <p>Admin: {user.is_admin ? 'Yes' : 'No'}</p>
-                                            <p>Age: {user.date_of_birth}</p>
+                                        <div key={user.id} className="usercard" ref={userCardRef}>
+                                            {editUser === user.id ? (
+                                                // Formular editabil
+                                                <form onSubmit={handleUpdateUser} ref={formRef}>
+                                                    <input
+                                                        type="text"
+                                                        value={updatedUser.first_name}
+                                                        onChange={(e) => setUpdatedUser({ ...updatedUser, first_name: e.target.value })}
+                                                        placeholder="First Name"
+                                                    />
+                                                    <input
+                                                        type="text"
+                                                        value={updatedUser.last_name}
+                                                        onChange={(e) => setUpdatedUser({ ...updatedUser, last_name: e.target.value })}
+                                                        placeholder="Last Name"
+                                                    />
+                                                    <input
+                                                        type="email"
+                                                        value={updatedUser.email}
+                                                        onChange={(e) => setUpdatedUser({ ...updatedUser, email: e.target.value })}
+                                                        placeholder="Email"
+                                                    />
+                                                    <input
+                                                        type="text"
+                                                        value={updatedUser.phone_number}
+                                                        onChange={(e) => setUpdatedUser({ ...updatedUser, phone_number: e.target.value })}
+                                                        placeholder="Phone"
+                                                    />
+                                                    <label>
+                                                        Staff:
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={updatedUser.is_staff}
+                                                            onChange={(e) => setUpdatedUser({ ...updatedUser, is_staff: e.target.checked })}
+                                                        />
+                                                    </label>
+                                                    <label>
+                                                        Admin:
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={updatedUser.is_admin}
+                                                            onChange={(e) => setUpdatedUser({ ...updatedUser, is_admin: e.target.checked })}
+                                                        />
+                                                    </label>
+                                                    <input
+                                                        type="date"
+                                                        value={updatedUser.date_of_birth}
+                                                        onChange={(e) => setUpdatedUser({ ...updatedUser, date_of_birth: e.target.value })}
+                                                        placeholder="Date of Birth"
+                                                    />
+                                                    <button type="submit">Update User</button>
+                                                </form>
+                                            ) : (
+                                                <div>
+                                                    <h3>{user.first_name} {user.last_name}</h3>
+                                                    <p>Email: {user.email}</p>
+                                                    <p>Phone: {user.phone_number}</p>
+                                                    <p>Staff: {user.is_staff ? 'Yes' : 'No'}</p>
+                                                    <p>Admin: {user.is_admin ? 'Yes' : 'No'}</p>
+                                                    <p>Age: {user.date_of_birth}</p>
+                                                    <button onClick={() => handleDeleteContent('users', user.id)}>Delete User</button>
+                                                    <button className="edit-button" onClick={() => handleEditUser(user)}>Edit User</button>
+                                                </div>
+                                            )}
                                         </div>
                                     ))
                                 )}
@@ -335,6 +605,7 @@ const AdminDashbord = () => {
                             {showData.cars ? 'Hide Cars' : 'Get Cars'}
                         </button>
                     </div>
+
                     {showData.cars && (
                         <>
                             {loading.cars && <p>Loading...</p>}
@@ -344,15 +615,69 @@ const AdminDashbord = () => {
                                     <p>No cars found</p>
                                 ) : (
                                     data.cars.map((car) => (
-                                        <div key={car.id} className="car-card">
-                                            <h3>{car.car_name} ({car.brand_name})</h3>
-                                            <img src={`http://127.0.0.1:8000${car.photo_url}`} alt={`${car.car_name} photo`} />
-                                            <p>Id: {car.id}</p>
-                                            <p>Image: {car.photo_name}</p>
-                                            <p>Price per day: ${car.price_per_day}</p>
-                                            <p>Fuel type: {car.fuel_type}</p>
-                                            <p>Seats: {car.number_of_seats}</p>
-                                            <p>Horsepower: {car.horse_power} HP</p>
+                                        <div key={car.id} className="carcard" ref={carCardRef}>
+                                            {editCar === car.id ? (
+                                                <form onSubmit={handleUpdateCar} ref={carFormRef}>
+                                                    <input
+                                                        type="text"
+                                                        value={updatedCar.car_name}
+                                                        onChange={(e) => setUpdatedCar({ ...updatedCar, car_name: e.target.value })}
+                                                        placeholder="Car Name"
+                                                    />
+                                                    <input
+                                                        type="text"
+                                                        value={updatedCar.brand_name}
+                                                        onChange={(e) => setUpdatedCar({ ...updatedCar, brand_name: e.target.value })}
+                                                        placeholder="Brand Name"
+                                                    />
+                                                    <input
+                                                        type="text"
+                                                        value={updatedCar.photo_url}
+                                                        onChange={(e) => setUpdatedCar({ ...updatedCar, photo_url: e.target.value })}
+                                                        placeholder="Photo URL"
+                                                    />
+                                                    <input
+                                                        type="number"
+                                                        value={updatedCar.price_per_day}
+                                                        onChange={(e) => setUpdatedCar({ ...updatedCar, price_per_day: e.target.value })}
+                                                        placeholder="Price per Day"
+                                                    />
+                                                    <input
+                                                        type="text"
+                                                        value={updatedCar.fuel_type}
+                                                        onChange={(e) => setUpdatedCar({ ...updatedCar, fuel_type: e.target.value })}
+                                                        placeholder="Fuel Type"
+                                                    />
+                                                    <input
+                                                        type="number"
+                                                        value={updatedCar.number_of_seats}
+                                                        onChange={(e) => setUpdatedCar({ ...updatedCar, number_of_seats: e.target.value })}
+                                                        placeholder="Seats"
+                                                    />
+                                                    <input
+                                                        type="number"
+                                                        value={updatedCar.horse_power}
+                                                        onChange={(e) => setUpdatedCar({ ...updatedCar, horse_power: e.target.value })}
+                                                        placeholder="Horse Power"
+                                                    />
+                                                    <button type="submit">Update Car</button>
+                                                </form>
+                                            ) : (
+                                                <div>
+                                                    <h3>{car.car_name} ({car.brand_name})</h3>
+                                                    <img src={`http://127.0.0.1:8000${car.photo_url}`} alt={`${car.car_name} photo`} />
+                                                    <p>Id: {car.id}</p>
+                                                    <p>Image: {car.photo_name}</p>
+                                                    <p>Price per day: ${car.price_per_day}</p>
+                                                    <p>Fuel type: {car.fuel_type}</p>
+                                                    <p>Seats: {car.number_of_seats}</p>
+                                                    <p>Horsepower: {car.horse_power} HP</p>
+                                                    <button onClick={() => handleDeleteContent('cars', car.id)}>Delete Car</button>
+                                                    <button className="edit-button" onClick={() => handleEditCar(car)}>
+                                                        Edit Car
+                                                    </button>
+                                                </div>
+                                            )}
                                         </div>
                                     ))
                                 )}
@@ -360,14 +685,13 @@ const AdminDashbord = () => {
                         </>
                     )}
                 </div>
-
-                {/* Availability Section */}
                 <div className="section" id="getAvailabilitiesDiv">
                     <div className="button-container">
                         <button onClick={() => toggleDataVisibility('availabilities')} className="get-availability-btn">
                             {showData.availabilities ? 'Hide Availabilities' : 'Get Car Availability'}
                         </button>
                     </div>
+
                     {showData.availabilities && (
                         <>
                             {loading.availabilities && <p>Loading...</p>}
@@ -377,10 +701,35 @@ const AdminDashbord = () => {
                                     <p>No availability data found</p>
                                 ) : (
                                     data.availabilities.map((availability) => (
-                                        <div key={availability.id} className="availability-card">
-                                            <h3>{availability.car.car_name}</h3>
-                                            <p>Available from: {availability.start_date}</p>
-                                            <p>Available until: {availability.end_date}</p>
+                                        <div key={availability.id} className="availabilitycard" ref={availabilityCardRef}>
+                                            {editAvailability === availability.id ? (
+                                                <form onSubmit={handleUpdateAvailability} ref={availabilityFormRef}>
+                                                    <input
+                                                        type="date"
+                                                        value={updateAvailability.start_date}
+                                                        onChange={(e) => setUpdateAvailability({ ...updateAvailability, start_date: e.target.value })}
+                                                        placeholder="Start Date"
+                                                    />
+                                                    <input
+                                                        type="date"
+                                                        value={updateAvailability.end_date}
+                                                        onChange={(e) => setUpdateAvailability({ ...updateAvailability, end_date: e.target.value })}
+                                                        placeholder="End Date"
+                                                    />
+                                                    <button type="submit">Update Availability</button>
+                                                </form>
+                                            ) : (
+                                                <div>
+                                                    <h3>Id of availability: {availability.id}</h3>
+                                                    <p>Available from: {availability.start_date}</p>
+                                                    <p>Available until: {availability.end_date}</p>
+                                                    <p>Id of car: {availability.car}</p>
+                                                    <button onClick={() => handleDeleteContent('availabilities', availability.id)}>Delete Availability</button>
+                                                    <button className="edit-button" onClick={() => handleEditAvailability(availability)}>
+                                                        Edit Availability
+                                                    </button>
+                                                </div>
+                                            )}
                                         </div>
                                     ))
                                 )}

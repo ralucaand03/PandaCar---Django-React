@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../Header/Header';
 import Filters from '../Filters/Filters';
-import './Favorites.css';
+import './Recommendations.css';
 
-const Favorites = () => {
+const Recommendations = () => {
+    
     const [cars, setCars] = useState([]);  // Cars fetched from API
     const [filteredCars, setFilteredCars] = useState([]);  // Filtered cars
     const [carsAvailable, setCarsAvailable] = useState(false); // Boolean for cars availability
@@ -13,48 +14,48 @@ const Favorites = () => {
     const [startDate, setStartDate] = useState(''); // State for start date
     const [endDate, setEndDate] = useState(''); // State for end date
 
-    const fetchFavCars = async () => {
-        setLoading(true);
-        setError(null);
-        try {
-            const response = await fetch('http://127.0.0.1:8000/api/favorites/', {
-                method: 'GET',
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
+const updateAndFetchRecommendations = async () => {
+    setLoading(true);
+    setError(null);
 
-            if (!response.ok) {
-                const errorData = await response.json();
-                console.error('Error:', errorData);
-                setError('Error fetching favorite cars.');
-                setLoading(false);
-                return;
-            }
+    try {
+        // Fetch and update recommendations via a single GET request
+        const response = await fetch('http://127.0.0.1:8000/api/recommended/', {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
 
-            const data = await response.json();
-            console.log('Fetched Cars:', data);
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error('Error from response:', errorData);
+            setError(errorData.message || 'Error fetching recommended cars.');
+            setLoading(false);
+            return;
+        }
 
-            if (!Array.isArray(data) || data.length === 0) {
-                console.log('No favorite cars found');
-                setCars([]);
-                setFilteredCars([]);
-                setCarsAvailable(false);
-                setLoading(false);
-                return;
-            }
+        const data = await response.json();
+        console.log('Fetched Recommended Cars:', data);
 
+        if (Array.isArray(data) && data.length > 0) {
             setCars(data);
             setFilteredCars(data);
             setCarsAvailable(true);
-            setLoading(false);
-        } catch (error) {
-            console.error('Fetch error:', error);
-            setError('Failed to fetch cars');
-            setLoading(false);
+        } else {
+            setCars([]);
+            setFilteredCars([]);
+            setCarsAvailable(false);
         }
-    };
+
+        setLoading(false);
+    } catch (error) {
+        console.error('Unexpected Fetch Error:', error);
+        setError('Failed to fetch recommended cars');
+        setLoading(false);
+    }
+};
 
     const handleFilterChange = (filteredCars) => {
         console.log('Filter applied. Filtered Cars:', filteredCars);
@@ -62,37 +63,66 @@ const Favorites = () => {
         setCarsAvailable(filteredCars.length > 0);
     };
 
-    const handleRemoveFromFav = async (car) => {
-        console.log('Removing car:', car);
+    const fetchCars = async () => {
+        setLoading(true);
+        setError(null);
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/favorites/remove/${car.id}/`, {
-                method: 'DELETE',
+            const response = await fetch('http://127.0.0.1:8000/api/cars/', {
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error('Error:', errorData);
+                setError('Error fetching cars!');
+                throw new Error(JSON.stringify(errorData));
+            }
+
+            const data = await response.json();
+            setAllCars(data);
+            setFilteredCars(data);
+        } catch (error) {
+            setError('Failed to fetch cars');
+        }
+
+        setLoading(false);
+    };
+
+    const handleAddToFav = async (car) => {
+        try {
+            const response = await fetch(`http://127.0.0.1:8000/api/favorites/add/${car.id}/`, {
+                method: 'POST',
                 credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
 
-            if (response.ok) {
-                const updatedCars = cars.filter((fav) => fav.id !== car.id);
-                setCars(updatedCars);
-                setFilteredCars(updatedCars);
-                setCarsAvailable(updatedCars.length > 0);
+            const data = await response.json();
+
+            if (response.status === 201) {
+                console.log(`${car.car_name} added to favorites`);
+            } else if (response.status === 200 && data.message.includes("already")) {
+                console.log(`${car.car_name} is already in your favorites`);
             } else {
-                setError('Failed to remove from favorites');
+                console.error('Failed to add to favorites');
             }
         } catch (error) {
-            setError('Error while removing from favorites');
+            console.error('Error in handleAddToFavorites:', error);
         }
     };
 
     const handleViewDetails = (car) => {
         console.log('View details for car:', car);
-        setSelectedCar(car); // Set the selected car when "View details" is clicked
+        setSelectedCar(car);
     };
 
     const handleCloseDetails = () => {
-        setSelectedCar(null); // Reset the selected car and show the list again
+        setSelectedCar(null);
     };
 
     const handleDateChange = (e, type) => {
@@ -105,7 +135,7 @@ const Favorites = () => {
 
     const handleAddToCart = async (car) => {
         try {
-            const checkResponse = await fetch(`http://127.0.0.1:8000/api/availabilities`, {
+            const checkResponse = await fetch('http://127.0.0.1:8000/api/availabilities', {
                 method: 'GET',
                 credentials: 'include',
                 headers: {
@@ -114,18 +144,15 @@ const Favorites = () => {
             });
 
             if (checkResponse.status === 404) {
-                console.error("Availability data not found.");
+                console.error('Availability data not found.');
                 return;
             }
 
             const availabilities = await checkResponse.json();
-
-            const carAvailabilities = availabilities.filter(
-                (availability) => availability.car === car.id
-            );
+            const carAvailabilities = availabilities.filter((availability) => availability.car === car.id);
 
             if (carAvailabilities.length === 0) {
-                console.error("No availability data found for this car.");
+                console.error('No availability data found for this car.');
                 return;
             }
 
@@ -135,15 +162,11 @@ const Favorites = () => {
             const isAvailable = carAvailabilities.some((availability) => {
                 const availabilityStartDate = new Date(availability.start_date);
                 const availabilityEndDate = new Date(availability.end_date);
-
-                return (
-                    userStartDate >= availabilityStartDate &&
-                    userEndDate <= availabilityEndDate
-                );
+                return userStartDate >= availabilityStartDate && userEndDate <= availabilityEndDate;
             });
 
             if (!isAvailable) {
-                console.error("Car is not available for the selected period.");
+                console.error('Car is not available for the selected period.');
                 return;
             }
 
@@ -159,7 +182,7 @@ const Favorites = () => {
 
             if (response.status === 201) {
                 console.log(`${car.car_name} added to cart`);
-            } else if (response.status === 200 && data.message.includes("already")) {
+            } else if (response.status === 200 && data.message.includes('already')) {
                 console.log(`${car.car_name} is already in your cart`);
             } else {
                 console.error('Failed to add to cart');
@@ -170,15 +193,15 @@ const Favorites = () => {
     };
 
     useEffect(() => {
-        fetchFavCars();
+        updateAndFetchRecommendations();
     }, []);
 
     if (loading) {
         return (
-            <div className="favWrapper">
+            <div className="RecommendationsWrapper">
                 <Header />
-                <div className="contentFav">
-                    <main className="mainContentFav">
+                <div className="contentRecommendations">
+                    <main className="mainContentRecommendations">
                         <h1>Loading...</h1>
                     </main>
                 </div>
@@ -188,10 +211,10 @@ const Favorites = () => {
 
     if (error) {
         return (
-            <div className="favWrapper">
+            <div className="RecommendationsWrapper">
                 <Header />
-                <div className="contentFav">
-                    <main className="mainContentFav">
+                <div className="contentRecommendations">
+                    <main className="mainContentRecommendations">
                         <h1>Error</h1>
                         <p style={{ color: 'red' }}>{error}</p>
                     </main>
@@ -202,13 +225,13 @@ const Favorites = () => {
 
     if (!carsAvailable) {
         return (
-            <div className="favWrapper">
+            <div className="RecommendationsWrapper">
                 <Header />
-                <div className="contentFav">
+                <div className="contentRecommendations">
                     <Filters onFilterChange={handleFilterChange} cars={cars} />
-                    <main className="mainContentFav">
-                        <h1>No Favorite Cars</h1>
-                        <p>Your favorite cars list is empty. Add some cars to your favorites!</p>
+                    <main className="mainContentRecommendations">
+                        <h1>No Recommendations</h1>
+                        <p>Your recommendations list is empty. Add some cars to your favorites!</p>
                     </main>
                 </div>
             </div>
@@ -216,11 +239,11 @@ const Favorites = () => {
     }
 
     return (
-        <div className="favWrapper">
+        <div className="RecommendationsWrapper">
             <Header />
-            <div className="contentFav">
+            <div className="contentRecommendations">
                 <Filters onFilterChange={handleFilterChange} cars={cars} />
-                <main className="mainContentFav">
+                <main className="mainContentRecommendations">
                     {selectedCar ? (
                         <div className="car-details">
                             <button className="close-button" onClick={handleCloseDetails}>X</button>
@@ -234,7 +257,6 @@ const Favorites = () => {
                             <p>Seats: {selectedCar.number_of_seats}</p>
                             <p>Horsepower: {selectedCar.horse_power} HP</p>
 
-                            {/* Date Selection */}
                             <div className="date-selection">
                                 <label>Select dates:</label>
                                 <span> From: </span>
@@ -251,19 +273,17 @@ const Favorites = () => {
                                 />
                             </div>
 
-                            {/* Add to Cart button */}
                             <button className="add-to-cart-button" onClick={() => handleAddToCart(selectedCar)}>
                                 Add to Cart
                             </button>
                         </div>
                     ) : (
                         <>
-                            <h1>Favorite Cars</h1>
-                            <div className="fav-list">
-                                {Array.isArray(filteredCars) && filteredCars.length > 0 ? (
-                                    filteredCars.map((car) => (
-                                        <div key={car.id} className="fav-car-card">
-                                            <h3>{car.car_name} ({car.brand_name})</h3>
+                            <h1>Recommended Cars</h1>
+                            <div className="Recommendations-list">
+                                {filteredCars.map((car) => (
+                                    <div key={car.id} className="Recommendations-car-card">
+                                        <h3>{car.car_name} ({car.brand_name})</h3>
                                             <img
                                                 src={`http://127.0.0.1:8000${car.photo_url}?t=${new Date().getTime()}`}
                                                 alt={`${car.car_name} photo`}
@@ -272,25 +292,19 @@ const Favorites = () => {
                                             <p>Fuel type: {car.fuel_type}</p>
                                             <p>Seats: {car.number_of_seats}</p>
                                             <p>Horsepower: {car.horse_power} HP</p>
-                                            <div className="fav-card-buttons">
-                                                <button
-                                                    className="remove-favorite-button"
-                                                    onClick={() => handleRemoveFromFav(car)}
-                                                >
-                                                    Remove from favorites
-                                                </button>
-                                                <button
-                                                    className="fav-details-button"
-                                                    onClick={() => handleViewDetails(car)}
-                                                >
-                                                    View details
-                                                </button>
-                                            </div>
+                                        <div className="rec-card-buttons">
+                                            <button className="rec-button" onClick={() => handleViewDetails(car)}>
+                                                View Details
+                                            </button>
+                                            <button
+                                                className="rec-button"
+                                                onClick={() => handleAddToFav(car)}
+                                            >
+                                                Add to Favorites
+                                            </button>
                                         </div>
-                                    ))
-                                ) : (
-                                    <p>No favorite cars available.</p>
-                                )}
+                                    </div>
+                                ))}
                             </div>
                         </>
                     )}
@@ -300,4 +314,4 @@ const Favorites = () => {
     );
 };
 
-export default Favorites;
+export default Recommendations;

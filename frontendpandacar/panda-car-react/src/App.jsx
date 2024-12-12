@@ -8,6 +8,8 @@ import Favorites from './Components/Favorites/Favorites';
 import Account from './Components/Account/Account'; 
 import Contact from './Components/Contact/Contact'; 
 import Cart from './Components/Cart/Cart'; 
+import Recommendations from './Components/Recommendations/Recommendations'; 
+
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -23,6 +25,7 @@ function App() {
         <Route path='/account' element={<Account />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/cart' element={<Cart />} />
+        <Route path='/recommendations' element={<Recommendations />} />
       </Routes>
     </Router>
   );
