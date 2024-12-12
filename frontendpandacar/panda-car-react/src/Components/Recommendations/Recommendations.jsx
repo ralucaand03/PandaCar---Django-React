@@ -14,82 +14,53 @@ const Recommendations = () => {
     const [startDate, setStartDate] = useState(''); // State for start date
     const [endDate, setEndDate] = useState(''); // State for end date
 
-const updateAndFetchRecommendations = async () => {
-    setLoading(true);
-    setError(null);
+    const updateAndFetchRecommendations = async () => {
+        setLoading(true);
+        setError(null);
 
-    try {
-        // Fetch and update recommendations via a single GET request
-        const response = await fetch('http://127.0.0.1:8000/api/recommended/', {
-            method: 'GET',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+        try {
+            // Fetch and update recommendations via a single GET request
+            const response = await fetch('http://127.0.0.1:8000/api/recommended/', {
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            console.error('Error from response:', errorData);
-            setError(errorData.message || 'Error fetching recommended cars.');
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error('Error from response:', errorData);
+                setError(errorData.message || 'Error fetching recommended cars.');
+                setLoading(false);
+                return;
+            }
+
+            const data = await response.json();
+            console.log('Fetched Recommended Cars:', data);
+
+            if (Array.isArray(data) && data.length > 0) {
+                setCars(data);
+                setFilteredCars(data);
+                setCarsAvailable(true);
+            } else {
+                setCars([]);
+                setFilteredCars([]);
+                setCarsAvailable(false);
+            }
+
             setLoading(false);
-            return;
+        } catch (error) {
+            console.error('Unexpected Fetch Error:', error);
+            setError('Failed to fetch recommended cars');
+            setLoading(false);
         }
-
-        const data = await response.json();
-        console.log('Fetched Recommended Cars:', data);
-
-        if (Array.isArray(data) && data.length > 0) {
-            setCars(data);
-            setFilteredCars(data);
-            setCarsAvailable(true);
-        } else {
-            setCars([]);
-            setFilteredCars([]);
-            setCarsAvailable(false);
-        }
-
-        setLoading(false);
-    } catch (error) {
-        console.error('Unexpected Fetch Error:', error);
-        setError('Failed to fetch recommended cars');
-        setLoading(false);
-    }
-};
+    };
 
     const handleFilterChange = (filteredCars) => {
         console.log('Filter applied. Filtered Cars:', filteredCars);
         setFilteredCars(Array.isArray(filteredCars) ? filteredCars : []);
         setCarsAvailable(filteredCars.length > 0);
-    };
-
-    const fetchCars = async () => {
-        setLoading(true);
-        setError(null);
-        try {
-            const response = await fetch('http://127.0.0.1:8000/api/cars/', {
-                method: 'GET',
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                console.error('Error:', errorData);
-                setError('Error fetching cars!');
-                throw new Error(JSON.stringify(errorData));
-            }
-
-            const data = await response.json();
-            setAllCars(data);
-            setFilteredCars(data);
-        } catch (error) {
-            setError('Failed to fetch cars');
-        }
-
-        setLoading(false);
     };
 
     const handleAddToFav = async (car) => {
@@ -135,7 +106,7 @@ const updateAndFetchRecommendations = async () => {
 
     const handleAddToCart = async (car) => {
         try {
-            const checkResponse = await fetch('http://127.0.0.1:8000/api/availabilities', {
+            const checkResponse = await fetch(`http://127.0.0.1:8000/api/availabilities`, {
                 method: 'GET',
                 credentials: 'include',
                 headers: {
@@ -144,15 +115,18 @@ const updateAndFetchRecommendations = async () => {
             });
 
             if (checkResponse.status === 404) {
-                console.error('Availability data not found.');
+                console.error("Availability data not found.");
                 return;
             }
 
             const availabilities = await checkResponse.json();
-            const carAvailabilities = availabilities.filter((availability) => availability.car === car.id);
+
+            const carAvailabilities = availabilities.filter(
+                (availability) => availability.car === car.id
+            );
 
             if (carAvailabilities.length === 0) {
-                console.error('No availability data found for this car.');
+                console.error("No availability data found for this car.");
                 return;
             }
 
@@ -162,11 +136,15 @@ const updateAndFetchRecommendations = async () => {
             const isAvailable = carAvailabilities.some((availability) => {
                 const availabilityStartDate = new Date(availability.start_date);
                 const availabilityEndDate = new Date(availability.end_date);
-                return userStartDate >= availabilityStartDate && userEndDate <= availabilityEndDate;
+
+                return (
+                    userStartDate >= availabilityStartDate &&
+                    userEndDate <= availabilityEndDate
+                );
             });
 
             if (!isAvailable) {
-                console.error('Car is not available for the selected period.');
+                console.error("Car is not available for the selected period.");
                 return;
             }
 
@@ -182,7 +160,7 @@ const updateAndFetchRecommendations = async () => {
 
             if (response.status === 201) {
                 console.log(`${car.car_name} added to cart`);
-            } else if (response.status === 200 && data.message.includes('already')) {
+            } else if (response.status === 200 && data.message.includes("already")) {
                 console.log(`${car.car_name} is already in your cart`);
             } else {
                 console.error('Failed to add to cart');
@@ -191,6 +169,7 @@ const updateAndFetchRecommendations = async () => {
             console.error('Error in handleAddToCart:', error);
         }
     };
+
 
     useEffect(() => {
         updateAndFetchRecommendations();

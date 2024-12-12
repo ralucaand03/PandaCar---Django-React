@@ -10,10 +10,10 @@ from rest_framework_simplejwt.exceptions import InvalidToken
 from backendpandacar.custom_classes import CustomAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.throttling import ScopedRateThrottle
-import pandas as pd
+from django.db.models import Case, When, Value, IntegerField
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-from .recommendations import generate_recommendations
+from .recommendations import generate_recommendations,generate_recommendations_others
 import logging
 
 logger = logging.getLogger(__name__)
@@ -418,20 +418,52 @@ def recommended_cars(request):
 
     try:
         # Get the user's favorite cars using the UserFavoriteCar model
-        favorite_cars = UserFavoriteCar.objects.filter(user=user)
+        favorite_cars_ids = UserFavoriteCar.objects.filter(user=user)
+        fav_cars = Car.objects.filter(id__in=favorite_cars_ids.values('car_id'))  # Use .values() to extract car IDs
 
-        if not favorite_cars.exists():
-            logger.warning(f"User {user.id} has no favorite cars.")
-            return Response(
-                {"message": "No favorite cars found. Add cars to your favorites first."},
-                status=status.HTTP_400_BAD_REQUEST,
+        if not fav_cars.exists():
+            # If no favorite cars, generate recommendations based on the most common cars
+            recommended_car_ids = generate_recommendations_others()  # Call the alternative recommendation function
+            if not recommended_car_ids:
+                logger.warning(f"No recommendations could be generated for user {user.id}.")
+                return Response(
+                    {"message": "No recommendations could be generated."},
+                    status=status.HTTP_200_OK,
+                )
+
+            # Fetch detailed car data for the recommended IDs
+            cars =  Car.objects.filter(id__in=recommended_car_ids).annotate(
+            order=Case(
+                *[When(id=car_id, then=Value(index)) for index, car_id in enumerate(recommended_car_ids)],
+                default=Value(len(recommended_car_ids)),  # In case an ID is not found, it's placed at the end
+                output_field=IntegerField()
             )
+            ).order_by('order')
+
+            if not cars.exists():
+                logger.warning(f"Cars with recommended IDs not found in the database for user {user.id}.")
+                return Response(
+                    {"message": "No cars found for the recommended IDs."},
+                    status=status.HTTP_404_NOT_FOUND,
+                )
+
+            # Store the recommended cars in the database
+            for car in cars:
+                # Save each recommended car for the user
+                RecommendedCar.objects.get_or_create(user=user, car=car)
+
+            # Serialize car data using CarSerializer
+            serializer = CarSerializer(cars, many=True)
+
+            # Return the serialized car data
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
 
         # Get all cars for recommendation generation
         all_cars = Car.objects.all()
 
         # Generate recommendations (this should be a list of car ids)
-        recommended_car_ids = generate_recommendations(favorite_cars, all_cars)
+        recommended_car_ids = generate_recommendations(favorite_cars_ids, all_cars)
 
         if not recommended_car_ids:
             logger.warning(f"No recommendations could be generated for user {user.id}.")
@@ -441,13 +473,26 @@ def recommended_cars(request):
             )
 
         # Fetch detailed car data for the recommended IDs
-        cars = Car.objects.filter(id__in=recommended_car_ids)
+        cars =  Car.objects.filter(id__in=recommended_car_ids).annotate(
+            order=Case(
+                *[When(id=car_id, then=Value(index)) for index, car_id in enumerate(recommended_car_ids)],
+                default=Value(len(recommended_car_ids)),  # In case an ID is not found, it's placed at the end
+                output_field=IntegerField()
+            )
+            ).order_by('order')
+
         if not cars.exists():
             logger.warning(f"Cars with recommended IDs not found in the database for user {user.id}.")
             return Response(
                 {"message": "No cars found for the recommended IDs."},
                 status=status.HTTP_404_NOT_FOUND,
             )
+
+        # Store the recommended cars in the database
+        for car in cars:
+            # Save each recommended car for the user
+            RecommendedCar.objects.get_or_create(user=user, car=car)
+
 
         # Serialize car data using CarSerializer
         serializer = CarSerializer(cars, many=True)
