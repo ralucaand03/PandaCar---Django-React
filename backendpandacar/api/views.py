@@ -463,7 +463,7 @@ def recommended_cars(request):
         all_cars = Car.objects.all()
 
         # Generate recommendations (this should be a list of car ids)
-        recommended_car_ids = generate_recommendations(favorite_cars_ids, all_cars)
+        recommended_car_ids = generate_recommendations(fav_cars, all_cars)
 
         if not recommended_car_ids:
             logger.warning(f"No recommendations could be generated for user {user.id}.")
