@@ -1,12 +1,12 @@
-# Panda Car Rental
+# Panda Car Rental 🐼
 
-Panda Car Rental is a comprehensive car rental application designed with a secure backend and an interactive frontend, providing users with a seamless experience for browsing, renting, and managing car rentals. The application focuses on security, performance, and usability. This project was developed as a team effort by two students, with tasks divided proportionally to ensure an even distribution of responsibilities.
+🐼Panda Car Rental is a comprehensive car rental application designed with a secure backend and an interactive frontend, providing users with a seamless experience for browsing, renting, and managing car rentals. The application focuses on security, performance, and usability. This project was developed as a team effort by two students, with tasks divided proportionally to ensure an even distribution of responsibilities.
 
 ---
 
-## Features
+## ✨Features
 
-### Frontend
+### 🌝Frontend
 - **Technology**: React with standard CSS and HTML.
 - **Components**:
   - **Home**: A welcoming interface displaying featured cars and promotions.
@@ -16,7 +16,7 @@ Panda Car Rental is a comprehensive car rental application designed with a secur
   - **Cars**: Browse the catalog of available cars with detailed information.
   - **Cart**: Manage selected rentals before finalizing the booking.
 
-### Backend
+### 🌚Backend
 - **Technology**: Django REST Framework (DRF).
 - **Database**: SQLite (Django's default database).
 - **Key Features**:
@@ -36,7 +36,7 @@ Panda Car Rental is a comprehensive car rental application designed with a secur
 
 ---
 
-## Installation
+## 🌀Installation
 
 ### Prerequisites
 - Node.js
@@ -87,7 +87,7 @@ git clone https://github.com/ralucaand03/PandaCar---Django-React.git
 
 ---
 
-## Usage
+## 🤖Usage
 - **User**:
   - Sign up or log in.
   - Browse cars and add rentals to the cart.
@@ -101,7 +101,7 @@ git clone https://github.com/ralucaand03/PandaCar---Django-React.git
 
 ---
 
-## Security Features
+## 🔐Security Features
 - **JWT Cookie Authentication**:
   - Ensures secure user sessions without exposing sensitive data.
 - **Scoped Throttling**:
@@ -113,7 +113,7 @@ git clone https://github.com/ralucaand03/PandaCar---Django-React.git
 
 ---
 
-## Recommendation System
+## 📎Recommendation System
 The recommendation system is built using machine learning techniques:
 - **TF-IDF Vectorization**:
   - Extracts key features from car descriptions.
@@ -124,7 +124,7 @@ The recommendation system is built using machine learning techniques:
 
 ---
 
-## Future Enhancements
+## 🧩Future Enhancements
 - Integration with payment gateways for secure transactions.
 - Enhanced UI/UX with animations and responsive design.
 - Advanced analytics for admins to monitor user trends.
