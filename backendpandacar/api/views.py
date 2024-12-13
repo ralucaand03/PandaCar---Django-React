@@ -417,11 +417,15 @@ def recommended_cars(request):
     RecommendedCar.objects.filter(user=user).delete()
 
     try:
-        # Get the user's favorite cars using the UserFavoriteCar model
+        # Get the user's favorite cars using the UserFavoriteCa
+        print("Reached the point before fetching user favorites.")
         favorite_cars_ids = UserFavoriteCar.objects.filter(user=user)
         fav_cars = Car.objects.filter(id__in=favorite_cars_ids.values('car_id'))  # Use .values() to extract car IDs
-
-        if not fav_cars.exists():
+        all_cars = Car.objects.all()
+        fav_cars_count = fav_cars.count()  # Number of favorite cars
+        all_cars_count = all_cars.count()  # Number of all cars
+        
+        if fav_cars_count == 0 or all_cars_count == fav_cars_count:
             # If no favorite cars, generate recommendations based on the most common cars
             recommended_car_ids = generate_recommendations_others()  # Call the alternative recommendation function
             if not recommended_car_ids:
@@ -458,12 +462,13 @@ def recommended_cars(request):
             # Return the serialized car data
             return Response(serializer.data, status=status.HTTP_200_OK)
 
+       
+        top_n = max(1, min(4, all_cars_count - fav_cars_count))
 
-        # Get all cars for recommendation generation
-        all_cars = Car.objects.all()
-
-        # Generate recommendations (this should be a list of car ids)
-        recommended_car_ids = generate_recommendations(fav_cars, all_cars)
+        
+        print("Reached the point before fetching recommended.")
+        print(top_n)
+        recommended_car_ids = generate_recommendations(fav_cars, all_cars,top_n)
 
         if not recommended_car_ids:
             logger.warning(f"No recommendations could be generated for user {user.id}.")
@@ -471,7 +476,7 @@ def recommended_cars(request):
                 {"message": "No recommendations could be generated."},
                 status=status.HTTP_200_OK,
             )
-
+        print("Reached the point after fetching recommended.")
         # Fetch detailed car data for the recommended IDs
         cars =  Car.objects.filter(id__in=recommended_car_ids).annotate(
             order=Case(
@@ -480,7 +485,7 @@ def recommended_cars(request):
                 output_field=IntegerField()
             )
             ).order_by('order')
-
+        print("Reached the point after fetching cars.")
         if not cars.exists():
             logger.warning(f"Cars with recommended IDs not found in the database for user {user.id}.")
             return Response(
