@@ -1,0 +1,61 @@
+.header {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    background-color: rgb(75, 164, 134);
+}
+
+.nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Center items vertically */
+    width: 80%;
+    max-width: 800px;
+    margin: auto;
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+
+.nav-buttons {
+    display: flex;
+}
+
+.nav-button {
+    text-decoration: none;
+    color: #fff;
+    font-family: 'Playwrite GB S', cursive;
+    font-size: 1.2em; /* Increase this value to make the font bigger */
+    padding: 10px 20px;
+    border-radius: 20px;
+    transition: background-color 0.3s, color 0.3s;
+    margin: auto 10px;
+}
+
+
+.nav-button:hover {
+    background-color: #fff;
+    color: rgb(75, 164, 134);;
+}
+
+.brand-name {
+    display: flex;
+    align-items: center; /* Vertically center the icon and text */
+    font-family: 'Playwrite GB S', cursive;
+    color: #fff;
+    font-size: 1.6em;
+    width: 40px;
+    white-space: nowrap;
+}
+
+.panda-icon {
+    width: 50px; /* Adjust size as needed */
+    height: auto;
+    margin-right: 10px; /* Space between icon and text */
+    margin-left: 30px;
+}

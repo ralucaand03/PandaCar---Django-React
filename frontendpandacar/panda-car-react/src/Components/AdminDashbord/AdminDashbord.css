@@ -1,0 +1,332 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+
+.contentAdmin {
+    height: calc(100vh - 80px); 
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; 
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    overflow: auto;
+    padding-top: 20px; 
+    margin-top: 80px;
+    text-align: center; 
+    padding-bottom: 20px;
+}
+
+.admin-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;  
+    align-items: center;  
+    padding: 10px 20px;  
+    background-color: #1c1c1c;
+    color: aquamarine; 
+    font-family: "Playwrite GB S", cursive;
+    height: 80px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+}
+
+.admin-header h1 {
+    padding-left: 30px;
+    font-size: 36px;
+    margin: 0;
+    font-weight: bold;
+    color: white;
+}
+
+.admin-brand-name {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    gap: 10px; 
+    padding-right: 20px;
+}
+
+.admin-panda-icon {
+    width: 50px;
+    height: 50px;
+}
+
+.users-section {
+    margin-bottom: 40px;
+}
+
+.users-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center; 
+    margin: 0 auto; 
+    padding: 0 20px;
+    max-width: 1200px;
+    margin-bottom: 10px;
+}
+
+.usercard, .carcard, .availabilitycard {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    width: 250px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.usercard h3, .carcard h3, .availabilitycard h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #5da78c;
+}
+
+.usercard p, .carcard p, .availabilitycard p{
+    margin: 5px 0;
+}
+
+.availabilitycard .edit-button, .usercard .edit-button , .carcard .edit-button{
+    background-color: rgb(86, 170, 142);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.usercard button, .carcard button, .availabilitycard button  {
+    background-color:  rgb(161, 43, 92);
+    color: white;
+    border: none;
+    padding: 10px 15px; 
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.usercard button:hover, .carcard button:hover, .availabilitycard button:hover {
+    background-color: rgb(112, 33, 66);
+    transform: scale(1.05); 
+}
+
+.usercard button:focus,.carcard button:focus, .availabilitycard button:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 87, 34, 0.7);
+}
+
+.usercard .edit-button:hover, .carcard .edit-button:hover, .availabilitycard .edit-button:hover {
+    background-color: rgb(40, 134, 101);
+    transform: scale(1.05); 
+}
+
+.usercard .edit-button:focus,.carcard .edit-button:focus, .availabilitycard .edit-button:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgb(98, 0, 255, 0.7); 
+}
+
+.cars-section {
+    margin-top: 40px;
+}
+
+.cars-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center; 
+    margin: 0 auto;
+    padding: 0 20px;
+    max-width: 1200px;
+    margin-bottom: 10px;
+}
+
+.carcard img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+#adminDashboard {
+    padding: 20px;
+}
+
+.fetch-buttons {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 40px;
+    justify-content: center;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.availabilities-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 0 20px;
+    max-width: 1200px;
+    margin-bottom: 10px;
+}
+
+.get-users-btn, .get-cars-btn, .get-availability-btn {
+    padding: 10px 20px;
+    width: 1060px;
+    height: 45px;
+    font-size: 20px;
+    background-color: #5da78c;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+    align-self: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.get-users-btn:hover, .get-cars-btn:hover, .get-availability-btn:hover {
+    background-color: aquamarine;
+    border-radius: 5px;
+    color: #1c1c1c;
+}
+
+.create-user-form, .create-car-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.create-user-form input,
+.create-user-form label,
+.create-user-form button,
+.create-car-form input,
+.create-car-form label,
+.create-car-form button {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+}
+
+.create-user-form button,
+.create-car-form button {
+    padding: 10px 20px;
+    background-color: #5da78c;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: inline-block;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.create-user-form button:hover,
+.create-car-form button:hover {
+    background-color: aquamarine;
+    color: #1c1c1c;
+}
+
+.toggle-create-user-form-btn,
+.toggle-create-car-form-btn {
+    padding: 10px 20px;
+    background-color: #5da78c;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: inline-block;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.toggle-create-user-form-btn:hover,
+.toggle-create-car-form-btn:hover {
+    background-color: aquamarine;
+    color: #1c1c1c;
+}
+.toggle-create-user-form-btn,
+.toggle-create-car-form-btn{
+    width: 1060px; 
+    margin-bottom: 20px;
+    text-align: center;
+    align-self: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.toggle-create-user-form-btn:hover,
+.toggle-create-car-form-btn:hover{
+    background-color: aquamarine;
+    color: #1c1c1c;
+}
+input[type="checkbox"] {
+    appearance: none; 
+    width: 20px; 
+    height: 20px;
+    border: 2px solid #5da78c; 
+    border-radius: 3px; 
+    background-color: transparent; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease, border-color 0.3s ease; 
+    vertical-align: middle; 
+    margin-right: 8px;
+}
+
+input[type="checkbox"]:checked {
+    background-color: #5da78c; 
+    border-color: #5da78c; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+input[type="checkbox"]:checked::after {
+    content: "✓"; 
+    color: white; 
+    font-size: 16px; 
+    display: block;
+    text-align: center;
+    line-height: 18px; 
+}
+
+label {
+    font-size: 16px; 
+    color: #333;
+    display: flex; 
+    align-items: center; 
+    cursor: pointer; 
+}

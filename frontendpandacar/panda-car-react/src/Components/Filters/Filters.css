@@ -1,0 +1,153 @@
+/* Filters.css */
+* {
+    font-family: "Playwrite GB S", cursive;
+}
+/* General styles for the filter container */
+.filters {
+    width: 250px;
+    background-color: #1c1c1c;
+    color: #fff;
+    padding: 20px;
+    position: fixed;
+    margin-top: 15px;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+    
+}
+.filters {
+    position: fixed;
+    top: 60px; /* Offset by the header height */
+    left: 0;
+    width: 250px; /* Fixed width for sidebar */
+    height: calc(100vh - 60px); /* Full height minus header */
+    background-color: rgb(112, 33, 66);
+    color: #fff;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    overflow-y: auto; /* Allows sidebar scrolling if content overflows */
+}
+
+/* Header style for filters */
+.filters h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color:  rgb(105, 192, 163);;
+}
+
+/* Filter item styling */
+.filter-item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+/* Label for filter items */
+.filter-item label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-family: "Playwrite GB S", cursive; 
+    color: #fff;
+}
+
+/* Styling for input and select elements */
+.filter-item input,
+.filter-item select {
+    padding: 8px;
+    font-size: 16px;
+    font-family: "Playwrite GB S", cursive; /* Apply custom font */
+    border: 1px solid rgb(86, 170, 142);
+    border-radius: 5px;
+    outline: none;
+    background-color: #ffffff; /* Set a dark background for better contrast */
+    color: #1c1c1c; /* Text color for better readability */
+}
+
+/* Custom dropdown button */
+.custom-dropdown {
+    position: relative;
+    
+
+}
+
+.dropdown-btn {
+    padding: 8px;
+    font-size: 16px;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid rgb(86, 170, 142);
+    font-family: "Playwrite GB S", cursive; 
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: left;
+    
+}
+
+/* Dropdown list */
+.dropdown-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid rgb(86, 170, 142);
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    z-index: 1000;
+    padding-bottom: 10px;
+   
+}
+
+/* Dropdown item */
+.dropdown-item {
+    padding: 8px;
+    font-size: 16px;
+    color: rgb(86, 170, 142);
+    cursor: pointer;
+    
+}
+
+/* Hover effect on dropdown item */
+.dropdown-item:hover {
+    background-color: rgb(86, 170, 142);
+    color: #fff;
+}
+
+/* Apply button styles */
+.apply-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: rgb(86, 170, 142);
+    border: none;
+    color: #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.apply-button:hover {
+    background-color: #fff;
+    color: rgb(86, 170, 142);
+}
+/* Taskbar styles */
+.taskbar {
+    background-color:  rgb(86, 170, 142);
+    color: #ffffff; /* Optional: adjust text color for readability */
+    padding: 10px 20px; /* Optional: add padding */
+    display: flex;
+    align-items: center;
+}
+
+::-webkit-scrollbar {
+    width: 12px; 
+}
+

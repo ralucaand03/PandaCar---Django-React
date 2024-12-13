@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+GB+S:ital,wght@0,100..400;1,100..400&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Playwrite GB S', cursive;
+}
+.ContactWrapper {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url(../Assets/login2.jpg) no-repeat center center;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  overflow: auto;
+}
+
+.contentContact {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.mainContentContact {
+    width: 100%;
+    max-width: 900px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(30px);
+    color: #fff;
+    border-radius: 10px;
+    padding: 40px;
+    text-align: center;
+    margin-top: 65px;
+  }
+
+.mainContentContact h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+/* Styling the user details section */
+.mainContentContact p {
+  font-size: 16px;
+  margin: 8px 0;
+}
+
+.mainContentContact p strong {
+  color: #fff;
+}
+
+.panda-Contact-content {
+  width: 100%;
+  height: 100%;
+}
+
+.panda-Contact {
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  margin-top: 18px;
+  margin-right: 10px;
+}
+
+.panda-Contact img {
+  width: 100%;
+  height: auto;
+}
+
+
+/* ------------ */
+.contact-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    gap: 0px;
+  }
+  
+  .contact-column {
+    flex: 1;
+    max-width: 260px;
+    text-align: center;
+  }
+  
+  .contact-column h2 {
+    font-size: 22px;
+    color: #fff;
+    margin-bottom: 15px;
+  }
+  
+  .contact-column p {
+    font-size: 18px;
+    color: #fff;
+    margin: 10px 0;
+  }
+  
+
+  /* -------------- */
+  .Contact-location, .Contact-Phone, .Contact-email {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .Location-Contact, .Phone-Contact, .Email-Contact {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+    object-fit:contain;
+  }

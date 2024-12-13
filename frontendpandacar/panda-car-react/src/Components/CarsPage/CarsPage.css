@@ -1,0 +1,310 @@
+/* src/components/HomePage/HomePage.css */
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+.contentCarspage {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align items to the top */
+    background: url(../Assets/login2.jpg) no-repeat center center;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    overflow-y: auto; /* Enable vertical scrolling only in this container */
+    padding-top: 60px; /* Offset by the header height */
+    padding-left: 250px; /* Offset for the sidebar width */
+    box-sizing: border-box; /* Ensures padding doesn't affect width/height */
+}
+
+
+.carsWrapper {
+    font-family: "Playwrite GB S", cursive;
+    background-color: #1c1921;
+    min-height: 100vh;
+    color: aquamarine;
+    padding-top: 60px; /* Ensure content starts below the header */
+}
+
+.header {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+
+
+.contentCarspage {
+    display: flex;
+    
+    padding-top: 20px;
+    padding-left: 200px; /* Offset the main content by sidebar width */
+}
+
+
+
+
+.mainContentCars {
+    flex-grow: 1;
+    padding: 40px;
+    color: #fff;
+    text-align: center;
+    margin-left: 60px; 
+    margin-top: 40px;
+}
+
+.mainContentCars h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.mainContentCars p {
+    font-size: 18px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+.content {
+    margin-top: 100px; /* Prevent content from being overlapped by the header */
+    padding: 40px;
+    text-align: center;
+    color: #fff;
+}
+
+.content h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.content p {
+    font-size: 18px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+
+/* Card styling for car cards */
+.car-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    width: 250px;
+    height: 530;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 40px;
+    color: black; /* Ensure text color is black inside the car card */
+}
+
+/* Card styling for availability cards */
+.availability-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    width: 250px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+    color: black; /* Ensure text color is black inside the availability card */
+}
+
+/* For user cards */
+.user-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    width: 250px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 40px;
+    color: black; /* Ensure text color is black inside the user card */
+}
+
+/* If you want to change the color of headings within the cards */
+.car-card h3, .availability-card h3, .user-card h3 {
+    color: rgb(73, 152, 126); /* Ensure the headings are black */
+}
+
+/* If you want to ensure the text in paragraphs is also black inside the cards */
+.car-card p, .availability-card p, .user-card p {
+    color: rgb(255, 255, 255); /* Ensure paragraphs are black */
+}
+
+/* ------------------------------------------------------------ */
+.car-card {
+    background: rgba(255, 255, 255, 0.1); /* Transparent background */
+    border: 2px solid rgba(255, 255, 255, .2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    backdrop-filter: blur(30px); /* Apply blur effect behind the wrapper */
+    color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 250px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 40px;
+    color: #fff; /* Ensure text color is black inside the car card */
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    justify-content: space-between; /* Push content apart */
+    height: 500px; /* Set consistent height for all cards */
+    position: relative; /* Allows precise positioning of child elements */
+}
+
+.car-card-buttons {
+    margin-top: auto; /* Push the buttons to the bottom */
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    align-items: center; /* Center-align the buttons */
+    gap: 10px; /* Add space between buttons */
+}
+
+.car-card-buttons button {
+    background-color: rgb(73, 152, 126); /* Matches the heading color */
+    color: #fff; /* White text for contrast */
+    border: none; /* Remove default borders */
+    padding: 10px 15px; /* Add padding for a better look */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 14px; /* Standard button text size */
+    cursor: pointer; /* Change cursor to pointer */
+    transition: background-color 0.3s ease; /* Smooth hover transition */
+    width: 100%; /* Make buttons full-width within their container */
+    max-width: 200px; /* Optional: Set a max width for the buttons */
+    text-align: center; /* Center text inside the button */
+}
+
+/* Hover effect for buttons */
+.car-card-buttons button:hover {
+    background-color: rgb(57, 123, 102); /* Darker shade for hover */
+}
+
+/* Optional: Active effect for buttons */
+.car-card-buttons button:active {
+    background-color: rgb(46, 102, 85); /* Even darker shade when clicked */
+}
+/*--------------------------------------------------------------- --------*/
+.car-details {
+    background: rgba(255, 255, 255, 0.1); /* Transparent background */
+    border: 2px solid rgba(255, 255, 255, .2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    backdrop-filter: blur(30px); /* Apply blur effect behind the wrapper */
+    color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 800px; /* Limit the width */
+    margin: 20px auto;
+    text-align: center;
+    position: relative; /* Make the card a positioned container */
+}
+
+.car-details img {
+    max-width: 100%; /* Ensure the image doesn't overflow */
+    max-height: 400px; /* Limit the height of the image */
+    object-fit: cover; /* Maintain aspect ratio */
+    margin-top: 20px; /* Add spacing around the image */
+}
+
+.close-button {
+    position: absolute;
+    top: 10px; /* Position it near the top */
+    right: 10px; /* Position it near the right edge */
+    background-color: transparent; /* Make the background transparent */
+    color: white; /* White color for contrast */
+    border: none;
+    font-size: 24px; /* Make it large enough to be easily clickable */
+    cursor: pointer;
+    z-index: 100; /* Ensure it is above the card content */
+}
+
+.close-button:hover {
+    color: rgb(73, 152, 126); /* Change color on hover for better visibility */
+}
+
+.date-selection input {
+    margin: 0 10px;
+}
+
+.car-card-buttons button {
+    background-color: rgb(73, 152, 126);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    max-width: 200px;
+}
+
+.car-card-buttons button:hover {
+    background-color: #fff;
+    color:rgb(73, 152, 126);
+
+}
+.add-to-cart-button {
+    width: 100%;
+    height: 45px;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    background: #fff;
+    color: rgb(73, 152, 126);
+    font-weight: 700;
+    font-family: "Playwrite GB S", cursive;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+  }
+
+  
+  /* Hover effect for Add to Cart button */
+  .add-to-cart-button:hover {
+    background-color: rgb(86, 170, 142); /* Match the hover color of Sign Up button */
+    color: white;
+  }
+
+  /* Date Selection Label Font Color */
+.date-selection label {
+    color: white; /* Set the font color to white for the label */
+    font-size: 18px; /* Increase the font size */
+    font-weight: 600; /* Optional: Make it bold */
+    margin-bottom: 10px; /* Add some space below the label */
+  }
+  
+  /* Style for the Date Input Fields */
+  .date-selection input[type="date"] {
+    width: 100%; /* Make input full width */
+    height: 50px; /* Make the date input field larger */
+    font-size: 18px; /* Increase font size */
+    padding: 0 16px; /* Add padding to the left and right */
+    border-radius: 8px; /* Round corners for the inputs */
+    background-color: rgba(255, 255, 255, 0.1); /* Transparent background */
+    border: 2px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+    color: white; /* Set the text color to white */
+    font-family: "Playwrite GB S", cursive; /* Use the specified font */
+    margin: 8px 0; /* Add vertical spacing between inputs */
+  }
+  
+  /* Optional: Add a hover effect for date input fields */
+  .date-selection input[type="date"]:hover {
+    background-color: #57a47d;/* Slight background color change on hover */
+  }
+  
+  /* Optional: Add a focus effect */
+  .date-selection input[type="date"]:focus {
+    border-color: #57a47d; /* Change border color on focus */
+    outline: none; /* Remove default outline */
+  }
+  

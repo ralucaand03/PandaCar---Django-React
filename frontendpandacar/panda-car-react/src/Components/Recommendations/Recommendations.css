@@ -1,0 +1,156 @@
+/* Recommendations.css */
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+.RecommendationsWrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: "Arial", sans-serif;
+    background-color: #1c1921;
+    color: aquamarine;
+}
+
+.contentRecommendations {
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start; /* Align items to the top */
+        background: url(../Assets/login2.jpg) no-repeat center center;
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        overflow-y: auto; /* Enable vertical scrolling only in this container */
+        padding-top: 60px; /* Offset by the header height */
+        padding-left: 250px; /* Offset for the sidebar width */
+        box-sizing: border-box; /* Ensures padding doesn't affect width/height */
+
+}
+
+.filters {
+    position: fixed;
+    top: 60px; /* Offset by header height */
+    left: 0;
+    width: 250px;
+    height: calc(100vh - 60px); /* Full height minus header */
+    background-color: rgb(112, 33, 66);
+    color: #fff;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    overflow-y: auto; /* Enables vertical scrolling if needed */
+}
+
+.mainContentRecommendations {
+    flex-grow: 1;
+    padding: 40px;
+    color: #fff;
+    text-align: center;
+    margin-left: 60px; /* Offset the main content for the filters */
+}
+
+.mainContentRecommendations h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.mainContentRecommendations p {
+    font-size: 18px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.Recommendations-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; /* Add space between the cards */
+}
+
+
+.Recommendations-car-card {
+    background: rgba(255, 255, 255, 0.1); /* Transparent background */
+    border: 2px solid rgba(255, 255, 255, .2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    backdrop-filter: blur(30px); /* Apply blur effect behind the wrapper */
+    color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 250px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 40px;
+    color: #fff; /* Ensure text color is black inside the car card */
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    justify-content: space-between; /* Push content apart */
+    height: 530px; /* Set consistent height for all cards */
+    position: relative; /* Allows precise positioning of child elements */
+}
+
+.Recommendations-car-card h3 {
+    font-size: 18px;
+    color: rgb(73, 152, 126);
+}
+
+.Recommendations-car-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+.Recommendations-car-card p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+
+
+/* Error message style */
+.error-message {
+    color: red;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.loading-message {
+    color: aquamarine;
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+.rec-card-buttons {
+    margin-top: auto; /* Push buttons to the bottom */
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    align-items: center; /* Center-align the buttons */
+    gap: 10px; /* Add space between buttons */
+}
+.rec-card-buttons button {
+    background-color: rgb(73, 152, 126); /* Matches the heading color */
+    color: #fff; /* White text for contrast */
+    border: none; /* Remove default borders */
+    padding: 10px 15px; /* Add padding for a better look */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 14px; /* Standard button text size */
+    cursor: pointer; /* Change cursor to pointer */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth hover transition */
+    width: 100%; /* Make buttons full-width within their container */
+    max-width: 200px; /* Optional: Set a max width for the buttons */
+    text-align: center; /* Center text inside the button */
+}
+
+/* Correct Hover Effect for Buttons */
+.rec-card-buttons button:hover {
+    background-color: rgb(255, 255, 255); /* Change background color on hover */
+    color: rgb(86, 170, 142); /* Change text color on hover */
+}
+
+/* Optional: Active effect for buttons */
+.rec-card-buttons button:active {
+    background-color: rgb(46, 102, 85); /* Even darker shade when clicked */
+}
