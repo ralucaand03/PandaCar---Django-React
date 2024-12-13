@@ -49,7 +49,7 @@ To clone the project, use the following command:
 git clone https://github.com/ralucaand03/PandaCar---Django-React.git
 ```
 
-### Frontend Setup
+### 🌝Frontend Setup
 1. Navigate to the frontend folder:
    ```bash
    cd ./frontendpandacar/panda-car-react
@@ -65,7 +65,7 @@ git clone https://github.com/ralucaand03/PandaCar---Django-React.git
 4. Access the frontend at:
    [http://localhost:5173/](http://localhost:5173/)
 
-### Backend Setup
+### 🌚Backend Setup
 1. Navigate to the backend folder:
    ```bash
    cd ./backendpandacar
@@ -88,13 +88,13 @@ git clone https://github.com/ralucaand03/PandaCar---Django-React.git
 ---
 
 ## 🤖Usage
-- **User**:
+- **🌟User**:
   - Sign up or log in.
   - Browse cars and add rentals to the cart.
   - View personalized recommendations based on preferences.
   - Complete bookings and manage your account.
 
-- **Admin**:
+- **🌟Admin**:
   - Access the admin dashboard.
   - Add, update, or remove car listings.
   - Manage user accounts and bookings.
