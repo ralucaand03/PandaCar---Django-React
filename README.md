@@ -43,7 +43,7 @@
 - Python 3.x
 - SQLite (default setup)
 
-### Cloning the Repository
+### 🚗Cloning the Repository
 To clone the project, use the following command:
 ```bash
 git clone https://github.com/ralucaand03/PandaCar---Django-React.git
@@ -129,6 +129,12 @@ The recommendation system is built using machine learning techniques:
 - Enhanced UI/UX with animations and responsive design.
 - Advanced analytics for admins to monitor user trends.
 - Support for multiple databases and deployment options.
+
+---
+
+##👥 Team 
+-🌝Andronescu Raluca
+-🌚Gengiu Robert
 
 
 
