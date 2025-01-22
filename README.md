@@ -132,7 +132,7 @@ The recommendation system is built using machine learning techniques:
 
 ---
 
-##👥 Team 
+## 👥 Team 
 -🌝Andronescu Raluca
 -🌚Gengiu Robert
 
