@@ -40,11 +40,11 @@
 
 | LogIn | HomePage |
 | --- | --- |
-|![Login](./images/login.png)  | ![HomePage](./images/homepage.png)  |
+|![Login](./Images/login.png)  | ![HomePage](./Images/homepage.png)  |
 | Cars | Recommended Cars |
-|![Login](./images/cars.png)  | ![HomePage](./images/recommended.png)  |
+|![Login](./Images/cars.png)  | ![HomePage](./Images/recommended.png)  |
 | Favorite Cars | Account |
-|![Login](./images/favorite.png)  | ![HomePage](./images/account.png)  |
+|![Login](./Images/favorite.png)  | ![HomePage](./Images/account.png)  |
 
 ---
 
