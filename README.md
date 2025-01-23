@@ -4,6 +4,7 @@
 
 ---
 
+
 ## ✨Features
 
 ### 🌝Frontend
@@ -33,6 +34,17 @@
     - Built with `sklearn`:
       - Utilizes `TfidfVectorizer` and `cosine_similarity` for generating personalized car recommendations.
       - Normalized data with `StandardScaler` for better similarity calculations.
+
+---
+## 🎨Screenshots 
+
+| LogIn | HomePage |
+| --- | --- |
+|![Login](./images/login.png)  | ![HomePage](./images/homepage.png)  |
+| Cars | Recommended Cars |
+|![Login](./images/cars.png)  | ![HomePage](./images/recommended.png)  |
+| Favorite Cars | Account |
+|![Login](./images/favorite.png)  | ![HomePage](./images/account.png)  |
 
 ---
 
