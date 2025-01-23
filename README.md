@@ -40,7 +40,7 @@
 
 | LogIn | HomePage |
 | --- | --- |
-|![Login](./Images/login.png)  | ![HomePage](./Images/homepage.png)  |
+|![Login](./Images/login.png)  | ![HomePage](./Images/homePage.png)  |
 | Cars | Recommended Cars |
 |![Login](./Images/cars.png)  | ![HomePage](./Images/recommended.png)  |
 | Favorite Cars | Account |
